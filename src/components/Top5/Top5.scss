@@ -1,0 +1,29 @@
+
+.top5 {
+  :global {
+    .rank-item {
+      margin-top: 0;
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;;
+      .photo {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+      .username {
+        a,
+        small {
+          display: block;
+        }
+        small {
+          line-height: 10px;
+        }
+      }
+    }
+
+    .view-all {
+      padding: 5px 0;
+      text-align: center;
+      display: block;
+    }
+  }
+}

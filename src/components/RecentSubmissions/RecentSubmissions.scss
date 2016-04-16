@@ -1,0 +1,23 @@
+
+.recentSubmissions {
+  :global {
+    .list-group {
+      margin-bottom: 0;
+    }
+    .list-group-item {
+      border-left: none;
+      border-right: none;
+      &:first-child {
+        border-top: none
+      }
+      &:last-child {
+        border-radius: 0;
+      }
+    }
+    .view-all {
+      padding: 5px 0;
+      text-align: center;
+      display: block;
+    }
+  }
+}
