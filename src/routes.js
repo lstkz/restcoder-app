@@ -6,6 +6,7 @@ import {
     Home,
     Landing,
     NotFound,
+    Login,
     ChallengeDetails,
   } from 'containers';
 
@@ -27,8 +28,16 @@ export default (store) => {
     }
   };
 
+  const redirectToHome = (nextState, replace, cb) => {
+    const { auth: { user }} = store.getState();
+    if (user) {
+      replace('/home');
+    }
+    cb();
+  };
+
+
   const loadInitialState = (nextState, replace, cb) => {
-    console.log('loadInitialState');
     if (!isAuthLoaded(store.getState())) {
       store.dispatch(loadAuth()).then(() => cb());
     } else {
@@ -53,8 +62,9 @@ export default (store) => {
     <Route onEnter={loadInitialState}>
       { /* Home (main) route */ }
       {/*<IndexRoute component={Landing}/>*/}
-       <Route path="/" component={Landing}/>
+       <Route path="/" onEnter={redirectToHome} component={Landing}/>
        <Route path="/home" component={Home}/>
+       <Route path="/login" onEnter={redirectToHome} component={Login}/>
        <Route path="/challenge/:id" component={ChallengeDetails}/>
 
       { /* Catch all route */ }

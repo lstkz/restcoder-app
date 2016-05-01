@@ -21,6 +21,7 @@ export default class Html extends Component {
 
   render() {
     const {assets, component, store} = this.props;
+    const pathname = store.getState().routing.location.pathname;
     const content = component ? ReactDOM.renderToString(component) : '';
     const head = Helmet.rewind();
 
@@ -50,7 +51,7 @@ export default class Html extends Component {
           {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
           { /*Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{__html: require('../containers/App/App.scss')._style}}/> : null */}
         </head>
-        <body>
+        <body className={pathname === '/' ? 'landing' : ''}>
           <div id="content" dangerouslySetInnerHTML={{__html: content}}/>
           <script dangerouslySetInnerHTML={{__html: `window.__data=${serialize(store.getState())};`}} charSet="UTF-8"/>
           <script src={assets.javascript.main} charSet="UTF-8"/>

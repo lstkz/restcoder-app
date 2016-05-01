@@ -5,11 +5,18 @@ html {
   min-height: 100%;
 }
 body {
-  margin-bottom: 171px;
+  margin-bottom: 191px;
+}
+@media (max-width: 767px) {
+  body {
+    margin-bottom: 0;
+  }
 }
 
 :global {
-
+  body.landing {
+    margin-bottom: 0;
+  }
   .CodeMirror {
     height: auto !important;
   }

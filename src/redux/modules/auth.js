@@ -1,103 +1,49 @@
+
+const LOGGED_IN = 'auth/LOGGED_IN';
 const LOAD = 'auth/LOAD';
 const LOAD_SUCCESS = 'auth/LOAD_SUCCESS';
 const LOAD_FAIL = 'auth/LOAD_FAIL';
-const LOGIN = 'auth/LOGIN';
-const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-const LOGIN_FAIL = 'auth/LOGIN_FAIL';
-const LOGOUT = 'auth/LOGOUT';
-const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
-const LOGOUT_FAIL = 'auth/LOGOUT_FAIL';
+
+
+import {createAction, handleActions} from 'redux-actions';
 
 const initialState = {
-  loaded: false
+  loaded: false,
+  user: null
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case LOAD:
-      return {
-        ...state,
-        loading: true
-      };
     case LOAD_SUCCESS:
       return {
         ...state,
-        loading: false,
         loaded: true,
         user: action.result.user
       };
     case LOAD_FAIL:
       return {
         ...state,
-        loading: false,
-        loaded: false,
+        loaded: true,
         error: action.error
       };
-    case LOGIN:
+    case LOGGED_IN:
       return {
         ...state,
-        loggingIn: true
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        loggingIn: false,
-        user: action.result
-      };
-    case LOGIN_FAIL:
-      return {
-        ...state,
-        loggingIn: false,
-        user: null,
-        loginError: action.error
-      };
-    case LOGOUT:
-      return {
-        ...state,
-        loggingOut: true
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        loggingOut: false,
-        user: null
-      };
-    case LOGOUT_FAIL:
-      return {
-        ...state,
-        loggingOut: false,
-        logoutError: action.error
+        user: action.result.user
       };
     default:
       return state;
   }
+}
+export function load() {
+  return {
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: (client) => client.get('/me')
+  };
 }
 
 export function isLoaded(globalState: Object) {
   return globalState.auth && globalState.auth.loaded;
 }
 
-export function load() {
-  return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/api/me')
-  };
-}
-
-export function login(name) {
-  return {
-    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: (client) => client.post('/login', {
-      data: {
-        name: name
-      }
-    })
-  };
-}
-
-export function logout() {
-  return {
-    types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: (client) => client.get('/logout')
-  };
-}
+export const loggedIn = createAction(LOGGED_IN);

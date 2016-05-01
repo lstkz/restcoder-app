@@ -22,9 +22,9 @@ export default class ChallengeDetails extends Component {
 
     const styles = require('./ChallengeDetails.scss');
     return (
-      <div className={styles.ChallengeDetails}>
+      <div>
         <Header/>
-        <div className="container">
+        <div className={'container ' + styles.ChallengeDetails}>
           <h3>
             {challenge.name}
             <br/>

@@ -82,14 +82,14 @@ export default function reducer(state = initialState, action = {}) {
 export function loadChallenges() {
   return {
     types: CHALLENGES_TYPES,
-    promise: (client) => client.get('/api/v1/problems')
+    promise: (client) => client.get('problems')
   };
 }
 
 export function loadRecentSubmissions() {
   return {
     types: LOAD_RECENT_TYPES,
-    promise: (client) => client.get('/api/v1/submissions/recent')
+    promise: (client) => client.get('/submissions/recent')
   };
 }
 
@@ -102,6 +102,6 @@ export function loadTop5(language) {
   }
   return {
     types: TOP5_TYPES,
-    promise: (client) => client.get('/api/v1/ranking', {params})
+    promise: (client) => client.get('/ranking', {params})
   };
 }

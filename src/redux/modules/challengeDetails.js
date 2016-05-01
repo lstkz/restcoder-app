@@ -23,6 +23,6 @@ export default function reducer(state = initialState, action = {}) {
 export function loadChallenge(id) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/api/v1/problems/' + id)
+    promise: (client) => client.get('/problems/' + id)
   };
 }
