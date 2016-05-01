@@ -738,6 +738,7 @@
     top: 0;
     margin-top: 10px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: transparent;
   }
   .header-3 .navbar.navbar-fixed-top {
     top: 0 !important;
@@ -781,8 +782,9 @@
     color: #1abc9c;
   }
   .header-3 .navbar .navbar-form {
-    padding: 23px 0 15px 50px;
+    padding: 23px 20px 15px 50px;
   }
+
   .header-3 .navbar .btn {
     padding-left: 26px;
     padding-right: 26px;
@@ -790,6 +792,18 @@
     font-size: 14px;
     font-weight: normal;
     color: #ffffff;
+  }
+  @media (max-width: 340px) {
+    .header-3 .navbar .btn {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .header-3 .navbar .navbar-form {
+      padding-left: 0;
+    }
   }
   .header-3 .navbar .btn.btn-primary {
     background-color: #16a085;

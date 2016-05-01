@@ -7,8 +7,10 @@ export default function createStore(history, client, data) {
   // Sync dispatched route actions to the history
   const reduxRouterMiddleware = syncHistory(history);
 
-  const middleware = [createMiddleware(client), reduxRouterMiddleware, createLogger({collapsed: true})];
-
+  const middleware = [createMiddleware(client), reduxRouterMiddleware];
+  if (__DEVELOPMENT__ && __CLIENT__) {
+    middleware.push(createLogger({collapsed: true}));
+  }
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
     const { persistState } = require('redux-devtools');

@@ -1,46 +1,17 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Helmet from 'react-helmet';
 import {Link} from 'react-router';
-import { connect } from 'react-redux';
-import { routeActions } from 'react-router-redux';
 import config from '../../config';
-import { asyncConnect } from 'redux-async-connect';
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
+import {asyncConnect} from 'redux-async-connect';
 
-//@asyncConnect([{
-//  test: () => {
-//    console.log('test');
-//    return new Promise((resolve) => {
-//      console.log('resolved');
-//      setTimeout(resolve, 2000);
-//    })
-//  }
-//}])
-//class Test extends Component {
-//  render() {
-//    return <div/>
-//  }
-//}
 
 @asyncConnect([{
-  promise: ({store: {dispatch, getState}}) => {
-    const promises = [];
-
-    if (!isInfoLoaded(getState())) {
-      promises.push(dispatch(loadInfo()));
-    }
-    if (!isAuthLoaded(getState())) {
-      promises.push(dispatch(loadAuth()));
-    }
-    console.log('a');
-    return Promise.all(promises);
+  promise: () => {
+    return Promise.resolve();
   }
 }])
-//@connect(
-//  state => ({user: state.auth.user}),
-//  {logout, pushState: routeActions.push})
 export default class Landing extends Component {
+
 
   render() {
     require('./Landing.scss');
@@ -53,20 +24,19 @@ export default class Landing extends Component {
         <div className="page-wrapper">
           <header className="header-3">
             <div className="container">
-              <div className="row">
-                <nav className="navbar col-sm-12" role="navigation">
-                  <div className="navbar-header">
-                    <button type="button" className="navbar-toggle"/>
-                    <a className="brand" href="#"><img src={require('./icons/Infinity-Loop@2x.png')} width="50"
-                                                       height="50" alt=""/> RestCoder</a>
-                  </div>
-                  <div className="collapse navbar-collapse pull-right">
-                    <form className="navbar-form pull-left">
-                      <Link className="btn btn-primary" to="/home">SIGN IN</Link>
-                    </form>
-                  </div>
-                </nav>
-              </div>
+              <nav className="navbar" role="navigation">
+                <div className="navbar-header pull-left">
+                  <a className="brand" href="#">
+                    <img src={require('./icons/Infinity-Loop@2x.png')} width="50" height="50" alt=""/>
+                    RestCoder
+                  </a>
+                </div>
+
+                <form className="navbar-form navbar-right pull-right">
+                  <Link className="btn btn-primary" to="/login">SIGN IN</Link>
+                </form>
+
+              </nav>
             </div>
             <div className="header-background"></div>
           </header>
@@ -82,7 +52,7 @@ export default class Landing extends Component {
           </section>
           <section className="content-11">
             <div className="container">
-              <a className="btn btn-large btn-danger " href="#">TRY IT NOW</a>
+              <Link className="btn btn-large btn-danger " to="/register">TRY IT NOW</Link>
             </div>
           </section>
           <section className="content-26 bg-clouds">
@@ -135,7 +105,8 @@ export default class Landing extends Component {
                       The TopCoder development champion
 
                       <div className="contacts">
-                        <a target="_blank" href="https://www.topcoder.com/members/Sky_">https://www.topcoder.com/members/Sky_</a><br/>
+                        <a target="_blank"
+                           href="https://www.topcoder.com/members/Sky_">https://www.topcoder.com/members/Sky_</a><br/>
                       </div>
                     </div>
                   </div>

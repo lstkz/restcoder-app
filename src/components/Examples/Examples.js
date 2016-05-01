@@ -5,12 +5,12 @@ import {Tabs, Tab} from 'react-bootstrap';
 import _ from 'underscore';
 import Codemirror from 'react-code-mirror';
 
+require('codemirror/lib/codemirror.css');
+require('codemirror/theme/material.css');
 
 if (__CLIENT__) {
   require('codemirror/mode/javascript/javascript');
   require('codemirror/addon/display/autorefresh');
-  require('codemirror/lib/codemirror.css');
-  require('codemirror/theme/material.css');
 }
 
 export default class Examples extends React.Component {

@@ -19,6 +19,7 @@ export default class Header extends Component {
 
     return (
       <div className={styles.Header}>
+        <GlobalSpinner/>
         <Navbar staticTop inverse>
           <Navbar.Header>
             <Navbar.Brand>

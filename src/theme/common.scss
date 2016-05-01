@@ -22,10 +22,10 @@ body {
   }
 
   .bgm-red {
-    background-color: $red;
+    background-color: $red !important;
   }
   .bgm-green {
-    background-color: $green;
+    background-color: $green !important;
   }
   .c-gray {
     color: #9E9E9E !important;
@@ -42,7 +42,7 @@ body {
     border-left-color: #29d;
     border-radius: 50%;
     animation: spin 500ms linear infinite;
-
+    z-index: 10000;
     position: fixed;
     top: 5px;
     left: 5px;
