@@ -19,6 +19,7 @@ const submit = (values, dispatch) => {
         dispatch(push('/'));
       })
       .catch((result) => {
+        console.log(result);
         reject({_error: result.error || 'Unexpected error occurred'});
       });
   });

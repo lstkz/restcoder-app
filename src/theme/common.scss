@@ -21,6 +21,11 @@ body {
     height: auto !important;
   }
 
+
+  .badge {
+    background-color: #777;
+    color: #fff;
+  }
   .bgm-red {
     background-color: $red !important;
   }
@@ -48,9 +53,25 @@ body {
     left: 5px;
   }
 
+  pre {
+    background: #474747;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #f8f8f2;
+    display: block;
+    margin: 1.5em 0;
+    padding: 1em 70px 1em 1.5em;
+    position: relative;
+  }
 
-  .badge {
-    background-color: #777;
-    color: #fff;
+  pre code {
+    background: 0 0;
+    border: none;
+    color: #f8f8f2;
+    display: inline-block;
+  }
+
+  code .nv {
+    user-select: none;
   }
 }

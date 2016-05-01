@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
-import {ChallengeList, Header, RecentSubmissions, SwaggerExplorer, Footer, Examples} from '../../components';
+import {ChallengeList, Header, RecentSubmissions, SwaggerExplorer, Footer, Examples, ChallengeHelp} from '../../components';
 import {loadChallenge} from 'redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
 
@@ -45,7 +45,8 @@ export default class ChallengeDetails extends Component {
               <Tab eventKey={3} title="Examples">
                 <Examples challenge={challenge} />
               </Tab>
-              <Tab eventKey={4} title="Help">Help
+              <Tab eventKey={4} title="Help">
+                <ChallengeHelp challenge={challenge} />
               </Tab>
             </Tabs>
           </div>

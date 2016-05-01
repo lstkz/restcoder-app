@@ -1,14 +1,17 @@
 import React, { PropTypes } from 'react';
 import styles from './Callout.scss';
 import classNames from 'classnames';
+import marked from 'marked';
 
 export default class Callout extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.any.isRequired,
+    description: PropTypes.any,
+    expanded: PropTypes.bool,
     type: PropTypes.string,
     httpMethod: PropTypes.string,
-    className: PropTypes.string,
+    className: PropTypes.string
   };
 
   constructor(props) {
@@ -23,7 +26,7 @@ export default class Callout extends React.Component {
   }
 
   render() {
-    const {title, children, type: originalType, className, httpMethod} = this.props;
+    const {title, children, type: originalType, className, httpMethod, description} = this.props;
     const httpMethod2Color = {
       get: 'green',
       post: 'orange'
@@ -33,6 +36,7 @@ export default class Callout extends React.Component {
     return (
       <div className={classNames(styles.Callout, styles[type], className)}>
         <h4 onClick={::this.toggle}>{title}</h4>
+        {description && <small dangerouslySetInnerHTML={{__html: marked(description)}}/>}
         {expanded && <div className="ptm">
           {children}
         </div>}

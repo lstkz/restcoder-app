@@ -23,7 +23,7 @@ export default class Examples extends React.Component {
       return null;
     }
     if (responseType === 'plain') {
-      return (<code>body</code>);
+      return (<code>{body}</code>);
     }
     if (!body) {
       return (<span>No response</span>);
@@ -65,7 +65,7 @@ export default class Examples extends React.Component {
   renderItem(item, i) {
     const title = (<span>{item.request.method} {item.request.url} → <ResponseCode code={item.response.status} /></span>);
     return (
-      <Callout className="example" key={i} title={title} httpMethod={item.request.method}>
+      <Callout className="example" key={i} title={title} httpMethod={item.request.method} description={item.description}>
         {item.request.body && this.renderTabs(item.request, 'REQUEST')}
         {this.renderTabs(item.response, 'RESPONSE')}
       </Callout>

@@ -20,3 +20,4 @@ export ResponseCode from './ResponseCode/ResponseCode';
 export ChallengeFilter from './ChallengeFilter/ChallengeFilter';
 export LoginForm from './LoginForm/LoginForm';
 export FormControl from './FormControl/FormControl';
+export ChallengeHelp from './ChallengeHelp/ChallengeHelp';
