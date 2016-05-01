@@ -1,0 +1,14 @@
+
+.ChallengeList {
+  :global {
+    table {
+      background-color: #edeff1;
+      border-radius: 4px;
+
+      th:first-child,
+      td:first-child {
+        padding-right: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.SwaggerExplorer {
+  :global {
+    .operations {
+      margin: 0;
+      padding: 0;
+      .operation {
+        margin-bottom: 30px;
+      }
+    }
+    .responses {
+      td:first-child,
+      th:first-child {
+        width: 120px;
+      }
+    }
+    .parameters {
+      .short {
+        width: 120px;
+      }
+    }
+    table {
+      table-layout: fixed;
+    }
+  }
+}

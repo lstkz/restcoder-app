@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
+import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import config from '../../config';
@@ -61,7 +62,7 @@ export default class Landing extends Component {
                   </div>
                   <div className="collapse navbar-collapse pull-right">
                     <form className="navbar-form pull-left">
-                      <a className="btn btn-primary" href="/home">SIGN IN</a>
+                      <Link className="btn btn-primary" to="/home">SIGN IN</Link>
                     </form>
                   </div>
                 </nav>

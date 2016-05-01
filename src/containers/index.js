@@ -8,3 +8,4 @@ export LoginSuccess from './LoginSuccess/LoginSuccess';
 export Survey from './Survey/Survey';
 export NotFound from './NotFound/NotFound';
 export Landing from './Landing/Landing';
+export ChallengeDetails from './ChallengeDetails/ChallengeDetails';

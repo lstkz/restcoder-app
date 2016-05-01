@@ -1,0 +1,40 @@
+@import "../../theme/variables";
+
+.Callout {
+  padding: 20px;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.red {
+  border-left-color: $callout-red;
+  h4 {
+    color: $callout-red;
+  }
+}
+
+.green {
+  border-left-color: $callout-green;
+  h4 {
+    color: $callout-green;
+  }
+}
+
+.orange {
+  border-left-color: $callout-orange;
+  h4 {
+    color: $callout-orange;
+  }
+}
+.bs-callout-blue {
+  border-left-color: $callout-blue;
+  h4 {
+    color: $callout-blue;
+  }
+}

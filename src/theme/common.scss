@@ -1,10 +1,49 @@
 @import "variables";
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 171px;
+}
+
 :global {
+
+  .CodeMirror {
+    height: auto !important;
+  }
+
   .bgm-red {
     background-color: $red;
   }
   .bgm-green {
     background-color: $green;
+  }
+  .c-gray {
+    color: #9E9E9E !important;
+  }
+
+  @keyframes :global(spin) { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+  .react-progress-bar-spinner-icon {
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border: solid 2px transparent;
+    border-top-color: #29d;
+    border-left-color: #29d;
+    border-radius: 50%;
+    animation: spin 500ms linear infinite;
+
+    position: fixed;
+    top: 5px;
+    left: 5px;
+  }
+
+
+  .badge {
+    background-color: #777;
+    color: #fff;
   }
 }

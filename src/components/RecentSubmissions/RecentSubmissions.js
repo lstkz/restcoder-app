@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import moment from 'moment';
 
 export default class RecentSubmissions extends Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string
+  };
+
   render() {
     const styles = require('./RecentSubmissions.scss');
-    const items = [
-      {name: 'Starter:  FizzBuzz', time: '3 days ago', user: 'user1', result: 'PASS'},
-      {name: 'Starter:  JSON response', time: '4 days ago', user: 'user2', result: 'FAIL'},
-      {name: 'Starter:  Hello world', time: '5 days ago', user: 'user3', result: 'PASS'},
-      {name: 'Starter:  Hello world', time: '11 days ago', user: 'user3', result: 'FAIL'},
-      {name: 'Starter:  FizzBuzz', time: '12 days ago', user: 'user1', result: 'FAIL'}
-    ];
+    const {items} = this.props;
 
     return (
       <div className={styles.recentSubmissions}>
@@ -18,12 +19,12 @@ export default class RecentSubmissions extends Component {
           <div className="panel-heading"> Recent submissions</div>
           <div className="">
             <ul className="list-group">
-              {items.map((item) =>
-                <li className="list-group-item">
+              {items.map((item, i) =>
+                <li key={i} className="list-group-item">
                   <span className={classnames('badge', {'bgm-red': item.result === 'FAIL', 'bgm-green': item.result === 'PASS'})}>{item.result}</span>
-                  <a><strong>{item.name}</strong></a>
+                  <a><strong>{item.problem.name}</strong></a>
                   <br/>
-                  <small>By <a>{item.user}</a> <i>{item.time}</i>
+                  <small>By <a>{item.user.username}</a> <i>{moment(item.createdAt).fromNow()}</i>
                   </small>
                 </li>
               )}

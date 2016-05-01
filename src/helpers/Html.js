@@ -35,6 +35,7 @@ export default class Html extends Component {
 
           <link rel="shortcut icon" href="/favicon.ico" />
           <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+          <link rel="stylesheet" href="/css/font-awesome.min.css"/>
           <link rel="stylesheet" href="/css/flat-ui-pro.min.css"/>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           {/* styles (will be present only in production with webpack extract text plugin) */}
@@ -47,7 +48,7 @@ export default class Html extends Component {
           {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
           {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
           {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
-          { Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{__html: require('../containers/App/App.scss')._style}}/> : null }
+          { /*Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{__html: require('../containers/App/App.scss')._style}}/> : null */}
         </head>
         <body>
           <div id="content" dangerouslySetInnerHTML={{__html: content}}/>

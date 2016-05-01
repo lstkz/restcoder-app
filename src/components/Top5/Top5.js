@@ -1,49 +1,28 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class Top5 extends Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    loadTop5: PropTypes.func.isRequired,
+    error: PropTypes.string
+  };
+
+  onChange(e) {
+    this.props.loadTop5(e.target.value);
+  }
+
   render() {
     const styles = require('./top5.scss');
-    const items = [
-      {
-        rank: 1,
-        user: 'user1',
-        score: 100,
-        image: '//www.gravatar.com/avatar/006a8679155473958833a56b803eaf7d?d=identicon&s=35'
-      },
-      {
-        rank: 2,
-        user: 'user12',
-        score: 70,
-        image: '//www.gravatar.com/avatar/006a8679155473958833a56b803eaf7d?d=identicon&s=35'
-      },
-      {
-        rank: 3,
-        user: 'user2',
-        score: 50,
-        image: '//www.gravatar.com/avatar/70a910d1849c17436d6099bcc31ed1a5?d=identicon&s=35'
-      },
-      {
-        rank: 4,
-        user: 'user4',
-        score: 30,
-        image: '//www.gravatar.com/avatar/006a8679155473958833a56b803eaf7d?d=identicon&s=35'
-      },
-      {
-        rank: 5,
-        user: 'user2',
-        score: 10,
-        image: '//www.gravatar.com/avatar/59029276955677351421b3ff6bf5ee4c?d=identicon&s=35'
-      }
-    ];
+    const {items} = this.props;
 
     return (
-
       <div className={styles.top5}>
         <div className="panel panel-info">
           <div className="panel-heading">
-            TOP 5
+            <div>TOP 5</div>
             <div className="select text-center">
-              <select className="form-control input-sm">
+              <select className="form-control input-sm" onChange={::this.onChange}>
                 <option value="">Global</option>
                 <option value="nodejs">Nodejs</option>
                 <option value="ruby">Ruby</option>
@@ -51,8 +30,8 @@ export default class Top5 extends Component {
             </div>
           </div>
           <div className="items">
-            {items.map((item) =>
-              <div className="rank-item clearfix">
+            {items.map((item, i) =>
+              <div key={i} className="rank-item clearfix">
                 <div className="pull-left">
                   <strong className="rank">{item.rank}.</strong>
                   <a className="photo">
@@ -60,7 +39,7 @@ export default class Top5 extends Component {
                   </a>
                 </div>
                 <div className="username pull-left">
-                  <a>{item.user}</a>
+                  <a>{item.username}</a>
                   <small>
                     Score: {item.score}
                   </small>

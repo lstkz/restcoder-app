@@ -12,6 +12,7 @@ import {
     LoginSuccess,
     Survey,
     NotFound,
+    ChallengeDetails,
   } from 'containers';
 
 export default (store) => {
@@ -32,6 +33,15 @@ export default (store) => {
     }
   };
 
+  const loadInitialState = (nextState, replace, cb) => {
+    console.log('loadInitialState');
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(() => cb());
+    } else {
+      cb();
+    }
+  };
+
   const test = (nextState, replace, cb) => {
     console.log('test');
     if (__CLIENT__) {
@@ -46,11 +56,12 @@ export default (store) => {
    * Please keep routes in alphabetical order
    */
   return (
-    <Route component={App}>
+    <Route onEnter={loadInitialState}>
       { /* Home (main) route */ }
       {/*<IndexRoute component={Landing}/>*/}
-       <Route path="/"  component={Landing}/>
-       <Route path="/home"  component={Home}/>
+       <Route path="/" component={Landing}/>
+       <Route path="/home" component={Home}/>
+       <Route path="/challenge/:id" component={ChallengeDetails}/>
 
       { /* Routes requiring login */ }
       <Route onEnter={requireLogin}>
