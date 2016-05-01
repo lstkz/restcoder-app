@@ -2,28 +2,30 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-async-connect';
 import {ChallengeList, Header, RecentSubmissions, Top5, Footer, ChallengeFilter} from '../../components';
-import { loadChallenges, loadRecentSubmissions, loadTop5 } from 'redux/modules/challenges';
+import { loadChallenges, loadRecentSubmissions, loadTop5, toggleFilter } from 'redux/modules/challenges';
 
 @asyncConnect([{
   promise: ({store: {dispatch}}) => {
     const promises = [];
     promises.push(dispatch(loadChallenges()));
-    promises.push(dispatch(loadRecentSubmissions()));
-    promises.push(dispatch(loadTop5()));
+//    promises.push(dispatch(loadRecentSubmissions()));
+//    promises.push(dispatch(loadTop5()));
     return Promise.all(promises);
   }
 }])
-@connect(state => state.challenges, {loadTop5})
+@connect(state => state.challenges, {loadTop5, toggleFilter})
 export default class Home extends Component {
   static propTypes = {
     challenges: PropTypes.object.isRequired,
     top5: PropTypes.object.isRequired,
     recent: PropTypes.object.isRequired,
-    loadTop5: PropTypes.func.isRequired
+    filter: PropTypes.object.isRequired,
+    loadTop5: PropTypes.func.isRequired,
+    toggleFilter: PropTypes.func.isRequired
   };
 
   render() {
-    const {challenges, top5, recent} = this.props;
+    const {challenges, top5, recent, toggleFilter, filter} = this.props;
 
     const styles = require('./Home.scss');
     const filters = [
@@ -63,11 +65,11 @@ export default class Home extends Component {
 
           <div className="col-md-3">
             <h4>Filter</h4>
-            <ChallengeFilter filters={filters} onChange={() => {}} />
+            <ChallengeFilter filters={filters} toggleFilter={toggleFilter} filter={filter} />
           </div>
         </div>
 
-          <div className="row hidden">
+          {false && <div className="row hidden">
           <div className="col-md-3">
             <div className="row">
               <div className="col-md-12 col-sm-6">
@@ -78,7 +80,7 @@ export default class Home extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
         </div>
         <Footer/>
       </div>

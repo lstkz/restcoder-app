@@ -1,3 +1,6 @@
+
+import {createAction, handleActions} from 'redux-actions';
+
 const LOAD_CHALLENGES = 'challenges/LOAD_CHALLENGES';
 const LOAD_CHALLENGES_SUCCESS = 'challenges/LOAD_CHALLENGES_SUCCESS';
 const LOAD_CHALLENGES_FAIL = 'challenges/LOAD_CHALLENGES_FAIL';
@@ -7,6 +10,7 @@ const LOAD_RECENT_SUBMISSIONS_FAIL = 'challenges/LOAD_RECENT_SUBMISSIONS_FAIL';
 const LOAD_TOP5 = 'challenges/LOAD_RECENT_SUBMISSIONS';
 const LOAD_TOP5_SUCCESS = 'challenges/LOAD_TOP5_SUCCESS';
 const LOAD_TOP5_FAIL = 'challenges/LOAD_TOP5_FAIL';
+const TOGGLE_FILTER = 'challenges/TOGGLE_FILTER';
 
 const CHALLENGES_TYPES = [LOAD_CHALLENGES, LOAD_CHALLENGES_SUCCESS, LOAD_CHALLENGES_FAIL];
 const LOAD_RECENT_TYPES = [LOAD_RECENT_SUBMISSIONS, LOAD_RECENT_SUBMISSIONS_SUCCESS, LOAD_RECENT_SUBMISSIONS_FAIL];
@@ -27,6 +31,9 @@ const initialState = {
     loading: true,
     items: [],
     error: null
+  },
+  filter: {
+
   }
 };
 
@@ -70,10 +77,23 @@ export default function reducer(state = initialState, action = {}) {
     _applyApiResult(state, action, CHALLENGES_TYPES, 'challenges') ||
     _applyApiResult(state, action, LOAD_RECENT_TYPES, 'recent') ||
     _applyApiResult(state, action, TOP5_TYPES, 'top5');
+  if (action.type === LOAD_CHALLENGES_SUCCESS) {
+    newState.challenges.allItems = newState.challenges.items;
+  }
   if (newState) {
     return newState;
   }
   switch (action.type) {
+    case TOGGLE_FILTER:
+      const filter = {...state.filter};
+      const {filterName, name} = action.payload;
+      const values = filter[filterName] || [];
+      if (values.indexOf(name) === -1) {
+        filter[filterName] = [...values, name];
+      } else {
+        filter[filterName] = values.filter((item) => item !== name);
+      }
+      return {...state, filter};
     default:
       return state;
   }
@@ -105,3 +125,5 @@ export function loadTop5(language) {
     promise: (client) => client.get('/ranking', {params})
   };
 }
+
+export const toggleFilter = createAction(TOGGLE_FILTER);
