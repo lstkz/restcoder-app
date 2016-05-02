@@ -27,7 +27,7 @@ export default class Landing extends Component {
               <nav className="navbar" role="navigation">
                 <div className="navbar-header pull-left">
                   <a className="brand" href="#">
-                    <img src={require('./icons/Infinity-Loop@2x.png')} width="50" height="50" alt=""/>
+                    {<img src={require('./logo.png')} height="70" width="97" alt=""/>}
                     RestCoder
                   </a>
                 </div>
@@ -65,21 +65,57 @@ export default class Landing extends Component {
                 </div>
               </div>
               <div className="row features">
-                <div className="col-sm-3">
+                <div className="col-sm-4">
                   <img src={require('./icons/bulb.svg')} alt="" width="100" height="100"/>
                   <h6>Pick challenge</h6>
-                  We have more than 50+ challenges to solve.
+                  We have more than 10+ challenges to solve. <br/>More challenges are coming!
                 </div>
-                <div className="col-sm-4 col-sm-offset-1">
+                <div className="col-sm-4 col-sm-offset-0">
                   <img src={require('./icons/pc.svg')} alt="" width="145" height="100"/>
                   <h6>Code</h6>
                   Choose your favorite language and technology.
                   <br/>Build a RESTful API application.
                 </div>
-                <div className="col-sm-3 col-sm-offset-1">
+                <div className="col-sm-4 col-sm-offset-0">
                   <img src={require('./icons/retina.svg')} alt="" width="100" height="100"/>
                   <h6>Submit</h6>
                   Our tester will automatically verify your solution.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="content-26 languages">
+            <div className="container">
+              <div className="row">
+                <div className="col-sm-8 col-sm-offset-2">
+                  <h3>Supported Languages</h3>
+                </div>
+                <div className="row">
+                  <div className="col-sm-12">
+                    <div className="img-wrapper">
+                      <img alt="nodejs" title="nodejs" src={require('./languages/icon-nodejs.svg')} />
+                      <img alt="ruby" title="ruby" src={require('./languages/icon-ruby.svg')} />
+                      <img alt="python" title="python" src={require('./languages/icon-python.svg')} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row coming-soon">
+                <div className="col-sm-8 col-sm-offset-2">
+                  <p className="lead">Coming Soon</p>
+                </div>
+                <div className="row">
+                  <div className="col-sm-12">
+                    <div className="img-wrapper">
+                      <img alt="java" title="java" src={require('./languages/icon-java.svg')} />
+                      <img alt="php" title="php" src={require('./languages/icon-php.svg')} />
+                      <img alt="clojure" title="clojure" src={require('./languages/clojure.png')} />
+                      <img alt="go" title="go" src={require('./languages/golang.png')} />
+                      <img alt="scala" title="scala" src={require('./languages/scala.jpg')} />
+                      <img alt=".net" title=".net" src={require('./languages/net.png')} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

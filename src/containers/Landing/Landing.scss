@@ -1112,4 +1112,25 @@
     margin: 0 auto;
   }
 
+  .languages {
+    padding: 50px 0;
+    .img-wrapper {
+      text-align: center;
+      img {
+        margin: 0 20px 20px;
+        height: 128px;
+        width: 128px;
+      }
+    }
+    .coming-soon {
+      p {
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+      img {
+        opacity: 0.5;
+      }
+    }
+  }
+
 }}
