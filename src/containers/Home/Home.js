@@ -1,9 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
-import {ChallengeList, RecentSubmissions, Top5, ChallengeFilter} from '../../components';
+import _ from 'underscore';
+import {ChallengeList, RecentSubmissions, Top5, ChallengeFilter, ActivationLinkInfo} from '../../components';
 import * as actions from 'redux/modules/challenges';
 import {App} from '../';
+
 
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => {
@@ -14,7 +16,7 @@ import {App} from '../';
     return Promise.all(promises);
   }
 }])
-@connect(state => ({ ...state.challenges, isLoggedIn: state.auth.isLoggedIn }), { ...actions })
+@connect(state => ({ ...state.challenges, ..._.pick(state.auth, 'isLoggedIn', 'confirmEmailVisible', 'confirmEmailTarget') }), { ...actions })
 export default class Home extends Component {
   static propTypes = {
     challenges: PropTypes.object.isRequired,
@@ -24,11 +26,13 @@ export default class Home extends Component {
     filters: PropTypes.array.isRequired,
     loadTop5: PropTypes.func.isRequired,
     toggleFilter: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired
+    isLoggedIn: PropTypes.bool.isRequired,
+    confirmEmailVisible: PropTypes.bool.isRequired,
+    confirmEmailTarget: PropTypes.string
   };
 
   render() {
-    const { challenges, top5, recent, toggleFilter, isLoggedIn, filter } = this.props;
+    const { challenges, top5, recent, toggleFilter, isLoggedIn, filter, confirmEmailVisible, confirmEmailTarget } = this.props;
     let { filters } = this.props;
     const styles = require('./Home.scss');
 
@@ -38,8 +42,8 @@ export default class Home extends Component {
 
     return (
       <App>
+        <ActivationLinkInfo visible={confirmEmailVisible} email={confirmEmailTarget} />
         <div className={'container ' + styles.Home}>
-
           <div className="row">
             <div className="col-md-9">
               <h4>List of all practice problems</h4>

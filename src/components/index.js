@@ -19,3 +19,5 @@ export ChallengeFilter from './ChallengeFilter/ChallengeFilter';
 export LoginForm from './LoginForm/LoginForm';
 export FormControl from './FormControl/FormControl';
 export ChallengeHelp from './ChallengeHelp/ChallengeHelp';
+export RegisterForm from './RegisterForm/RegisterForm';
+export ActivationLinkInfo from './ActivationLinkInfo/ActivationLinkInfo';

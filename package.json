@@ -16,6 +16,9 @@
     "watch-client": "better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\""
   },
+  "browser": {
+    "joi": "joi-browser"
+  },
   "betterScripts": {
     "start-prod": {
       "command": "node ./bin/server.js",
@@ -73,6 +76,8 @@
     "hoist-non-react-statics": "^1.0.3",
     "http-proxy": "^1.12.0",
     "invariant": "^2.2.0",
+    "joi": "^8.0.5",
+    "joi-browser": "^8.0.5",
     "json-schema-view-js": "^0.4.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
