@@ -793,14 +793,21 @@
     font-weight: normal;
     color: #ffffff;
   }
-  @media (max-width: 340px) {
+  @media (max-width: 350px) {
     .header-3 .navbar .btn {
       padding: 5px 10px;
       font-size: 12px;
     }
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 430px) {
+    .brand img {
+      max-height: 40px;
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 430px) {
     .header-3 .navbar .navbar-form {
       padding-left: 0;
     }
@@ -1133,4 +1140,12 @@
     }
   }
 
+  @media (max-width: 430px) {
+    .languages {
+      .img-wrapper img {
+        width: 64px;
+        height: 64px;
+      }
+    }
+  }
 }}
