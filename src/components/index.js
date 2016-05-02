@@ -5,8 +5,6 @@
  *
  */
 
-export SurveyForm from './SurveyForm/SurveyForm';
-export WidgetForm from './WidgetForm/WidgetForm';
 export ChallengeList from './ChallengeList/ChallengeList';
 export Header from './Header/Header';
 export RecentSubmissions from './RecentSubmissions/RecentSubmissions';

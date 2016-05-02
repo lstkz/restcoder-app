@@ -9,7 +9,8 @@ import {createAction, handleActions} from 'redux-actions';
 
 const initialState = {
   loaded: false,
-  user: null
+  user: null,
+  isLoggedIn: false
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -29,7 +30,8 @@ export default function reducer(state = initialState, action = {}) {
     case LOGGED_IN:
       return {
         ...state,
-        user: action.result.user
+        user: action.result.user,
+        isLoggedIn: !!action.result.user
       };
     default:
       return state;

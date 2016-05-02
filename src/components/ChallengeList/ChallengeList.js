@@ -7,12 +7,13 @@ export default class ChallengeList extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
-    error: PropTypes.string
+    error: PropTypes.string,
+    isLoggedIn: PropTypes.bool.isRequired
   };
 
   render() {
     const styles = require('./ChallengeList.scss');
-    const {items} = this.props;
+    const {items, isLoggedIn} = this.props;
 
     const tooltip = (
       <Tooltip id="Unattempted">Unattempted</Tooltip>
@@ -24,7 +25,7 @@ export default class ChallengeList extends Component {
           <table className="table table-striped">
             <thead>
             <tr>
-              <th></th>
+              {isLoggedIn && <th/>}
               <th>ID</th>
               <th>Name</th>
               <th>Attempts</th>
@@ -35,12 +36,12 @@ export default class ChallengeList extends Component {
             </thead>
             <tbody>
             {items.map((item, i) =>
-              <tr key={i} className={i%2 ? 'odd' : 'even'}>
-                <td>
+              <tr key={i} className={i % 2 ? 'odd' : 'even'}>
+                {isLoggedIn && <td>
                   <OverlayTrigger placement="left" overlay={tooltip}>
                     <i className="fa fa-circle c-gray"/>
                   </OverlayTrigger>
-                </td>
+                </td>}
                 <td>{item.id}</td>
                 <td>
                   <Link to={'/challenge/' + item.id}>{item.name}</Link>

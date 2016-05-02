@@ -1,5 +1,6 @@
 
 import {createAction, handleActions} from 'redux-actions';
+import _ from 'underscore';
 
 const LOAD_CHALLENGES = 'challenges/LOAD_CHALLENGES';
 const LOAD_CHALLENGES_SUCCESS = 'challenges/LOAD_CHALLENGES_SUCCESS';
@@ -34,7 +35,8 @@ const initialState = {
   },
   filter: {
 
-  }
+  },
+  filters: []
 };
 
 function _applyApiResult(state, action, [LOAD, SUCCESS, FAIL], prop) {
@@ -71,6 +73,34 @@ function _applyApiResult(state, action, [LOAD, SUCCESS, FAIL], prop) {
   }
 }
 
+function _applyFilter(items, filter) {
+  let filtered = items;
+
+  if (filter.level && filter.level.length) {
+    filtered = filtered.filter((item) => {
+      return filter.level.indexOf(item.level) !== -1;
+    });
+  }
+
+  if (filter.tags && filter.tags.length) {
+    filtered = filtered.filter((item) => {
+      return _.intersection(item.tags, filter.tags).length;
+    });
+  }
+
+  if (filter.status && filter.status.length === 1) {
+    const solved = filter.status[0] === 'Solved';
+    filtered = filtered.filter((item) => {
+      return (!!item.solved) === solved;
+    });
+  }
+
+  return filtered;
+}
+
+function _countBeLevel(items, levelName) {
+  return _.findWhere(items, {level: levelName}).length;
+}
 
 export default function reducer(state = initialState, action = {}) {
   const newState =
@@ -78,7 +108,44 @@ export default function reducer(state = initialState, action = {}) {
     _applyApiResult(state, action, LOAD_RECENT_TYPES, 'recent') ||
     _applyApiResult(state, action, TOP5_TYPES, 'top5');
   if (action.type === LOAD_CHALLENGES_SUCCESS) {
-    newState.challenges.allItems = newState.challenges.items;
+    const items = newState.challenges.items;
+    const solved = _.where(items, {solved: true}).length;
+    const tagsMap = {};
+    const tags = [];
+    items.forEach((item) => {
+      item.tags.forEach((tag) => {
+        if (!tagsMap[tag]) {
+          tagsMap[tag] = 0;
+        }
+        tagsMap[tag]++;
+      });
+    });
+    _.each(tagsMap, (count, name) => {
+      tags.push({name, count});
+    });
+    tags.sort((a, b) => a.name.localeCompare(b.name));
+    newState.challenges.allItems = items;
+    newState.filter = {};
+    newState.filters = [
+      {
+        name: 'level',
+        items: [
+          {name: 'Very Easy', count: _.where(items, {level: 'Very Easy'}).length},
+          {name: 'Easy', count: _.where(items, {level: 'Easy'}).length}
+        ]
+      },
+      {
+        name: 'tags',
+        items: tags
+      },
+      {
+        name: 'status',
+        items: [
+          {name: 'Not Solved', count: items.length - solved},
+          {name: 'Solved', count: solved}
+        ]
+      }
+    ];
   }
   if (newState) {
     return newState;
@@ -93,7 +160,9 @@ export default function reducer(state = initialState, action = {}) {
       } else {
         filter[filterName] = values.filter((item) => item !== name);
       }
-      return {...state, filter};
+      const challenges = {...state.challenges};
+      challenges.items = _applyFilter(challenges.allItems, filter);
+      return {...state, challenges, filter};
     default:
       return state;
   }

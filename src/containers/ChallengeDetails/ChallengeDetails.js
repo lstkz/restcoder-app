@@ -1,9 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
-import {ChallengeList, Header, RecentSubmissions, SwaggerExplorer, Footer, Examples, ChallengeHelp} from '../../components';
+import {SwaggerExplorer, Examples, ChallengeHelp} from '../../components';
 import {loadChallenge} from 'redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
+import {App} from '../';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => {
@@ -22,8 +23,7 @@ export default class ChallengeDetails extends Component {
 
     const styles = require('./ChallengeDetails.scss');
     return (
-      <div>
-        <Header/>
+      <App>
         <div className={'container ' + styles.ChallengeDetails}>
           <h3>
             {challenge.name}
@@ -51,8 +51,7 @@ export default class ChallengeDetails extends Component {
             </Tabs>
           </div>
         </div>
-        <Footer/>
-      </div>
+      </App>
     );
   }
 }
