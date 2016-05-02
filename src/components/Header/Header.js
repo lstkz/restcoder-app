@@ -4,15 +4,17 @@ import {GlobalSpinner} from '../';
 import {connect} from 'react-redux';
 import {NavDropdown, MenuItem, Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import {logout as logoutAction} from 'redux/modules/auth';
 
-@connect(state => ({user: state.auth.user}), {})
+@connect(state => ({user: state.auth.user}), {logout: logoutAction})
 export default class Header extends Component {
   static propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    logout: PropTypes.func.isRequired
   };
 
   render() {
-    const {user} = this.props;
+    const {user, logout} = this.props;
     const styles = require('./Header.scss');
 
 
@@ -51,7 +53,7 @@ export default class Header extends Component {
                 <NavDropdown eventKey={3} title={'Signed in as ' + user.username}>
                   <MenuItem eventKey={3.1} href="/profile">My Profile</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.3} href="/logout">Logout</MenuItem>
+                  <MenuItem eventKey={3.3} onClick={logout}>Logout</MenuItem>
                 </NavDropdown>
               </Nav>
             }

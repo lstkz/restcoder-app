@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import styles from './LoginForm.scss';
 import { reduxForm } from 'redux-form';
 import validate from './LoginFormValidator';
-import ApiClient from '../../helpers/ApiClient';
 import {loggedIn} from '../../redux/modules/auth';
 import classNames from 'classnames';
 import {FormControl} from 'components';
 import { push } from 'react-router-redux';
+import ApiClient from '../../helpers/ApiClient';
 const apiClient = new ApiClient();
 const fields = [ 'username', 'password'];
 
@@ -38,7 +38,7 @@ export default class LoginForm extends React.Component {
     const { fields: { username, password }, handleSubmit, submitting, error } = this.props;
     return (
       <div className={styles.LoginForm}>
-        <form className="form-horizontal login-form" role="form" onSubmit={handleSubmit(submit)}>
+        <form className="form-horizontal login-form" role="form" onSubmit={handleSubmit}>
           <FormControl {...username} name="username" label="Username" type="text" placeholder="Username"/>
           <FormControl {...password} name="password" label="Password" type="password" placeholder="Password"/>
           <div className={classNames('form-group', {'has-error': error})}>
