@@ -37,3 +37,4 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export const clearError = createAction(CLEAR_ERROR);
+export const setError = createAction(ERROR);

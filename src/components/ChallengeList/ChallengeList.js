@@ -48,9 +48,9 @@ export default class ChallengeList extends Component {
                   <br/>
                   <small>{item.tags.join(', ')}</small>
                 </td>
-                <td className="center">{item.stats.uniqueAttempts}</td>
+                <td className="center">{item.stats.attempts}</td>
                 <td className="center">{item.stats.totalUniqueSolved}</td>
-                <td className="center">{Math.floor(item.stats.uniqueAttempts / item.stats.totalUniqueSolved * 100)}%
+                <td className="center">{Math.floor(item.stats.totalSolved / item.stats.attempts * 100)}%
                 </td>
                 <td className="center">{item.level}</td>
               </tr>

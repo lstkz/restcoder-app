@@ -1,7 +1,8 @@
 import React from 'react';
 import {Route} from 'react-router';
-import {isLoaded as isAuthLoaded, load as loadAuth} from 'redux/modules/auth';
-import {Home, Landing, NotFound, Login, ChallengeDetails, Register, VerifyEmail} from 'containers';
+import {isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction} from 'redux/modules/auth';
+import {setError} from 'redux/modules/global';
+import {Home, Landing, NotFound, Login, ChallengeDetails, Register} from 'containers';
 
 export default (store) => {
 
@@ -15,10 +16,29 @@ export default (store) => {
 
   const loadInitialState = (nextState, replace, cb) => {
     if (!isAuthLoaded(store.getState())) {
+      const error = nextState.location && nextState.location.query.error;
+      if (error) {
+        store.dispatch(setError({error}));
+      }
       store.dispatch(loadAuth()).then(() => cb());
     } else {
       cb();
     }
+  };
+
+  const verifyEmail = (nextState, replace, cb) => {
+    const done = (result) => {
+      replace({
+        pathname: '/home',
+        query: {
+          error: result && result.error
+        }
+      });
+      cb();
+    };
+    store.dispatch(verifyEmailAction(nextState.params.code))
+      .then(done)
+      .catch(done);
   };
 
   return (
@@ -28,7 +48,7 @@ export default (store) => {
       <Route path="/login" onEnter={redirectToHome} component={Login}/>
       <Route path="/register" onEnter={redirectToHome} component={Register}/>
       <Route path="/challenge/:id" component={ChallengeDetails}/>
-      <Route path="/verify-email/:code" component={VerifyEmail}/>
+      <Route path="/verify-email/:code" onEnter={verifyEmail} />
 
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404}/>
