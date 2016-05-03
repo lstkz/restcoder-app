@@ -2,29 +2,20 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import _ from 'underscore';
-import {ChallengeList, RecentSubmissions, Top5, ChallengeFilter, ActivationLinkInfo} from '../../components';
+import {ChallengeList, ChallengeFilter, ActivationLinkInfo} from '../../components';
 import * as actions from 'redux/modules/challenges';
 import {App} from '../';
 
 
 @asyncConnect([{
-  promise: ({ store: { dispatch } }) => {
-    const promises = [];
-    promises.push(dispatch(actions.loadChallenges()));
-//    promises.push(dispatch(loadRecentSubmissions()));
-//    promises.push(dispatch(loadTop5()));
-    return Promise.all(promises);
-  }
+  promise: ({ store: { dispatch } }) => dispatch(actions.init())
 }])
 @connect(state => ({ ...state.challenges, ..._.pick(state.auth, 'isLoggedIn', 'confirmEmailVisible', 'confirmEmailTarget') }), { ...actions })
 export default class Home extends Component {
   static propTypes = {
     challenges: PropTypes.object.isRequired,
-    top5: PropTypes.object.isRequired,
-    recent: PropTypes.object.isRequired,
     filter: PropTypes.object.isRequired,
     filters: PropTypes.array.isRequired,
-    loadTop5: PropTypes.func.isRequired,
     toggleFilter: PropTypes.func.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     confirmEmailVisible: PropTypes.bool.isRequired,
@@ -32,7 +23,7 @@ export default class Home extends Component {
   };
 
   render() {
-    const { challenges, top5, recent, toggleFilter, isLoggedIn, filter, confirmEmailVisible, confirmEmailTarget } = this.props;
+    const { challenges, toggleFilter, isLoggedIn, filter, confirmEmailVisible, confirmEmailTarget } = this.props;
     let { filters } = this.props;
     const styles = require('./Home.scss');
 
@@ -56,7 +47,7 @@ export default class Home extends Component {
             </div>
           </div>
 
-          {false && <div className="row hidden">
+          {/* <div className="row hidden">
             <div className="col-md-3">
               <div className="row">
                 <div className="col-md-12 col-sm-6">
@@ -67,7 +58,7 @@ export default class Home extends Component {
                 </div>
               </div>
             </div>
-          </div>}
+          </div>*/}
         </div>
       </App>
     );

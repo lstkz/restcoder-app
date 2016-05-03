@@ -6,6 +6,7 @@ import auth from './auth';
 import challenges from './challenges';
 import global from './global';
 import challengeDetails from './challengeDetails';
+import ranking from './ranking';
 
 export default combineReducers({
   routing: routeReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   auth,
   challenges,
   global,
-  challengeDetails
+  challengeDetails,
+  ranking
 });

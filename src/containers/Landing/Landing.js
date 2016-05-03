@@ -131,7 +131,7 @@ export default class Landing extends Component {
               </div>
             </div>
           </section>
-          <section className="crew-4 hidden">
+          {/* <section className="crew-4 hidden">
             <div className="container">
               <h3>Author</h3>
 
@@ -161,7 +161,7 @@ export default class Landing extends Component {
 
               </div>
             </div>
-          </section>
+          </section>*/}
 
           <footer className="bottom-menu  bottom-menu-inverse">
             <div className="container">

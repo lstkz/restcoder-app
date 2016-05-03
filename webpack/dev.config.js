@@ -62,14 +62,23 @@ reactTransform[1].transforms.push({
 });
 
 module.exports = {
-  devtool: 'inline-source-map',
-//  devtool: 'inline-eval-cheap-source-map',
+//  devtool: 'inline-source-map',
+   devtool: 'inline-eval-cheap-source-map',
+//  devtool: 'eval',
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
       './src/theme/common.scss',
       './src/client.js'
+    ],
+    'vendor': [
+      'lodash',
+      "babel-polyfill", "classnames", "joi-browser", "json-schema-view-js", "lru-memoize", "map-props", "marked", "moment", "ms",
+      "multireducer", "react", "react-bootstrap", "react-dom",
+      "react-helmet", "react-json-tree", "react-redux", "react-router", "react-router-bootstrap", "react-router-redux",
+      "redux", "redux-actions", "redux-async-connect", "redux-form", "redux-logger", "redux-thunk",
+      "scroll-behavior", "socket.io-client", "superagent", "underscore"
     ]
   },
   output: {
@@ -118,6 +127,9 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: false  // <-------- DISABLE redux-devtools HERE
     }),
-    webpackIsomorphicToolsPlugin.development()
+    webpackIsomorphicToolsPlugin.development(),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor']
+    })
   ]
 };

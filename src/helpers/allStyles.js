@@ -1,4 +1,6 @@
 const paths = [
+  '../theme/common.scss',
+
   '../components/ActivationLinkInfo/ActivationLinkInfo.scss',
   '../components/Callout/Callout.scss',
   '../components/ChallengeFilter/ChallengeFilter.scss',
