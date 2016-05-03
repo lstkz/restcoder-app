@@ -11,6 +11,7 @@ import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
+import ms from 'ms';
 
 import { match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
@@ -26,6 +27,9 @@ const proxy = httpProxy.createProxyServer({
   target: targetUrl,
   ws: true
 });
+
+const AUTH_COOKIE_NAME = 'auth';
+const AUTH_COOKIE_EXPIRATION = ms('14d');
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
@@ -75,6 +79,11 @@ app.use((req, res) => {
 
   match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
+      const state = store.getState();
+      if (state.auth.authToken) {
+        const opts = { expires: new Date(Date.now() + AUTH_COOKIE_EXPIRATION), httpOnly: true };
+        res.cookie(AUTH_COOKIE_NAME, state.auth.authToken, opts);
+      }
       res.redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
       console.error('ROUTER ERROR:', pretty.render(error));

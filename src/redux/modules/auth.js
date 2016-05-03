@@ -13,6 +13,7 @@ const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 const REGISTERED = 'auth/REGISTERED';
 const CLEAR_CONFIRM_EMAIL_INFO = 'auth/CLEAR_CONFIRM_EMAIL_INFO';
 const IGNORE = 'auth/IGNORE';
+const EMAIL_VERIFIED = 'auth/EMAIL_VERIFIED';
 
 
 const initialState = {
@@ -43,6 +44,15 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         user,
+        isLoggedIn: !!user
+      };
+    case EMAIL_VERIFIED:
+      return {
+        ...state,
+        user: action.result.user,
+        // for backend processing only
+        // it will read token, set auth cookie and redirect to home
+        authToken: action.result.token,
         isLoggedIn: !!user
       };
     case LOGOUT_SUCCESS:
@@ -76,7 +86,7 @@ export function load() {
 
 export function verifyEmail(code) {
   return {
-    types: [IGNORE, LOGGED_IN, GLOBAL_ERROR],
+    types: [IGNORE, EMAIL_VERIFIED, GLOBAL_ERROR],
     promise: (client) => client.post('/verify-email/' + code)
   };
 }
