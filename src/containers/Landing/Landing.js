@@ -12,6 +12,17 @@ import {asyncConnect} from 'redux-async-connect';
 }])
 export default class Landing extends Component {
 
+  componentWillMount() {
+    if (__CLIENT__) {
+      document.body.className = 'landing';
+    }
+  }
+
+  componentWillUnmount() {
+    if (__CLIENT__) {
+      document.body.className = '';
+    }
+  }
 
   render() {
     require('./Landing.scss');
