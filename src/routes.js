@@ -1,20 +1,12 @@
 import React from 'react';
 import {Route} from 'react-router';
-import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
-import {
-    App,
-    Home,
-    Landing,
-    NotFound,
-    Login,
-    ChallengeDetails,
-    Register,
-  } from 'containers';
+import {isLoaded as isAuthLoaded, load as loadAuth} from 'redux/modules/auth';
+import {Home, Landing, NotFound, Login, ChallengeDetails, Register, VerifyEmail} from 'containers';
 
 export default (store) => {
 
   const redirectToHome = (nextState, replace, cb) => {
-    const { auth: { user }} = store.getState();
+    const { auth: { user } } = store.getState();
     if (user) {
       replace('/home');
     }
@@ -31,14 +23,15 @@ export default (store) => {
 
   return (
     <Route onEnter={loadInitialState}>
-       <Route path="/" onEnter={redirectToHome} component={Landing}/>
-       <Route path="/home" component={Home}/>
-       <Route path="/login" onEnter={redirectToHome} component={Login}/>
-       <Route path="/register" onEnter={redirectToHome} component={Register}/>
-       <Route path="/challenge/:id" component={ChallengeDetails}/>
+      <Route path="/" onEnter={redirectToHome} component={Landing}/>
+      <Route path="/home" component={Home}/>
+      <Route path="/login" onEnter={redirectToHome} component={Login}/>
+      <Route path="/register" onEnter={redirectToHome} component={Register}/>
+      <Route path="/challenge/:id" component={ChallengeDetails}/>
+      <Route path="/verify-email/:code" component={VerifyEmail}/>
 
       { /* Catch all route */ }
-      <Route path="*" component={NotFound} status={404} />
+      <Route path="*" component={NotFound} status={404}/>
     </Route>
   );
 };

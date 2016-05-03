@@ -50,7 +50,7 @@ export default class Header extends Component {
             }
             {user &&
               <Nav pullRight>
-                <NavDropdown eventKey={3} title={'Signed in as ' + user.username}>
+                <NavDropdown id="user-options" eventKey={3} title={'Signed in as ' + user.username}>
                   <MenuItem eventKey={3.1} href="/profile">My Profile</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey={3.3} onClick={logout}>Logout</MenuItem>

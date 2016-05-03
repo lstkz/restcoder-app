@@ -1,6 +1,8 @@
 import {createAction} from 'redux-actions';
 import {push} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
+import {ERROR as GLOBAL_ERROR} from './global';
+
 const apiClient = new ApiClient();
 
 const LOGGED_IN = 'auth/LOGGED_IN';
@@ -10,6 +12,7 @@ const LOAD_FAIL = 'auth/LOAD_FAIL';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 const REGISTERED = 'auth/REGISTERED';
 const CLEAR_CONFIRM_EMAIL_INFO = 'auth/CLEAR_CONFIRM_EMAIL_INFO';
+const IGNORE = 'auth/IGNORE';
 
 
 const initialState = {
@@ -36,10 +39,11 @@ export default function reducer(state = initialState, action = {}) {
         error: action.error
       };
     case LOGGED_IN:
+      const user = (action.payload || action.result).user;
       return {
         ...state,
-        user: action.payload.user,
-        isLoggedIn: !!action.payload.user
+        user,
+        isLoggedIn: !!user
       };
     case LOGOUT_SUCCESS:
       return {
@@ -67,6 +71,13 @@ export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: (client) => client.get('/me')
+  };
+}
+
+export function verifyEmail(code) {
+  return {
+    types: [IGNORE, LOGGED_IN, GLOBAL_ERROR],
+    promise: (client) => client.post('/verify-email/' + code)
   };
 }
 
