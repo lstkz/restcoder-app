@@ -22,3 +22,4 @@ export ChallengeHelp from './ChallengeHelp/ChallengeHelp';
 export RegisterForm from './RegisterForm/RegisterForm';
 export ActivationLinkInfo from './ActivationLinkInfo/ActivationLinkInfo';
 export ErrorMessage from './ErrorMessage/ErrorMessage';
+export FatalError from './FatalError/FatalError';

@@ -6,7 +6,6 @@ import {Link} from 'react-router';
 export default class ChallengeList extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired,
     error: PropTypes.string,
     isLoggedIn: PropTypes.bool.isRequired
   };
