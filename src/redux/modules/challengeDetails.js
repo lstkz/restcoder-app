@@ -1,28 +1,15 @@
-const LOAD = 'challengeDetails/LOAD';
-const LOAD_SUCCESS = 'challengeDetails/LOAD_SUCCESS';
-const LOAD_FAIL = 'challengeDetails/LOAD_FAIL';
+import {handleActions} from 'redux-actions';
 
-const initialState = {
-  loading: true,
-  error: null
-};
-
-export default function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case LOAD:
-      return {...state, loading: true};
-    case LOAD_SUCCESS:
-      return {...state, loading: false, challenge: action.result};
-    case LOAD_FAIL:
-      return {...state, loading: false, error: action.error};
-    default:
-      return state;
-  }
-}
+const CHALLENGE_LOAD = 'challengeDetails/CHALLENGE_LOAD';
 
 export function loadChallenge(id) {
   return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/problems/' + id)
+    fatal: true,
+    type: CHALLENGE_LOAD,
+    promise: ({client}) => client.get('/problems/' + id)
   };
 }
+
+export default handleActions({
+  [CHALLENGE_LOAD]: (state, {payload: challenge}) => ({...state, challenge})
+}, {});

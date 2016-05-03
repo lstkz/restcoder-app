@@ -121,6 +121,7 @@ module.exports = {
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
+    new webpack.IgnorePlugin(/renderkid/),
     new webpack.DefinePlugin({
       __CLIENT__: true,
       __SERVER__: false,

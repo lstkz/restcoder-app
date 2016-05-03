@@ -1,4 +1,3 @@
-
 import {createAction, handleActions} from 'redux-actions';
 import _ from 'underscore';
 

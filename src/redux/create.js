@@ -12,6 +12,10 @@ export default function createStore(history, client, data) {
   if (__DEVELOPMENT__ && __CLIENT__) {
     middleware.push(createLogger({collapsed: true}));
   }
+  if (__DEVELOPMENT__ && __SERVER__) {
+    const createNodeLogger = require('redux-node-logger');
+    middleware.push(createNodeLogger());
+  }
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
     const { persistState } = require('redux-devtools');
