@@ -74,8 +74,8 @@ export const handleRegisterSubmit = (values, dispatch) => {
 };
 
 export default handleActions({
-  [LOAD]: (state, {payload: {user}}) => ({...state, user, loggedIn: !!user, loaded: true}),
-  [LOGGED_IN]: (state, {payload: {user}}) => ({...state, user, loggedIn: true}),
+  [LOAD]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: !!user, loaded: true}),
+  [LOGGED_IN]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: true}),
 
   // for backend processing only
   // it will read token, set auth cookie and redirect to home

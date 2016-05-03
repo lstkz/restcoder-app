@@ -13,8 +13,14 @@ export default function createStore(history, client, data) {
     middleware.push(createLogger({collapsed: true}));
   }
   if (__DEVELOPMENT__ && __SERVER__) {
-    const createNodeLogger = require('redux-node-logger');
-    middleware.push(createNodeLogger());
+    middleware.push(() => next => action => {
+      console.log(action.type);
+      if (action.payload) {
+        console.log(JSON.stringify(action.payload));
+      }
+      console.log('----------------------------------------');
+      return next(action);
+    });
   }
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
