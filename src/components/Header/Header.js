@@ -33,7 +33,9 @@ export default class Header extends Component {
               <LinkContainer to="/home">
                 <NavItem eventKey={1}>Practice</NavItem>
               </LinkContainer>
-              <NavItem eventKey={2} href="#">Ranking</NavItem>
+              <LinkContainer to="/ranking">
+                <NavItem eventKey={2}>Ranking</NavItem>
+              </LinkContainer>
               <NavItem eventKey={2} href="#">Help</NavItem>
             </Nav>
             {!user &&
