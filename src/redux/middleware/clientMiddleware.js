@@ -1,6 +1,8 @@
+import {push} from 'react-router-redux';
 const FATAL_ERROR = 'FATAL_ERROR';
 const START_LOADER = 'START_LOADER';
 const END_LOADER = 'END_LOADER';
+const NOT_FOUND = 'NOT_FOUND';
 
 export default function clientMiddleware(client) {
   return ({dispatch, getState}) => {
@@ -19,8 +21,13 @@ export default function clientMiddleware(client) {
             if (err && err.stack) {
               console.log(err.stack);
             }
-            console.log('FATAL_ERROR');
-            next({ type: FATAL_ERROR });
+            if (err && err.status === 404) {
+              console.log('NOT_FOUND');
+              next({ type: NOT_FOUND });
+            } else {
+              console.log('FATAL_ERROR');
+              next({ type: FATAL_ERROR });
+            }
           });
       }
 

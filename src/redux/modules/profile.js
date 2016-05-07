@@ -15,5 +15,7 @@ export function init(username) {
 export default handleActions({
   [LOAD_USER]: (state, {payload: user}) => ({...state, user})
 }, {
-  user: null
+  user: {
+    stats: {}
+  }
 });

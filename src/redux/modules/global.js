@@ -7,6 +7,7 @@ export const FATAL_ERROR = 'FATAL_ERROR';
 const CLEAR_ERROR = 'global/CLEAR_ERROR';
 const START_LOADER = 'START_LOADER';
 const END_LOADER = 'END_LOADER';
+const NOT_FOUND = 'NOT_FOUND';
 
 const initialState = {
   loading: false,
@@ -31,6 +32,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false
       };
+    case NOT_FOUND:
+      return {...state, notFound: true};
     case CLEAR_ERROR:
       return {...state, error: null};
     case FATAL_ERROR:

@@ -54,6 +54,7 @@ export default (store) => {
       <Route path="/challenge/:id" component={ChallengeDetails}/>
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
+      <Route path="/404" component={NotFound} status={404}/>
 
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404}/>
