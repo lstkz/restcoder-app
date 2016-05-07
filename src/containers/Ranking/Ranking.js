@@ -14,22 +14,41 @@ import {App} from '../';
 export default class Ranking extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    filter: PropTypes.object.isRequired,
     filters: PropTypes.array.isRequired,
+    language: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
     changeLanguage: PropTypes.func.isRequired,
     changePage: PropTypes.func.isRequired
   };
 
-  toggleFilter({name}) {
-    const current = this.props.filter.language[0];
-    if (current === name) {
+  constructor(props) {
+    super(props);
+    this.state = this.getStateFromProps(props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState(this.getStateFromProps(props));
+  }
+
+  getStateFromProps(props) {
+    const {language} = props;
+    return {
+      filter: { language: [language || 'any'] }
+    };
+  }
+
+  toggleFilter({name: language}) {
+    if (language === this.props.language) {
       return;
     }
-    this.props.changeLanguage(name);
+    this.props.changeLanguage(language);
   }
 
   render() {
-    const {filters, filter, changePage} = this.props;
+    const {filters, changePage, page, totalPages} = this.props;
+    console.log(page);
+    const {filter} = this.state;
     return (
       <App>
         <div className={classNames(styles.Ranking, 'container')}>
@@ -38,7 +57,7 @@ export default class Ranking extends React.Component {
               <h4>Overall ranking</h4>
               <RankingComp {...this.props} />
 
-              <Paginate pageNum={60} clickCallback={(item) => changePage(item.selected)} />
+              <Paginate pageNum={totalPages} clickCallback={(item) => changePage(item.selected)} />
             </div>
 
             <div className="col-md-3">

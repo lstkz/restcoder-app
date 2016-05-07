@@ -8,7 +8,7 @@ export default class Paginate extends React.Component {
   render() {
     return (
       <div className={classNames(styles.Paginate, '')}>
-        <div className="pagination aa22">
+        <div className="pagination">
           <ReactPaginate previousLabel={"previous"}
                          nextLabel={"next"}
                          breakLabel={<span>...</span>}

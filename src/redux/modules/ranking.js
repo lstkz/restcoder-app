@@ -1,11 +1,15 @@
 import {handleActions} from 'redux-actions';
-import {GLOBAL_ERROR} from './global';
+import {ERROR} from './global';
 
 const PAGE_SIZE = 10;
 const LOAD_RANKING = 'ranking/LOAD_RANKING';
 const LANGUAGE_CHANGE = 'ranking/LANGUAGE_CHANGE';
 const CHANGE_PAGE = 'ranking/CHANGE_PAGE';
 const IGNORE = 'ranking/IGNORE';
+
+function _getTotalPages(total) {
+  return Math.ceil(total / PAGE_SIZE);
+}
 
 export function init() {
   console.log('init');
@@ -18,13 +22,18 @@ export function init() {
 
 export function changePage(page) {
   return {
-    page,
     loader: true,
-    types: [IGNORE, CHANGE_PAGE, GLOBAL_ERROR],
-    promise: ({client, getState}) => {
-      const params = {...getState().ranking.params}
-      params.offset = (page - 1) * PAGE_SIZE;
-      return client.get('/ranking/', { params });
+    types: [IGNORE, CHANGE_PAGE, ERROR],
+    promise: async ({client, getState}) => {
+      const params = {};
+      const {language} = getState().ranking;
+      if (language && language !== 'any') {
+        params.language = language;
+      }
+      params.offset = page * PAGE_SIZE;
+      const result = await client.get('/ranking/', { params });
+      result.page = page;
+      return result;
     }
   };
 }
@@ -35,27 +44,31 @@ export function changeLanguage(language) {
     params.language = language;
   }
   return {
-    params,
-    language,
     loader: true,
-    types: [IGNORE, LANGUAGE_CHANGE, GLOBAL_ERROR],
-    promise: ({client}) => client.get('/ranking/', { params })
+    types: [IGNORE, LANGUAGE_CHANGE, ERROR],
+    promise: async ({client}) => {
+      const result = await client.get('/ranking/', { params });
+      result.language = language;
+      return result;
+    }
   };
 }
 
 export default handleActions({
   [LOAD_RANKING]: (state, { payload: [{ items, total }, filters] }) => {
-    return { ...state, items, total, filters, filter: { language: ['any'] }, params: {} };
+    return { ...state, items, total, filters, language: 'any', page: 0, totalPages: _getTotalPages(total) };
   },
-  [LANGUAGE_CHANGE]: (state, { payload: { items, total }, language, params }) => {
-    return ({ ...state, filter: { language: [language] }, params, items, total });
+  [LANGUAGE_CHANGE]: (state, { payload: { items, total, language } }) => {
+    return ({ ...state, language, items, total, page: 0, totalPages: _getTotalPages(total) });
+  },
+  [CHANGE_PAGE]: (state, { payload: { items, total, page } }) => {
+    return ({ ...state, page, items, total });
   }
 }, {
   items: [],
   params: {},
+  page: 0,
+  totalPages: 0,
   total: 0,
-  filter: {
-    language: ['any']
-  },
   filters: []
 });
