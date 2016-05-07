@@ -1,4 +1,15 @@
 .Ranking {
+  table {
+    background-color: #edeff1;
+    border-radius: 4px;
+  }
+  td, tr {
+    vertical-align: middle !important;
+    img {
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+  }
   :global {
   }
 }

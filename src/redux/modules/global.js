@@ -5,6 +5,8 @@ const END_GLOBAL_LOAD = 'reduxAsyncConnect/END_GLOBAL_LOAD';
 export const ERROR = 'global/ERROR';
 export const FATAL_ERROR = 'FATAL_ERROR';
 const CLEAR_ERROR = 'global/CLEAR_ERROR';
+const START_LOADER = 'START_LOADER';
+const END_LOADER = 'END_LOADER';
 
 const initialState = {
   loading: false,
@@ -16,11 +18,13 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case START_LOADER:
     case BEGIN_GLOBAL_LOAD:
       return {
         ...state,
         loading: true
       };
+    case END_LOADER:
     case END_GLOBAL_LOAD:
       return {
         ...state,

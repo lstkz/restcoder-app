@@ -31,7 +31,7 @@ export default class ChallengeFilter extends React.Component {
               <li className="nav-header">{filter.name}</li>,
               filter.items.map((item) =>
                 <li className={getClass(filter.name, item.name)}>
-                  <a href="#" onClick={(e) => this.toggle(e, filter.name, item.name)}>
+                  <a onClick={(e) => this.toggle(e, filter.name, item.name)}>
                   {item.name} <span className="badge pull-right">{item.count}</span>
                   </a>
                 </li>),

@@ -6,6 +6,20 @@ export default class Ranking extends React.Component {
     items: PropTypes.array.isRequired
   };
 
+  getBestLanguage(stats) {
+    let ret = '';
+    let score = -1;
+    for (const prop in stats) {
+      if (stats.hasOwnProperty(prop)) {
+        if (stats[prop] > score) {
+          score = stats[prop];
+          ret = prop;
+        }
+      }
+    }
+    return ret;
+  }
+
   render() {
     const {items} = this.props;
     return (
@@ -16,13 +30,22 @@ export default class Ranking extends React.Component {
             <thead>
             <tr>
               <th>#</th>
-              <th>User</th>
               <th>Score</th>
+              <th>User</th>
+              <th>Best language</th>
+              <th>Solved problems</th>
+              <th>Total submissions</th>
             </tr>
             </thead>
             <tbody>
             {items.map((item, i) =>
               <tr key={i} className={i % 2 ? 'odd' : 'even'}>
+                <td>{item.rank}</td>
+                <td>{item.score}</td>
+                <td><img width="35" height="35" src={item.image} />{item.username}</td>
+                <td>{this.getBestLanguage(item.stats.languages)}</td>
+                <td>{item.stats.solvedProblems}</td>
+                <td>{item.stats.submissions}</td>
               </tr>
             )}
             </tbody>

@@ -18,12 +18,14 @@ const paths = [
   '../components/SwaggerExplorer/SwaggerExplorer.scss',
   '../components/SwaggerExplorer/JSONSchema.scss',
   '../components/FatalError/FatalError.scss',
+  '../components/Ranking/Ranking.scss',
 //  '../components/Top5/Top5.scss',
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',
   '../containers/Landing/Landing.scss',
   '../containers/Login/Login.scss',
-  '../containers/Register/Register.scss'
+  '../containers/Register/Register.scss',
+  '../containers/Ranking/Ranking.scss'
 ];
 
 // this will fix blinking of unstyled content in initial page load
