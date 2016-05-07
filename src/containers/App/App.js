@@ -3,7 +3,7 @@ import {Header, Footer, ErrorMessage, FatalError} from '../../components';
 import Helmet from 'react-helmet';
 import config from '../../config';
 import {connect} from 'react-redux';
-import * as actions from 'redux/modules/global';
+import * as actions from '../../redux/modules/global';
 
 @connect(state => ({ ...state.global }), {...actions})
 export default class App extends Component {

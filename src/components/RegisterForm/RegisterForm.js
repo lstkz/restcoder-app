@@ -3,7 +3,7 @@ import styles from './RegisterForm.scss';
 import { reduxForm } from 'redux-form';
 import validate from './RegisterFormValidator';
 import classNames from 'classnames';
-import {FormControl} from 'components';
+import {FormControl} from '../../components';
 const fields = [ 'username', 'email', 'password'];
 
 

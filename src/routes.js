@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route} from 'react-router';
-import {isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction} from 'redux/modules/auth';
-import {setError} from 'redux/modules/global';
-import {Home, Landing, NotFound, Login, ChallengeDetails, Register, Ranking} from 'containers';
+import {isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction} from './redux/modules/auth';
+import {setError} from './redux/modules/global';
+import {Home, Landing, NotFound, Login, ChallengeDetails, Register, Ranking} from './containers';
 
 export default (store) => {
 

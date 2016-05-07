@@ -4,8 +4,8 @@ import {asyncConnect} from 'redux-async-connect';
 import styles from './Register.scss';
 import {initialize} from 'redux-form';
 import {App} from '../';
-import {RegisterForm} from 'components';
-import {handleRegisterSubmit} from 'redux/modules/auth';
+import {RegisterForm} from '../../components';
+import {handleRegisterSubmit} from '../../redux/modules/auth';
 
 @asyncConnect([{
   promise: () => {

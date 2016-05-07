@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
-import * as actions from 'redux/modules/ranking';
+import * as actions from '../../redux/modules/ranking';
 import styles from './Ranking.scss';
 import classNames from 'classnames';
-import {Ranking as RankingComp, ChallengeFilter} from 'components';
+import {Ranking as RankingComp, ChallengeFilter, Paginate} from '../../components';
 import {App} from '../';
 
 @asyncConnect([{
@@ -16,7 +16,8 @@ export default class Ranking extends React.Component {
     items: PropTypes.array.isRequired,
     filter: PropTypes.object.isRequired,
     filters: PropTypes.array.isRequired,
-    changeLanguage: PropTypes.func.isRequired
+    changeLanguage: PropTypes.func.isRequired,
+    changePage: PropTypes.func.isRequired
   };
 
   toggleFilter({name}) {
@@ -24,19 +25,20 @@ export default class Ranking extends React.Component {
     if (current === name) {
       return;
     }
-    console.log('toggleFilter');
     this.props.changeLanguage(name);
   }
 
   render() {
-    const {filters, filter} = this.props;
+    const {filters, filter, changePage} = this.props;
     return (
       <App>
         <div className={classNames(styles.Ranking, 'container')}>
           <div className="row">
             <div className="col-md-9">
-              <h4>Overall ranking</h4>
+              <h4>Overall ranking2</h4>
               <RankingComp {...this.props} />
+
+              <Paginate pageNum={60} clickCallback={(item) => changePage(item.selected)} />
             </div>
 
             <div className="col-md-3">

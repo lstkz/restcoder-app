@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import _ from 'underscore';
 import {ChallengeList, ChallengeFilter, ActivationLinkInfo} from '../../components';
-import * as actions from 'redux/modules/challenges';
+import * as actions from '../../redux/modules/challenges';
 import {App} from '../';
 
 

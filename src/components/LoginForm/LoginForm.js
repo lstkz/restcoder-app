@@ -3,7 +3,7 @@ import styles from './LoginForm.scss';
 import { reduxForm } from 'redux-form';
 import validate from './LoginFormValidator';
 import classNames from 'classnames';
-import {FormControl} from 'components';
+import {FormControl} from '../../components';
 const fields = [ 'username', 'password'];
 
 

@@ -1,0 +1,12 @@
+.Paginate {
+  text-align: center;
+
+  :global {
+  }
+  a {
+    cursor: pointer;
+  }
+  li {
+    margin-right: 0;
+  }
+}

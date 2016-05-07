@@ -24,3 +24,4 @@ export ActivationLinkInfo from './ActivationLinkInfo/ActivationLinkInfo';
 export ErrorMessage from './ErrorMessage/ErrorMessage';
 export FatalError from './FatalError/FatalError';
 export Ranking from './Ranking/Ranking';
+export Paginate from './Paginate/Paginate';

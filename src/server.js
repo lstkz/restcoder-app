@@ -12,14 +12,16 @@ import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import ms from 'ms';
+import webpack from 'webpack'
 
+const webpackConfig = require('../webpack/dev.config.js');
+const compiler = webpack(webpackConfig);
 import { match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { syncHistoryWithStore } from 'react-router-redux';
 import {Provider} from 'react-redux';
-import getRoutes from './routes';
-
+let getRoutes = require('./routes');
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort + '/api/v1';
 const pretty = new PrettyError();
 const app = new Express();
@@ -56,6 +58,22 @@ proxy.on('error', (error, req, res) => {
   json = {error: 'proxy_error', reason: error.message};
   res.end(JSON.stringify(json));
 });
+
+
+app.use(require('webpack-dev-middleware')(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  hot: true,
+  stats: {
+    assets: true,
+    colors: true,
+    version: false,
+    hash: false,
+    timings: true,
+    chunks: false,
+    chunkModules: false
+  }
+}));
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.use((req, res) => {
   if (__DEVELOPMENT__) {
@@ -127,3 +145,19 @@ if (config.port) {
 } else {
   console.error('==>     ERROR: No PORT environment variable has been specified');
 }
+
+//if (__DEVELOPMENT__) {
+//  if (module.hot) {
+//    console.log("[HMR] Waiting for server-side updates");
+//
+//    module.hot.accept("./routes", () => {
+//      getRoutes = require("./routes");
+//    });
+//
+//    module.hot.addStatusHandler((status) => {
+//      if (status === "abort") {
+//        setTimeout(() => process.exit(0), 0);
+//      }
+//    });
+//  }
+//}

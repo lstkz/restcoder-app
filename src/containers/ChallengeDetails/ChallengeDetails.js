@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {SwaggerExplorer, Examples, ChallengeHelp} from '../../components';
-import {loadChallenge} from 'redux/modules/challengeDetails';
+import {loadChallenge} from '../../redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
 import {App} from '../';
 

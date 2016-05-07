@@ -19,6 +19,7 @@ const paths = [
   '../components/SwaggerExplorer/JSONSchema.scss',
   '../components/FatalError/FatalError.scss',
   '../components/Ranking/Ranking.scss',
+  '../components/Paginate/Paginate.scss',
 //  '../components/Top5/Top5.scss',
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',

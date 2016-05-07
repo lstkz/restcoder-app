@@ -35,7 +35,7 @@ export default function clientMiddleware(client) {
       }
       next({...rest, type: REQUEST});
 
-      const actionPromise = promise(client);
+      const actionPromise = promise({client, dispatch, getState});
       actionPromise.then(
         (result) => {
           if (loader) {

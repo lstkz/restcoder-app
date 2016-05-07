@@ -4,7 +4,7 @@ import {GlobalSpinner} from '../';
 import {connect} from 'react-redux';
 import {NavDropdown, MenuItem, Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import {logout as logoutAction} from 'redux/modules/auth';
+import {logout as logoutAction} from '../../redux/modules/auth';
 
 @connect(state => ({user: state.auth.user}), {logout: logoutAction})
 export default class Header extends Component {
