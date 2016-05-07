@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import styles from './Ranking.scss';
+import {Link} from'react-router';
 
 export default class Ranking extends React.Component {
   static propTypes = {
@@ -42,7 +43,7 @@ export default class Ranking extends React.Component {
               <tr key={i} className={i % 2 ? 'odd' : 'even'}>
                 <td>{item.rank}</td>
                 <td>{item.score}</td>
-                <td><img width="35" height="35" src={item.image} />{item.username}</td>
+                <td><Link to={`/profile/${item.username}`}><img width="35" height="35" src={item.image} />{item.username}</Link></td>
                 <td>{this.getBestLanguage(item.stats.languages)}</td>
                 <td>{item.stats.solvedProblems}</td>
                 <td>{item.stats.submissions}</td>

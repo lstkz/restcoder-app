@@ -25,3 +25,6 @@ export ErrorMessage from './ErrorMessage/ErrorMessage';
 export FatalError from './FatalError/FatalError';
 export Ranking from './Ranking/Ranking';
 export Paginate from './Paginate/Paginate';
+export ProfileInfo from './ProfileInfo/ProfileInfo';
+export ProfileStats from './ProfileStats/ProfileStats';
+export ProfileSubmissionHistory from './ProfileSubmissionHistory/ProfileSubmissionHistory';

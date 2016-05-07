@@ -8,6 +8,7 @@ import challenges from './challenges';
 import global from './global';
 import challengeDetails from './challengeDetails';
 import ranking from './ranking';
+import profile from './profile';
 
 export default combineReducers({
   routing: routerReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   challenges,
   global,
   challengeDetails,
-  ranking
+  ranking,
+  profile
 });
