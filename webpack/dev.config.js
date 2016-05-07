@@ -6,7 +6,7 @@ var path = require('path');
 var webpack = require('webpack');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var host = (process.env.HOST || 'localhost');
-var port = (+process.env.PORT ) || 3000;
+var port = (+process.env.PORT + 1) || 3001;
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -62,6 +62,7 @@ reactTransform[1].transforms.push({
 });
 module.exports = {
 //  devtool: 'inline-source-map',
+//  devtool: 'source-map',
    devtool: 'inline-eval-cheap-source-map',
 //  devtool: 'eval',
   context: path.resolve(__dirname, '..'),

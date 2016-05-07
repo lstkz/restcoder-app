@@ -35,7 +35,7 @@ export default class Ranking extends React.Component {
         <div className={classNames(styles.Ranking, 'container')}>
           <div className="row">
             <div className="col-md-9">
-              <h4>Overall ranking2</h4>
+              <h4>Overall ranking</h4>
               <RankingComp {...this.props} />
 
               <Paginate pageNum={60} clickCallback={(item) => changePage(item.selected)} />

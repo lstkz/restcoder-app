@@ -10,29 +10,25 @@ import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
-import http from 'http';
 import ms from 'ms';
-import webpack from 'webpack'
+import http from 'http';
 
-const webpackConfig = require('../webpack/dev.config.js');
-const compiler = webpack(webpackConfig);
 import { match } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
-import { syncHistoryWithStore } from 'react-router-redux';
 import {Provider} from 'react-redux';
-let getRoutes = require('./routes');
+import getRoutes from './routes';
+const AUTH_COOKIE_NAME = 'auth';
+const AUTH_COOKIE_EXPIRATION = ms('14d');
+
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort + '/api/v1';
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: targetUrl,
-  ws: true
+  target: targetUrl
 });
-
-const AUTH_COOKIE_NAME = 'auth';
-const AUTH_COOKIE_EXPIRATION = ms('14d');
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
@@ -43,7 +39,6 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 app.use('/api', (req, res) => {
   proxy.web(req, res, {target: targetUrl});
 });
-
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
@@ -59,22 +54,6 @@ proxy.on('error', (error, req, res) => {
   res.end(JSON.stringify(json));
 });
 
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  hot: true,
-  stats: {
-    assets: true,
-    colors: true,
-    version: false,
-    hash: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false
-  }
-}));
-app.use(require('webpack-hot-middleware')(compiler));
-
 app.use((req, res) => {
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
@@ -83,13 +62,8 @@ app.use((req, res) => {
   }
   const client = new ApiClient(req);
   const memoryHistory = createHistory(req.originalUrl);
-
   const store = createStore(memoryHistory, client);
-  const history = syncHistoryWithStore(memoryHistory, store, {
-    selectLocationState: (state) => {
-      return state.routing;
-    }
-  });
+  const history = syncHistoryWithStore(memoryHistory, store);
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
@@ -145,19 +119,3 @@ if (config.port) {
 } else {
   console.error('==>     ERROR: No PORT environment variable has been specified');
 }
-
-//if (__DEVELOPMENT__) {
-//  if (module.hot) {
-//    console.log("[HMR] Waiting for server-side updates");
-//
-//    module.hot.accept("./routes", () => {
-//      getRoutes = require("./routes");
-//    });
-//
-//    module.hot.addStatusHandler((status) => {
-//      if (status === "abort") {
-//        setTimeout(() => process.exit(0), 0);
-//      }
-//    });
-//  }
-//}

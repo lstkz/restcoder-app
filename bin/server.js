@@ -7,16 +7,29 @@ var rootDir = path.resolve(__dirname, '..');
  */
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
-global.__DISABLE_SSR__ = true;  // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING
+global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 if (!global.__DEVELOPMENT__) {
   global.__DISABLE_SSR__ = false;
 }
 
+function init() {
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
-var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))
-  .development(__DEVELOPMENT__)
-  .server(rootDir, function () {
-    require('../src/server');
-  });
+  var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
+  global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))
+    .development(__DEVELOPMENT__)
+    .server(rootDir, function() {
+      require('../src/server');
+    });
+}
+
+if (__DEVELOPMENT__) {
+  if (require('piping')({
+      hook: true,
+      ignore: /(\/\.|~$|\.json|\.scss$)/i
+    })) {
+    init();
+  }
+} else {
+  init();
+}
