@@ -7,16 +7,25 @@ import ReactDOM from 'react-dom';
 import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
 import {Provider} from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { Router, useRouterHistory } from 'react-router';
 import { ReduxAsyncConnect } from 'redux-async-connect';
-import useScroll from 'scroll-behavior/lib/useStandardScroll';
+import withScroll from 'scroll-behavior';
+import { syncHistoryWithStore } from 'react-router-redux'
+import createBrowserHistory from 'history/lib/createBrowserHistory'// Configure history for react-router
+const browserHistory = useRouterHistory(createBrowserHistory)({
+});
 
 import getRoutes from './routes';
 
 const client = new ApiClient();
-const history = useScroll(() => browserHistory)();
+//const history = withScroll(() => browserHistory)();
 const dest = document.getElementById('content');
-const store = createStore(history, client, window.__data);
+const store = createStore(browserHistory, client, window.__data);
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: (state) => {
+    return state.routing;
+  }
+});
 
 const component = (
   <Router render={(props) =>

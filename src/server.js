@@ -16,6 +16,7 @@ import ms from 'ms';
 import { match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
+import { syncHistoryWithStore } from 'react-router-redux';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
@@ -63,9 +64,14 @@ app.use((req, res) => {
     webpackIsomorphicTools.refresh();
   }
   const client = new ApiClient(req);
-  const history = createHistory(req.originalUrl);
+  const memoryHistory = createHistory(req.originalUrl);
 
-  const store = createStore(history, client);
+  const store = createStore(memoryHistory, client);
+  const history = syncHistoryWithStore(memoryHistory, store, {
+    selectLocationState: (state) => {
+      return state.routing;
+    }
+  });
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +

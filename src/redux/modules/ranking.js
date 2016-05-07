@@ -16,16 +16,13 @@ export function init() {
 }
 
 export function changeLanguage(language) {
-  return function (dispatch, getState) {
-    dispatch({type: IGNORE})
-  }
   const params = {};
   if (language !== 'any') {
     params.language = language;
   }
   return {
     language,
-//    loader: true,
+    loader: true,
     types: [IGNORE, LANGUAGE_CHANGE, GLOBAL_ERROR],
     promise: (client) => client.get('/ranking/', { params })
   };
