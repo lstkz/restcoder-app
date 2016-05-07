@@ -12,7 +12,6 @@ function _getTotalPages(total) {
 }
 
 export function init() {
-  console.log('init');
   return {
     fatal: true,
     type: LOAD_RANKING,

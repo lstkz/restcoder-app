@@ -22,7 +22,8 @@ export default function reducer(state = initialState, action = {}) {
     case BEGIN_GLOBAL_LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
+        isFatal: false
       };
     case END_LOADER:
     case END_GLOBAL_LOAD:
