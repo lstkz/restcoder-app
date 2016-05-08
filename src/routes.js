@@ -20,7 +20,12 @@ export default (store) => {
       if (error) {
         store.dispatch(setError({error}));
       }
-      store.dispatch(loadAuth()).then(() => cb()).catch(() => {
+      store.dispatch(loadAuth()).then(() => cb()).catch((err) => {
+        if (err && err.stack) {
+          console.log(err.stack);
+        } else {
+          console.log(err);
+        }
         store.dispatch({type: 'FATAL_ERROR'});
         cb();
       });

@@ -37,7 +37,17 @@ class _ApiClient {
           request.send(data);
         }
 
-        request.end((err, { body, status } = {}) => err ? reject({...body, status}) : resolve(body));
+        request.end((err, { body, status } = {}) => {
+          if (err) {
+            if (!status) {
+              reject(err);
+            } else {
+              reject({...body, status});
+            }
+          } else {
+            resolve(body);
+          }
+        });
       }));
   }
 }

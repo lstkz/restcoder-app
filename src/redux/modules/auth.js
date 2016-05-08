@@ -24,7 +24,7 @@ export function load() {
 export function verifyEmail(code) {
   return {
     types: [IGNORE, EMAIL_VERIFIED, GLOBAL_ERROR],
-    promise: (client) => client.post('/verify-email/' + code)
+    promise: ({client}) => client.post('/verify-email/' + code)
   };
 }
 
