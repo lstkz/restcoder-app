@@ -10,11 +10,11 @@ export default class Paginate extends React.Component {
       <div className={classNames(styles.Paginate, '')}>
         <div className="pagination">
           <ReactPaginate previousLabel={"previous"}
-                         nextLabel={"next"}
-                         breakLabel={<span>...</span>}
-                         marginPagesDisplayed={2}
-                         pageRangeDisplayed={5}
-                         activeClassName={"active"}
+            nextLabel={"next"}
+            breakLabel={<span>...</span>}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            activeClassName={"active"}
             {...this.props}
           />
         </div>

@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
 import styles from './Footer.scss';
 import classNames from 'classnames';
 
@@ -22,8 +21,8 @@ export default class Header extends Component {
             </div>
             <div className="col-md-2 col-sm-2">
               <ul className="bottom-menu-iconic-list">
-                <li><a className="fui-facebook"/></li>
-                <li><a className="fui-twitter"/></li>
+                <li><a className="fui-facebook" /></li>
+                <li><a className="fui-twitter" /></li>
               </ul>
             </div>
           </div>

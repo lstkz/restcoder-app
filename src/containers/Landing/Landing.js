@@ -26,9 +26,9 @@ export default class Landing extends Component {
 
   render() {
     require('./Landing.scss');
-    const myPhotoStyle = {
-      backgroundImage: "url('https://www.topcoder.com/i/m/Sky_.jpeg')"
-    };
+//    const myPhotoStyle = {
+//      backgroundImage: "url('https://www.topcoder.com/i/m/Sky_.jpeg')"
+//    };
     return (
       <div className="landingPage">
         <Helmet {...config.app.head}/>

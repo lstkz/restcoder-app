@@ -31,9 +31,9 @@ export default class Examples extends React.Component {
     const options = {
       autoRefresh: true,
       lineNumbers: false,
-      mode: "application/ld+json",
+      mode: 'application/ld+json',
       readOnly: true,
-      theme: "material"
+      theme: 'material'
     };
     return <Codemirror {...options} value={body} />;
   }

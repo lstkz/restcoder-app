@@ -42,7 +42,7 @@ class _ApiClient {
             if (!status) {
               reject(err);
             } else {
-              reject({...body, status});
+              reject({ ...body, status });
             }
           } else {
             resolve(body);

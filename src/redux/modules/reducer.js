@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-//import { routerReducer as router } from 'react-router-redux'
-import {reducer as reduxAsyncConnect} from 'redux-async-connect';
-import {reducer as form} from 'redux-form';
+// import { routerReducer as router } from 'react-router-redux'
+import { reducer as reduxAsyncConnect } from 'redux-async-connect';
+import { reducer as form } from 'redux-form';
 import auth from './auth';
 import challenges from './challenges';
 import global from './global';
@@ -19,5 +19,5 @@ export default combineReducers({
   global,
   challengeDetails,
   ranking,
-  profile
+  profile,
 });

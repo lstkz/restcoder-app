@@ -1,4 +1,4 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 
 const BEGIN_GLOBAL_LOAD = 'reduxAsyncConnect/BEGIN_GLOBAL_LOAD';
 const END_GLOBAL_LOAD = 'reduxAsyncConnect/END_GLOBAL_LOAD';
@@ -13,7 +13,7 @@ const initialState = {
   loading: false,
   isFatal: false,
   fatalTimestamp: null,
-  error: null
+  error: null,
 };
 
 
@@ -24,25 +24,25 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loading: true,
-        isFatal: false
+        isFatal: false,
       };
     case END_LOADER:
     case END_GLOBAL_LOAD:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
     case NOT_FOUND:
-      return {...state, notFound: true};
+      return { ...state, notFound: true };
     case CLEAR_ERROR:
-      return {...state, error: null};
+      return { ...state, error: null };
     case FATAL_ERROR:
-      return {...state, isFatal: true, fatalTimestamp: new Date().toISOString()};
+      return { ...state, isFatal: true, fatalTimestamp: new Date().toISOString() };
     case ERROR:
       const obj = action.error || action.payload;
       return {
         ...state,
-        error: obj.error || obj.message || 'An error occurred. Please refresh page.'
+        error: obj.error || obj.message || 'An error occurred. Please refresh page.',
       };
     default:
       return state;

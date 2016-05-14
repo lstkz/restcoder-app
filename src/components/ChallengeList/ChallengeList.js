@@ -15,10 +15,6 @@ export default class ChallengeList extends Component {
     const styles = require('./ChallengeList.scss');
     const {items, isLoggedIn} = this.props;
 
-    const tooltip = (
-      <Tooltip id="Unattempted">Unattempted</Tooltip>
-    );
-
     return (
       <div className={styles.ChallengeList}>
         <div className="table-responsive">

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment'
+import moment from 'moment';
 import styles from './ProfileInfo.scss';
 
 export default class ProfileInfo extends React.Component {

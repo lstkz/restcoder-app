@@ -12,11 +12,11 @@ import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import ms from 'ms';
 import http from 'http';
-import {match} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
-import {ReduxAsyncConnect, loadOnServer} from 'redux-async-connect';
+import { match } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import getRoutes from './routes';
 const AUTH_COOKIE_NAME = 'auth';
 const AUTH_COOKIE_EXPIRATION = ms('14d');
@@ -26,7 +26,7 @@ const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: targetUrl
+  target: targetUrl,
 });
 
 app.use(compression());
@@ -66,7 +66,7 @@ app.use((req, res) => {
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
-      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
+      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />));
   }
 
   if (__DISABLE_SSR__) {
@@ -106,7 +106,8 @@ app.use((req, res) => {
 
           res.send('<!doctype html>\n' +
             ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component}
-                                          store={store}/>));
+              store={store}
+            />));
         });
       });
     } else {

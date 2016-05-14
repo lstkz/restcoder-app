@@ -2,11 +2,11 @@ require('babel-polyfill');
 
 const environment = {
   development: {
-    isProduction: false
+    isProduction: false,
   },
   production: {
-    isProduction: true
-  }
+    isProduction: true,
+  },
 }[process.env.NODE_ENV || 'development'];
 
 module.exports = Object.assign({
@@ -20,10 +20,10 @@ module.exports = Object.assign({
     head: {
       titleTemplate: 'RestCoder: %s',
       meta: [
-        {name: 'description', content: 'Practice technologies'},
-        {charset: 'utf-8'},
-      ]
-    }
+        { name: 'description', content: 'Practice technologies' },
+        { charset: 'utf-8' },
+      ],
+    },
   },
 
 }, environment);

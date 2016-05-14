@@ -7,5 +7,5 @@ export default values => {
   if (!values.password) {
     errors.password = 'Required';
   }
-  return errors
+  return errors;
 };

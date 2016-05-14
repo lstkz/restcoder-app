@@ -6,31 +6,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import { Router, useRouterHistory } from 'react-router';
 import { ReduxAsyncConnect } from 'redux-async-connect';
-import withScroll from 'scroll-behavior';
-import { syncHistoryWithStore } from 'react-router-redux'
-import createBrowserHistory from 'history/lib/createBrowserHistory'// Configure history for react-router
+import { syncHistoryWithStore } from 'react-router-redux';
+import createBrowserHistory from 'history/lib/createBrowserHistory';// Configure history for react-router
 const browserHistory = useRouterHistory(createBrowserHistory)({
 });
 
 import getRoutes from './routes';
 
 const client = new ApiClient();
-//const history = withScroll(() => browserHistory)();
 const dest = document.getElementById('content');
 const store = createStore(browserHistory, client, window.__data);
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => {
     return state.routing;
-  }
+  },
 });
 
 const component = (
   <Router render={(props) =>
-        <ReduxAsyncConnect {...props} helpers={{client}} filter={item => !item.deferred} />
-      } history={history}>
+        <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />
+      } history={history}
+  >
     {getRoutes(store)}
   </Router>
 );

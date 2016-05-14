@@ -1,5 +1,5 @@
-import {handleActions} from 'redux-actions';
-import {ERROR} from './global';
+import { handleActions } from 'redux-actions';
+import { ERROR } from './global';
 
 const PAGE_SIZE = 10;
 const LOAD_USER = 'profile/LOAD_USER';
@@ -15,9 +15,9 @@ export function init(username) {
       const usernameDecoded = decodeURIComponent(username);
       return Promise.all([
         client.get('/user/' + usernameDecoded),
-        client.get('/user/' + usernameDecoded + '/submissions', { params: { limit: PAGE_SIZE } })
+        client.get('/user/' + usernameDecoded + '/submissions', { params: { limit: PAGE_SIZE } }),
       ]);
-    }
+    },
   };
 }
 
@@ -31,24 +31,24 @@ export function changeSubmissionsPage(page) {
       return client.get('/user/' + usernameDecoded + '/submissions', {
         params: {
           offset: page * PAGE_SIZE,
-          limit: PAGE_SIZE
-        }
+          limit: PAGE_SIZE,
+        },
       });
-    }
+    },
   };
 }
 
 export default handleActions({
   [LOAD_USER]: (state, { payload: [user, submissions] }) => ({ ...state, user, submissions }),
-  [CHANGE_SUBMISSION_PAGE]: (state, { payload: submissions }) => ({ ...state, submissions })
+  [CHANGE_SUBMISSION_PAGE]: (state, { payload: submissions }) => ({ ...state, submissions }),
 }, {
   user: {
-    stats: {}
+    stats: {},
   },
   submissions: {
     items: [],
     total: 0,
     pageSize: 0,
-    pageNumber: 0
-  }
+    pageNumber: 0,
+  },
 });

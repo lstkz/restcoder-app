@@ -1,20 +1,19 @@
-import {push} from 'react-router-redux';
 const FATAL_ERROR = 'FATAL_ERROR';
 const START_LOADER = 'START_LOADER';
 const END_LOADER = 'END_LOADER';
 const NOT_FOUND = 'NOT_FOUND';
 
 export default function clientMiddleware(client) {
-  return ({dispatch, getState}) => {
+  return ({ dispatch, getState }) => {
     return next => action => {
       if (typeof action === 'function') {
         return action(dispatch, getState);
       }
 
       if (action.fatal) {
-        return action.promise({client, dispatch, getState})
+        return action.promise({ client, dispatch, getState })
           .then((payload) => {
-            next({type: action.type, payload});
+            next({ type: action.type, payload });
           })
           .catch((err) => {
             console.log(err);
@@ -38,30 +37,30 @@ export default function clientMiddleware(client) {
 
       const [REQUEST, SUCCESS, FAILURE] = types;
       if (loader) {
-        next({type: START_LOADER});
+        next({ type: START_LOADER });
       }
-      next({...rest, type: REQUEST});
+      next({ ...rest, type: REQUEST });
 
-      const actionPromise = promise({client, dispatch, getState});
+      const actionPromise = promise({ client, dispatch, getState });
       actionPromise.then(
         (result) => {
           if (loader) {
-            next({type: END_LOADER});
+            next({ type: END_LOADER });
           }
-          next({...rest, payload: result, type: SUCCESS});
+          next({ ...rest, payload: result, type: SUCCESS });
         },
         (error) => {
           if (loader) {
-            next({type: END_LOADER});
+            next({ type: END_LOADER });
           }
-          next({...rest, error, type: FAILURE});
+          next({ ...rest, error, type: FAILURE });
         }
-      ).catch((error)=> {
+      ).catch((error) => {
         if (loader) {
-          next({type: END_LOADER});
+          next({ type: END_LOADER });
         }
         console.error('MIDDLEWARE ERROR:', error, error.stack);
-        next({...rest, error, type: FAILURE});
+        next({ ...rest, error, type: FAILURE });
       });
 
       return actionPromise;

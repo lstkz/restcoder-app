@@ -3,7 +3,7 @@ import {App} from '../';
 import {asyncConnect} from 'redux-async-connect';
 
 @asyncConnect([{
-  promise: ({ params, store: { dispatch } }) => Promise.resolve()
+  promise: () => Promise.resolve()
 }])
 export default class NotFound extends React.Component {
   render() {

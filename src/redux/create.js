@@ -1,7 +1,6 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import createMiddleware from './middleware/clientMiddleware';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { routerMiddleware } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
@@ -11,7 +10,7 @@ export default function createStore(history, client, data) {
 
   const middleware = [createMiddleware(client), thunk, reduxRouterMiddleware];
   if (__DEVELOPMENT__ && __CLIENT__) {
-    middleware.push(createLogger({collapsed: true}));
+    middleware.push(createLogger({ collapsed: true }));
   }
   if (__DEVELOPMENT__ && __SERVER__) {
     middleware.push(() => next => action => {
