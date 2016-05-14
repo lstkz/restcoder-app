@@ -5,19 +5,21 @@ import {asyncConnect} from 'redux-async-connect';
 import * as actions from '../../redux/modules/profile';
 import {App} from '../';
 import {Tabs, Tab} from 'react-bootstrap';
-import {ProfileInfo, ProfileStats, ProfileSubmissionHistory} from '../../components';
+import {ProfileInfo, ProfileStats, ProfileSubmissionHistory, Paginate} from '../../components';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => dispatch(actions.init(params.username))
 }])
-@connect(state => state.profile, {})
+@connect(state => state.profile, {...actions})
 export default class Profile extends React.Component {
   static propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    submissions: PropTypes.object.isRequired,
+    changeSubmissionsPage: PropTypes.func.isRequired,
   };
 
   render() {
-    const {user} = this.props;
+    const {user, submissions, changeSubmissionsPage} = this.props;
 
     return (
       <App>
@@ -37,7 +39,8 @@ export default class Profile extends React.Component {
                       <ProfileStats stats={user.stats} />
                     </Tab>
                     <Tab eventKey={2} title="Submission history">
-                      <ProfileSubmissionHistory />
+                      <ProfileSubmissionHistory items={submissions.items} />
+                      <Paginate pageNum={submissions.totalPages} clickCallback={(item) => changeSubmissionsPage(item.selected)} />
                     </Tab>
                   </Tabs>
                 </div>

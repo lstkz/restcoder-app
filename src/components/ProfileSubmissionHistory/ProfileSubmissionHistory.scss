@@ -1,4 +1,9 @@
 .ProfileSubmissionHistory {
   :global {
   }
+
+  table {
+    table-layout: fixed;
+    min-width: 700px;
+  }
 }

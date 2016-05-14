@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Tooltip from 'react-bootstrap/lib/Tooltip';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import {Link} from 'react-router';
+import classNames from 'classnames';
 
 export default class ChallengeList extends Component {
   static propTypes = {
@@ -37,8 +38,8 @@ export default class ChallengeList extends Component {
             {items.map((item, i) =>
               <tr key={i} className={i % 2 ? 'odd' : 'even'}>
                 {isLoggedIn && <td>
-                  <OverlayTrigger placement="left" overlay={tooltip}>
-                    <i className="fa fa-circle c-gray"/>
+                  <OverlayTrigger placement="left" overlay={<Tooltip id="item">{item.solved ? 'Solved' : 'Unattempted'}</Tooltip>}>
+                    <i className={classNames('fa fa-circle', {'c-gray': !item.solved, 'c-green': item.solved })}/>
                   </OverlayTrigger>
                 </td>}
                 <td>{item.id}</td>
@@ -49,7 +50,7 @@ export default class ChallengeList extends Component {
                 </td>
                 <td className="center">{item.stats.attempts}</td>
                 <td className="center">{item.stats.totalUniqueSolved}</td>
-                <td className="center">{Math.floor(item.stats.totalSolved / item.stats.attempts * 100)}%
+                <td className="center">{item.stats.attempts && Math.floor(item.stats.totalSolved / item.stats.attempts * 100)}%
                 </td>
                 <td className="center">{item.level}</td>
               </tr>

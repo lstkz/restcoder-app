@@ -17,13 +17,13 @@ export default class ProfileStats extends React.Component {
           <div className="col-md-6">
             <h3><i className="fa fa-code"/> Languages</h3>
             {_.map(stats.languages, (score, name) =>
-              <ProgressBar title={name} score={score} />
+              <ProgressBar key={name} title={name} score={score} />
             )}
           </div>
           <div className="col-md-6">
             <h3><i className="fa fa-cloud"/> Technologies</h3>
             {_.map(stats.technologies, (score, name) =>
-              <ProgressBar title={name} score={score} />
+              <ProgressBar key={name} title={name} score={score} />
             )}
           </div>
         </div>
