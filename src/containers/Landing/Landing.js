@@ -108,6 +108,8 @@ export default class Landing extends Component {
                       <img alt="nodejs" title="nodejs" src={require('./languages/icon-nodejs.svg')} />
                       <img alt="ruby" title="ruby" src={require('./languages/icon-ruby.svg')} />
                       <img alt="python" title="python" src={require('./languages/icon-python.svg')} />
+                      <img alt="java" title="java" src={require('./languages/icon-java.svg')} />
+                      <img alt=".net" title=".net" src={require('./languages/net.png')} />
                     </div>
                   </div>
                 </div>
@@ -119,12 +121,10 @@ export default class Landing extends Component {
                 <div className="row">
                   <div className="col-sm-12">
                     <div className="img-wrapper">
-                      <img alt="java" title="java" src={require('./languages/icon-java.svg')} />
                       <img alt="php" title="php" src={require('./languages/icon-php.svg')} />
                       <img alt="clojure" title="clojure" src={require('./languages/clojure.png')} />
                       <img alt="go" title="go" src={require('./languages/golang.png')} />
                       <img alt="scala" title="scala" src={require('./languages/scala.jpg')} />
-                      <img alt=".net" title=".net" src={require('./languages/net.png')} />
                     </div>
                   </div>
                 </div>
