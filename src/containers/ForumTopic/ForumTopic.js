@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {App} from '../';
 import styles from './ForumTopic.scss';
 import {initTopic} from '../../redux/modules/forum';
-import {Post} from '../../components/Forum';
+import {Post, Breadcrumb} from '../../components/Forum';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => dispatch(initTopic(params.id))
@@ -22,6 +22,7 @@ export default class ForumTopic extends React.Component {
       <App>
         <div className={styles.ForumTopic}>
           <div className="container">
+            <Breadcrumb breadcrumbs={topic.breadcrumbs} />
             <h1>{topic.title}</h1>
             {topic.posts.map((post) => <Post key={post.pid} post={post} /> )}
           </div>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import styles from './ForumCategory.scss';
 import {asyncConnect} from 'redux-async-connect';
 import {App} from '../';
-import {SortByBtn, WatchBtn, TopicItem} from '../../components/Forum';
+import {SortByBtn, WatchBtn, TopicItem, Breadcrumb} from '../../components/Forum';
 import {initCategory} from '../../redux/modules/forum';
 import {ButtonToolbar} from 'react-bootstrap';
 
@@ -23,6 +23,8 @@ export default class Forum extends React.Component {
       <App>
         <div classNameName={styles.ForumCategory}>
           <div className="container">
+            <Breadcrumb breadcrumbs={category.breadcrumbs} />
+
             <div className="clearfix">
               <button className="btn btn-primary btn-inverse">New Topic</button>
                <span className="pull-right">

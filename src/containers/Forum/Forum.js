@@ -21,7 +21,7 @@ export default class Forum extends React.Component {
     return (
       <App>
       <div classNameName={styles.Forum}>
-        <div className="container" id="content">
+        <div className="container">
           <h1 className={styles.title}>Categories</h1>
           {categories.map(category => <CategoryItem key={category.cid} category={category} />)}
         </div>
