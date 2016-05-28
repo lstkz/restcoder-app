@@ -22,6 +22,11 @@ const paths = [
   '../components/Paginate/Paginate.scss',
   '../components/ProfileStats/ProfileStats.scss',
   '../components/ProfileInfo/ProfileInfo.scss',
+  '../components/Forum/CategoryItem/CategoryItem.scss',
+  '../components/Forum/StatsNumber/StatsNumber.scss',
+  '../components/Forum/Teaser/Teaser.scss',
+  '../components/Forum/UserIcon/UserIcon.scss',
+  '../components/Forum/Permalink/Permalink.scss',
 //  '../components/Top5/Top5.scss',
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',
@@ -29,6 +34,7 @@ const paths = [
   '../containers/Login/Login.scss',
   '../containers/Register/Register.scss',
   '../containers/Ranking/Ranking.scss',
+  '../containers/Forum/Forum.scss',
 ];
 
 // this will fix blinking of unstyled content in initial page load

@@ -1,0 +1,26 @@
+.Teaser {
+  border-left: 4px solid #ccc;
+  text-align: left;
+  margin-top: 2px;
+  overflow: hidden;
+  height: 53px;
+  font-size: 12px;
+  line-height: 14px;
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  :global {
+  }
+}
+
+.postContent {
+  overflow: hidden;
+  blockquote {
+    display: none;
+  }
+}
+.inner {
+  padding-left: 20px;
+}

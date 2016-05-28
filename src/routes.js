@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction } from './redux/modules/auth';
 import { setError } from './redux/modules/global';
-import { Home, Landing, NotFound, Login, ChallengeDetails, Register, Ranking, Profile } from './containers';
+import { Home, Landing, NotFound, Login, ChallengeDetails, Register, Ranking, Profile, Forum } from './containers';
 
 export default (store) => {
   const redirectToHome = (nextState, replace, cb) => {
@@ -58,6 +58,7 @@ export default (store) => {
       <Route path="/challenge/:id" component={ChallengeDetails} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
+      <Route path="/forum" component={Forum} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}

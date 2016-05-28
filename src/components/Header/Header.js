@@ -24,7 +24,7 @@ export default class Header extends Component {
         <Navbar staticTop inverse>
           <Navbar.Header>
             <Navbar.Brand>
-              <a>RestCoder</a>
+              <Link to="/">RestCoder</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -36,7 +36,10 @@ export default class Header extends Component {
               <LinkContainer to="/ranking">
                 <NavItem eventKey={2}>Ranking</NavItem>
               </LinkContainer>
-              <NavItem eventKey={2} href="#">Help</NavItem>
+              <LinkContainer to="/forum">
+                <NavItem eventKey={2}>Forum</NavItem>
+              </LinkContainer>
+              <NavItem eventKey={3} href="#">Help</NavItem>
             </Nav>
             {!user &&
               <Navbar.Form pullRight>
@@ -53,7 +56,9 @@ export default class Header extends Component {
             {user &&
               <Nav pullRight>
                 <NavDropdown id="user-options" eventKey={3} title={'Signed in as ' + user.username}>
-                  <MenuItem eventKey={3.1} href="/profile">My Profile</MenuItem>
+                  <LinkContainer to={`/profile/${user.username}`}>
+                    <MenuItem eventKey={3.1}>My Profile</MenuItem>
+                  </LinkContainer>
                   <MenuItem divider />
                   <MenuItem eventKey={3.3} onClick={logout}>Logout</MenuItem>
                 </NavDropdown>

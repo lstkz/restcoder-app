@@ -14,7 +14,7 @@ export default class ProfileInfo extends React.Component {
       <div className={styles.ProfileInfo}>
         <img className="img-responsive" src={user.image} alt=""/>
 
-        <div className="rank bgm-red">
+        <div className="rank">
           <h2>{user.rank}</h2>
           Rank
         </div>
@@ -34,7 +34,7 @@ export default class ProfileInfo extends React.Component {
         <h5>Submissions</h5>
         <h6>{user.stats.submissions}</h6>
 
-        <a>Edit profile</a>
+        {/*<a>Edit profile</a>*/}
       </div>
     );
   }

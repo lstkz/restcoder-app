@@ -171,10 +171,10 @@ export default class Landing extends Component {
                 </div>
                 <div className="col-md-8 col-sm-8">
                   <ul className="bottom-menu-list">
-                    <li><a >Challenges</a></li>
-                    <li><a >Ranking</a></li>
-                    <li><a >Help</a></li>
-                    <li><a >Contact</a></li>
+                    <li><Link to="/home" >Practice</Link></li>
+                    <li><Link to="/ranking" >Ranking</Link></li>
+                    <li><Link to="/help" >Help</Link></li>
+                    <li><Link to="/contact" >Contact</Link></li>
                   </ul>
                 </div>
                 <div className="col-md-2 col-sm-2">
