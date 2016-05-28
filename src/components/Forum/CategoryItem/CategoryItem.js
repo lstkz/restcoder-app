@@ -3,6 +3,7 @@ import styles from './CategoryItem.scss';
 import {Link} from 'react-router';
 import StatsNumber from '../StatsNumber/StatsNumber';
 import Teaser from '../Teaser/Teaser';
+import Permalink from '../Permalink/Permalink';
 
 export default class CategoryItem extends React.Component {
   static propTypes = {
@@ -11,7 +12,10 @@ export default class CategoryItem extends React.Component {
 
   render() {
     const { category } = this.props;
-
+    let teaser = null;
+    if (category.teaser) {
+      teaser = {...category.teaser, ...category.posts[0]};
+    }
     return (
       <div className={`${styles.CategoryItem} clearfix`}>
 
@@ -24,17 +28,15 @@ export default class CategoryItem extends React.Component {
           </div>
 
           <h2 className={styles.title}>
-            <Link to={`/forum/category/${category.slug}`} dangerouslySetInnerHTML={{__html: category.name}}>
-            </Link><br/>
+            <Link to={`/forum/category/${category.slug}`} dangerouslySetInnerHTML={{__html: category.name}}/>
+            <br/>
             <div className={styles.description}>
               {category.description}
             </div>
 
           </h2>
           <span className="visible-xs pull-right">
-            <a className="permalink" href="/topic/3/asdsadsadasd/2">
-              <small className="timeago" title="Sat May 28 2016 12:29:12 GMT+0200 (CEST)">2 minutes ago</small>
-            </a>
+            {category.teaser && <Permalink time={category.teaser.timestampISO} to={category.teaser.url} />}
           </span>
         </div>
 
@@ -44,8 +46,8 @@ export default class CategoryItem extends React.Component {
         <div className="col-md-1 hidden-sm hidden-xs stats">
           <StatsNumber title="Posts" count={category.post_count} />
         </div>
-        <div className="col-md-3 col-sm-3 hidden-xs" component="topic/teaser">
-          <Teaser color={category.bgColor} teaser={category.teaser} post={category.posts[0]} />
+        <div className="col-md-3 col-sm-3 hidden-xs">
+          <Teaser color={category.bgColor} teaser={teaser} emptyText="No new posts." />
         </div>
       </div>
     );

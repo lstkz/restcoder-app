@@ -5,24 +5,24 @@ import Permalink from '../Permalink/Permalink';
 
 export default class Teaser extends React.Component {
   static propTypes = {
-    post: PropTypes.object,
     teaser: PropTypes.object,
-    color: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    emptyText: PropTypes.string.isRequired
   };
 
   renderBody() {
-    const {post, teaser} = this.props;
-    if (!post) {
-      return <p>No new posts.</p>;
+    const {teaser, emptyText} = this.props;
+    if (!teaser) {
+      return <p>{emptyText}</p>;
     }
     return (
       <div>
         <p>
-          <UserIcon user={post.user} />
+          <UserIcon user={teaser.user} />
           &nbsp;
           <Permalink time={teaser.timestampISO} to={teaser.url} />
         </p>
-        <div className={styles.postContent} dangerouslySetInnerHTML={{__html: post.content}}>
+        <div className={styles.postContent} dangerouslySetInnerHTML={{__html: teaser.content}}>
         </div>
       </div>
     );

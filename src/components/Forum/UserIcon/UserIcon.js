@@ -5,14 +5,15 @@ import {Link} from 'react-router';
 export default class UserIcon extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
+    large: PropTypes.bool
   };
 
   render() {
-    const {user} = this.props;
+    const {user, large} = this.props;
 
     return (
       <Link to={`/profile/${user.username}`}>
-          <span className={styles.UserIcon} style={{backgroundColor: user['icon:bgColor']}} title="">{user['icon:text']}</span>
+          <span className={`${styles.UserIcon} ${large ? styles.large : ''}`} style={{backgroundColor: user['icon:bgColor']}} title="">{user['icon:text']}</span>
       </Link>
     );
   }
