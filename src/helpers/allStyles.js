@@ -28,6 +28,7 @@ const paths = [
   '../components/Forum/UserIcon/UserIcon.scss',
   '../components/Forum/Permalink/Permalink.scss',
   '../components/Forum/TopicItem/TopicItem.scss',
+  '../components/Forum/Post/Post.scss',
 //  '../components/Top5/Top5.scss',
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',
@@ -36,6 +37,7 @@ const paths = [
   '../containers/Register/Register.scss',
   '../containers/Ranking/Ranking.scss',
   '../containers/Forum/Forum.scss',
+  '../containers/ForumTopic/ForumTopic.scss',
 ];
 
 // this will fix blinking of unstyled content in initial page load

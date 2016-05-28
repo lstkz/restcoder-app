@@ -13,6 +13,7 @@ import {
   Profile,
   Forum,
   ForumCategory,
+  ForumTopic,
 } from './containers';
 
 export default (store) => {
@@ -72,6 +73,8 @@ export default (store) => {
       <Route path="/forum" component={Forum} />
       <Route path="/forum/category/:id" component={ForumCategory} />
       <Route path="/forum/category/:id/:name" component={ForumCategory} />
+      <Route path="/forum/topic/:id" component={ForumTopic} />
+      <Route path="/forum/topic/:id/:name" component={ForumTopic} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}

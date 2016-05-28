@@ -2,6 +2,7 @@ import {handleActions} from 'redux-actions';
 
 const INIT_CATEGORIES = 'forum/INIT_CATEGORIES';
 const INIT_CATEGORY = 'forum/INIT_CATEGORY';
+const INIT_TOPIC = 'forum/INIT_TOPIC';
 const IGNORE = 'forum/IGNORE';
 
 export function initCategories() {
@@ -20,6 +21,14 @@ export function initCategory(id) {
   };
 }
 
+export function initTopic(id) {
+  return {
+    fatal: true,
+    type: INIT_TOPIC,
+    promise: ({ client }) => client.get('/forum/topic/' + id)
+  };
+}
+
 
 export default handleActions({
   [INIT_CATEGORIES]: (state, { payload: categories }) => {
@@ -27,6 +36,9 @@ export default handleActions({
   },
   [INIT_CATEGORY]: (state, { payload: category }) => {
     return { ...state, category };
+  },
+  [INIT_TOPIC]: (state, { payload: topic }) => {
+    return { ...state, topic };
   },
 }, {
   categories: [],
