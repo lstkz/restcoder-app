@@ -2,9 +2,10 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styles from './Forum.scss';
 import {asyncConnect} from 'redux-async-connect';
-import {App} from '../';
+import ForumWrapper from '../ForumWrapper/ForumWrapper';
 import {CategoryItem} from '../../components/Forum';
 import {initCategories} from '../../redux/modules/forum';
+
 
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => dispatch(initCategories())
@@ -17,16 +18,16 @@ export default class Forum extends React.Component {
   };
 
   render() {
-    const {categories} = this.props;
+    const { categories } = this.props;
     return (
-      <App>
-      <div classNameName={styles.Forum}>
-        <div className="container">
-          <h1 className={styles.title}>Categories</h1>
-          {categories.map(category => <CategoryItem key={category.cid} category={category} />)}
+      <ForumWrapper>
+        <div classNameName={styles.Forum}>
+          <div className="container">
+            <h1 className={styles.title}>Categories</h1>
+            {categories.map(category => <CategoryItem key={category.cid} category={category}/>)}
+          </div>
         </div>
-      </div>
-      </App>
+      </ForumWrapper>
     );
   }
 }

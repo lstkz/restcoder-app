@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {asyncConnect} from 'redux-async-connect';
 import {connect} from 'react-redux';
-import {App} from '../';
+import ForumWrapper from '../ForumWrapper/ForumWrapper';
 import styles from './ForumTopic.scss';
 import {initTopic} from '../../redux/modules/forum';
 import {Post, Breadcrumb} from '../../components/Forum';
@@ -19,7 +19,7 @@ export default class ForumTopic extends React.Component {
     const {topic} = this.props;
 
     return (
-      <App>
+      <ForumWrapper>
         <div className={styles.ForumTopic}>
           <div className="container">
             <Breadcrumb breadcrumbs={topic.breadcrumbs} />
@@ -27,7 +27,7 @@ export default class ForumTopic extends React.Component {
             {topic.posts.map((post) => <Post key={post.pid} post={post} /> )}
           </div>
         </div>
-      </App>
+      </ForumWrapper>
     );
   }
 }
