@@ -71,10 +71,10 @@ export default (store) => {
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
       <Route path="/forum" component={Forum} />
-      <Route path="/forum/category/:id" component={ForumCategory} />
-      <Route path="/forum/category/:id/:name" component={ForumCategory} />
-      <Route path="/forum/topic/:id" component={ForumTopic} />
-      <Route path="/forum/topic/:id/:name" component={ForumTopic} />
+      <Route path="/category/:id" component={ForumCategory} />
+      <Route path="/category/:id/:name" component={ForumCategory} />
+      <Route path="/topic/:id" component={ForumTopic} />
+      <Route path="/topic/:id/:name" component={ForumTopic} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}

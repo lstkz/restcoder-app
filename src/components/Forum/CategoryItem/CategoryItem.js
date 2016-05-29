@@ -28,7 +28,7 @@ export default class CategoryItem extends React.Component {
           </div>
 
           <h2 className={styles.title}>
-            <Link to={`/forum/category/${category.slug}`} dangerouslySetInnerHTML={{__html: category.name}}/>
+            <Link to={`/category/${category.slug}`} dangerouslySetInnerHTML={{__html: category.name}}/>
             <br/>
             <div className={styles.description}>
               {category.description}

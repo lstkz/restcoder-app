@@ -25,7 +25,7 @@ export default class Breadcrumb extends React.Component {
     }
     return (
       <li>
-        <Link to={`/forum${item.url}`}>
+        <Link to={`${item.url}`}>
           <span>
             {this.formatText(item.text)}
           </span>

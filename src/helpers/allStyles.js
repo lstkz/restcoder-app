@@ -29,6 +29,7 @@ const paths = [
   '../components/Forum/Permalink/Permalink.scss',
   '../components/Forum/TopicItem/TopicItem.scss',
   '../components/Forum/Post/Post.scss',
+  '../components/Forum/Composer/Composer.scss',
 //  '../components/Top5/Top5.scss',
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',

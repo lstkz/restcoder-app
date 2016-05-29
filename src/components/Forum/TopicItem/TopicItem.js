@@ -15,7 +15,7 @@ export default class TopicItem extends React.Component {
     const { topic } = this.props;
     let teaser = null;
     if (topic.teaser) {
-      teaser = {...topic.teaser, url: `/forum/topic/${topic.slug}/${topic.teaser.pid}`};
+      teaser = {...topic.teaser, url: `/topic/${topic.slug}/${topic.teaser.pid}`};
     }
 
     return (
@@ -26,7 +26,7 @@ export default class TopicItem extends React.Component {
           </div>
 
           <h2>
-            <Link to={`/forum/topic/${topic.slug}`}>{topic.title}</Link>
+            <Link to={`/topic/${topic.slug}`}>{topic.title}</Link>
             <br/>
             <small className="hidden-xs">
               <TimeAgo isoDate={topic.timestampISO}/>
@@ -39,7 +39,7 @@ export default class TopicItem extends React.Component {
 
         <div className="col-xs-2 visible-xs text-right">
           <span>{topic.postcount}</span>
-          <Link to={`/forum/topic/${topic.slug}`}><i className="fa fa-arrow-circle-right"/></Link>
+          <Link to={`/topic/${topic.slug}`}><i className="fa fa-arrow-circle-right"/></Link>
         </div>
 
         <div className="col-md-1 hidden-sm hidden-xs">
