@@ -13,6 +13,10 @@ body {
   }
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 :global {
   //.btn-default {
   //  color: #ffffff;

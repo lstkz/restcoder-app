@@ -3,11 +3,13 @@ import {connect} from 'react-redux';
 import styles from './ForumCategory.scss';
 import {asyncConnect} from 'redux-async-connect';
 import ForumWrapper from '../ForumWrapper/ForumWrapper';
-import {TopicItem, Breadcrumb} from '../../components/Forum';
+import {TopicItem, Breadcrumb, Paginate} from '../../components/Forum';
 import * as actions from '../../redux/modules/forum';
 
 @asyncConnect([{
-  promise: ({ params, store: { dispatch } }) => dispatch(actions.initCategory(params.id))
+  promise: ({ params, location, store: { dispatch } }) => {
+    return dispatch(actions.initCategory(params.id, location.query.page));
+  }
 }])
 @connect(state => state.forum, actions)
 export default class Forum extends React.Component {
@@ -27,7 +29,7 @@ export default class Forum extends React.Component {
   }
 
   render() {
-    const { category } = this.props;
+    const { category} = this.props;
     return (
       <ForumWrapper>
         <div classNameName={styles.ForumCategory}>
@@ -48,6 +50,8 @@ export default class Forum extends React.Component {
               {category.name}
             </p>
             {category.topics.map((topic) => <TopicItem key={topic.tid} topic={topic} />)}
+
+            <Paginate baseUrl={`/category/${category.slug}`} pagination={category.pagination} />
           </div>
         </div>
       </ForumWrapper>

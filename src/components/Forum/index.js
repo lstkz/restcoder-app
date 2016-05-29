@@ -6,3 +6,4 @@ export SortByBtn from './SortByBtn/SortByBtn';
 export Post from './Post/Post';
 export Breadcrumb from './Breadcrumb/Breadcrumb';
 export Composer from './Composer/Composer';
+export Paginate from './Paginate/Paginate';

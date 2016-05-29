@@ -7,11 +7,14 @@ import {Link} from 'react-router';
 export default class Post extends React.Component {
   static propTypes = {
     post: PropTypes.object.isRequired,
+    topic: PropTypes.object.isRequired,
+    replyPost: PropTypes.func.isRequired,
+    quotePost: PropTypes.func.isRequired,
     children: PropTypes.any,
   };
 
   render() {
-    const {children, post} = this.props;
+    const {children, post, replyPost, quotePost, topic} = this.props;
     const {user} = post;
 
     return (
@@ -40,8 +43,8 @@ export default class Post extends React.Component {
 
         <div className="clearfix">
           <small className="pull-right">
-            <span className="post-tools">
-              <a>reply</a> &nbsp; <a>quote</a>
+            <span>
+              <a onClick={() => replyPost(post, topic)}>reply</a> &nbsp; <a onClick={() => quotePost(post, topic)}>quote</a>
             </span>
           </small>
         </div>

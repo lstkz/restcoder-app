@@ -2,8 +2,9 @@ import React from 'react';
 import marked from 'marked';
 import update from 'react-addons-update';
 import {handleActions, createAction} from 'redux-actions';
-import {push} from 'react-router-redux';
+import {push, transitionTo} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
+import {ERROR} from './global';
 const apiClient = new ApiClient();
 
 const MIN_TITLE_LENGTH = 3;
@@ -12,6 +13,7 @@ const MIN_CONTENT_LENGTH = 8;
 const INIT_CATEGORIES = 'forum/INIT_CATEGORIES';
 const INIT_CATEGORY = 'forum/INIT_CATEGORY';
 const INIT_TOPIC = 'forum/INIT_TOPIC';
+const LOAD_CATEGORY_PAGE = 'forum/LOAD_CATEGORY_PAGE';
 const SHOW_COMPOSER = 'forum/SHOW_COMPOSER';
 const SET_COMPOSER_CONTENT = 'forum/SET_COMPOSER_CONTENT';
 const SET_COMPOSER_TITLE = 'forum/SET_COMPOSER_TITLE';
@@ -21,6 +23,9 @@ const TOGGLE_COMPOSER_PREVIEW = 'forum/TOGGLE_COMPOSER_PREVIEW';
 const IGNORE = 'forum/IGNORE';
 const COMPOSER_ERROR = 'forum/COMPOSER_ERROR';
 
+function _getReplySubject(topic) {
+  return `Replying to "${topic.title}"`;
+}
 
 export function initCategories() {
   return {
@@ -30,11 +35,11 @@ export function initCategories() {
   };
 }
 
-export function initCategory(id) {
+export function initCategory(id, page) {
   return {
     fatal: true,
     type: INIT_CATEGORY,
-    promise: ({ client }) => Promise.all([client.get('/forum/category/' + id), client.get('/forum/categories')])
+    promise: ({ client }) => Promise.all([client.get('/forum/category/' + id, {params: {page}}), client.get('/forum/categories')])
   };
 }
 
@@ -78,6 +83,30 @@ export const submitPost = () => async function(dispatch, getState) {
   }
 };
 
+
+export const quotePost = (post, topic) => async function(dispatch) {
+  try {
+    let {content} = await apiClient.get('/forum/raw-post/' + post.pid);
+    const quoted = '> ' + content.split('\n').join('\n> ');
+    content = `@${post.user.username} said in [${topic.title}](/post/${post.pid}):\n${quoted}\n`;
+    dispatch({type: SHOW_COMPOSER, payload: {
+      mode: 'reply', pid: post.pid, content, isTitleReadOnly: true, title: _getReplySubject(topic)
+    }});
+  } catch (e) {
+    dispatch({type: ERROR, payload: e.error || 'Unexpected error occurred' });
+  }
+};
+
+export const replyPost = (post, topic) => function(dispatch) {
+  dispatch({type: SHOW_COMPOSER, payload: {
+    mode: 'reply',
+    pid: post.pid,
+    content: `@${post.user.username}\n`,
+    isTitleReadOnly: true,
+    title: _getReplySubject(topic)
+  }});
+};
+
 export const showComposer = createAction(SHOW_COMPOSER);
 export const setComposerContent = createAction(SET_COMPOSER_CONTENT);
 export const setComposerTitle = createAction(SET_COMPOSER_TITLE);
@@ -109,10 +138,17 @@ export default handleActions({
   [INIT_TOPIC]: (state, { payload: [topic, categories] }) => {
     return { ...state, topic, categories };
   },
-  [SHOW_COMPOSER]: (state, { payload: { content, ...rest } }) => {
+  [LOAD_CATEGORY_PAGE]: (state, {payload: category}) => ({...state, category}),
+  [SHOW_COMPOSER]: (state, { payload: { content = '', ...rest } }) => {
     const composer = { ...state.composer };
     if (!composer.isVisible) {
-      return { ...state, composer: { ..._getDefaultComposerValues(), isVisible: true, isShowPreview: true, ...rest} };
+      return { ...state, composer: {
+        ..._getDefaultComposerValues(),
+        content,
+        preview: marked(content, {sanitize: true}),
+        isVisible: true,
+        isShowPreview: true,
+        ...rest} };
     }
     if (content) {
       composer.content += '\n' + content;
