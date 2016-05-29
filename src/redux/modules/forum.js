@@ -20,11 +20,15 @@ const SET_COMPOSER_TITLE = 'forum/SET_COMPOSER_TITLE';
 const SET_COMPOSER_CATEGORY = 'forum/SET_COMPOSER_CATEGORY';
 const HIDE_COMPOSER = 'forum/HIDE_COMPOSER';
 const TOGGLE_COMPOSER_PREVIEW = 'forum/TOGGLE_COMPOSER_PREVIEW';
-const IGNORE = 'forum/IGNORE';
 const COMPOSER_ERROR = 'forum/COMPOSER_ERROR';
 
 function _getReplySubject(topic) {
   return `Replying to "${topic.title}"`;
+}
+
+function _handleError(e, dispatch) {
+  console.error(e);
+  dispatch({type: ERROR, payload: e.error || 'Unexpected error occurred' });
 }
 
 export function initCategories() {
@@ -43,11 +47,11 @@ export function initCategory(id, page) {
   };
 }
 
-export function initTopic(id) {
+export function initTopic(id, page) {
   return {
     fatal: true,
     type: INIT_TOPIC,
-    promise: ({ client }) => Promise.all([client.get('/forum/topic/' + id), client.get('/forum/categories')])
+    promise: ({ client }) => Promise.all([client.get('/forum/topic/' + id, {params: {page}}), client.get('/forum/categories')])
   };
 }
 
@@ -69,14 +73,40 @@ export const submitPost = () => async function(dispatch, getState) {
     return;
   }
   try {
-    const result = await apiClient.post('/forum/topics', {
-      data: {
-        cid: composer.category,
-        title: composer.title,
-        content: composer.content
-      }
-    });
-    dispatch(push(`/forum/topic/${result.topicData.slug}`));
+    let result;
+    let pid;
+    switch (composer.mode) {
+      case 'new':
+        result = await apiClient.post('/forum/topics', {
+          data: {
+            cid: composer.category,
+            title: composer.title,
+            content: composer.content
+          }
+        });
+        pid = result.postData.pid;
+        break;
+      case 'reply':
+        result = await apiClient.post('/forum/topics/' + composer.tid, {
+          data: {
+            content: composer.content
+          }
+        });
+        pid = result.pid;
+        break;
+      case 'edit':
+        result = await apiClient.put('/forum/topics/' + composer.tid, {
+          data: {
+            pid: composer.pid,
+            content: composer.content
+          }
+        });
+        pid = composer.pid;
+        break;
+      default:
+        return;
+    }
+    dispatch(push(`/post/${pid}`));
     dispatch({type: HIDE_COMPOSER});
   } catch (e) {
     dispatch({ type: COMPOSER_ERROR, payload: e.error || 'Unexpected error occurred' });
@@ -88,20 +118,40 @@ export const quotePost = (post, topic) => async function(dispatch) {
   try {
     let {content} = await apiClient.get('/forum/raw-post/' + post.pid);
     const quoted = '> ' + content.split('\n').join('\n> ');
-    content = `@${post.user.username} said in [${topic.title}](/post/${post.pid}):\n${quoted}\n`;
+    content = `@${post.user.username} said in [${topic.title}](/post/${post.pid}):\n${quoted}\n\n`;
     dispatch({type: SHOW_COMPOSER, payload: {
-      mode: 'reply', pid: post.pid, content, isTitleReadOnly: true, title: _getReplySubject(topic)
+      mode: 'reply',
+      tid: topic.tid,
+      content,
+      isTitleReadOnly: true,
+      title: _getReplySubject(topic)
     }});
   } catch (e) {
-    dispatch({type: ERROR, payload: e.error || 'Unexpected error occurred' });
+    _handleError(e, dispatch);
+  }
+};
+
+export const editPost = (post, topic) => async function(dispatch) {
+  try {
+    const {content} = await apiClient.get('/forum/raw-post/' + post.pid);
+    dispatch({type: SHOW_COMPOSER, payload: {
+      mode: 'edit',
+      pid: post.pid,
+      tid: topic.tid,
+      content,
+      isTitleReadOnly: true,
+      title: _getReplySubject(topic)
+    }});
+  } catch (e) {
+    _handleError(e, dispatch);
   }
 };
 
 export const replyPost = (post, topic) => function(dispatch) {
   dispatch({type: SHOW_COMPOSER, payload: {
     mode: 'reply',
-    pid: post.pid,
-    content: `@${post.user.username}\n`,
+    tid: topic.tid,
+    content: `@${post.user.username}\n\n`,
     isTitleReadOnly: true,
     title: _getReplySubject(topic)
   }});
@@ -140,7 +190,7 @@ export default handleActions({
   },
   [LOAD_CATEGORY_PAGE]: (state, {payload: category}) => ({...state, category}),
   [SHOW_COMPOSER]: (state, { payload: { content = '', ...rest } }) => {
-    const composer = { ...state.composer };
+    const composer = { ...state.composer, ...rest };
     if (!composer.isVisible) {
       return { ...state, composer: {
         ..._getDefaultComposerValues(),
@@ -148,6 +198,7 @@ export default handleActions({
         preview: marked(content, {sanitize: true}),
         isVisible: true,
         isShowPreview: true,
+        focusKey: new Date().getTime(),
         ...rest} };
     }
     if (content) {
@@ -157,6 +208,7 @@ export default handleActions({
     if (rest.category) {
       composer.category = rest.category;
     }
+    composer.focusKey = new Date().getTime();
     return { ...state, composer };
   },
   [SET_COMPOSER_CONTENT]: (state, { payload: content }) => update(state, {

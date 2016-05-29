@@ -16,7 +16,7 @@ export default class Breadcrumb extends React.Component {
   renderItem(item, last) {
     if (!item.url || last) {
       return (
-        <li className="active">
+        <li key={item.text} className="active">
             <span>
               {this.formatText(item.text)}
             </span>
@@ -25,7 +25,7 @@ export default class Breadcrumb extends React.Component {
     }
     return (
       <li>
-        <Link to={`${item.url}`}>
+        <Link key={item.url} to={`${item.url === '/' ? '/forum' : item.url}`}>
           <span>
             {this.formatText(item.text)}
           </span>
@@ -35,6 +35,9 @@ export default class Breadcrumb extends React.Component {
 
   render() {
     const {breadcrumbs} = this.props;
+    if (!breadcrumbs) {
+      return null;
+    }
 
     return (
       <ol className="breadcrumb">

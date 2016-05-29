@@ -30,7 +30,7 @@ const component = (
         <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />
       } history={history}
   >
-    {getRoutes(store)}
+    {getRoutes(store, client)}
   </Router>
 );
 

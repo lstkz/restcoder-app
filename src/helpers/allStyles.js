@@ -30,6 +30,7 @@ const paths = [
   '../components/Forum/TopicItem/TopicItem.scss',
   '../components/Forum/Post/Post.scss',
   '../components/Forum/Composer/Composer.scss',
+  '../components/Forum/Paginate/Paginate.scss',
 //  '../components/Top5/Top5.scss',
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',

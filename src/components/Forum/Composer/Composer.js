@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import styles from './Composer.scss';
 import classNames from 'classnames';
 
@@ -21,6 +22,12 @@ export default class Composer extends React.Component {
     setCategory: PropTypes.func.isRequired,
     clearError: PropTypes.func.isRequired,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.focusKey && nextProps.focusKey > (this.props.focusKey || 0)) {
+      setTimeout(() => ReactDOM.findDOMNode(this.refs.editor).focus());
+    }
+  }
 
   renderTitleRow() {
     const {isTitleReadOnly, title, setTitle, categories, category, setCategory} = this.props;
@@ -86,7 +93,7 @@ export default class Composer extends React.Component {
               {!isShowPreview && <div className={styles.helpText}>
                 <span onClick={togglePreview} className="toggle-preview">Show Preview</span>
               </div>}
-              <textarea onChange={(e) => setContent(e.target.value)} className={styles.editor} value={content}/>
+              <textarea ref="editor" onChange={(e) => setContent(e.target.value)} className={styles.editor} value={content}/>
               <small>This forum is powered by Markdown. For full documentation, click <a target="_blank"
                                                                                          href="http://commonmark.org/help/">here</a>
               </small>

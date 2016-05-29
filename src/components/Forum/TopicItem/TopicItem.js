@@ -15,7 +15,7 @@ export default class TopicItem extends React.Component {
     const { topic } = this.props;
     let teaser = null;
     if (topic.teaser) {
-      teaser = {...topic.teaser, url: `/topic/${topic.slug}/${topic.teaser.pid}`};
+      teaser = {...topic.teaser, url: `/post/${topic.teaser.pid}`};
     }
 
     return (

@@ -7,9 +7,7 @@ import {TopicItem, Breadcrumb, Paginate} from '../../components/Forum';
 import * as actions from '../../redux/modules/forum';
 
 @asyncConnect([{
-  promise: ({ params, location, store: { dispatch } }) => {
-    return dispatch(actions.initCategory(params.id, location.query.page));
-  }
+  promise: ({ params, location, store: { dispatch } }) => dispatch(actions.initCategory(params.id, location.query.page))
 }])
 @connect(state => state.forum, actions)
 export default class Forum extends React.Component {
@@ -23,6 +21,7 @@ export default class Forum extends React.Component {
     const {showComposer, category} = this.props;
     showComposer({
       mode: 'new',
+      title: '',
       category: category.cid,
       isTitleReadOnly: false,
     });

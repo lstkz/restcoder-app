@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction } from './redux/modules/auth';
 import { setError } from './redux/modules/global';
+
 import {
   Home,
   Landing,
@@ -16,7 +17,7 @@ import {
   ForumTopic,
 } from './containers';
 
-export default (store) => {
+export default (store, client) => {
   const redirectToHome = (nextState, replace, cb) => {
     const { auth: { user } } = store.getState();
     if (user) {
@@ -25,21 +26,25 @@ export default (store) => {
     cb();
   };
 
+  function _handleError(cb) {
+    return (err) => {
+      if (err && err.stack) {
+        console.log(err.stack);
+      } else {
+        console.log(err);
+      }
+      store.dispatch({ type: 'FATAL_ERROR' });
+      cb();
+    };
+  }
+
   const loadInitialState = (nextState, replace, cb) => {
     if (!isAuthLoaded(store.getState())) {
       const error = nextState.location && nextState.location.query.error;
       if (error) {
         store.dispatch(setError({ error }));
       }
-      store.dispatch(loadAuth()).then(() => cb()).catch((err) => {
-        if (err && err.stack) {
-          console.log(err.stack);
-        } else {
-          console.log(err);
-        }
-        store.dispatch({ type: 'FATAL_ERROR' });
-        cb();
-      });
+      store.dispatch(loadAuth()).then(() => cb()).catch(_handleError(cb));
     } else {
       cb();
     }
@@ -60,6 +65,16 @@ export default (store) => {
       .catch(done);
   };
 
+  const redirectPost = (nextState, replace, cb) => {
+    client.get('/forum/post/' + nextState.params.id)
+      .then((result) => {
+        const operator = result.url.indexOf('?') === -1 ? '?' : '&';
+        replace(result.url + operator + 'focus_post=' + nextState.params.id);
+        cb();
+      })
+      .catch(_handleError(cb));
+  };
+
   return (
     <Route onEnter={loadInitialState}>
       <Route path="/" onEnter={redirectToHome} component={Landing} />
@@ -75,6 +90,7 @@ export default (store) => {
       <Route path="/category/:id/:name" component={ForumCategory} />
       <Route path="/topic/:id" component={ForumTopic} />
       <Route path="/topic/:id/:name" component={ForumTopic} />
+      <Route path="/post/:id" onEnter={redirectPost} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}

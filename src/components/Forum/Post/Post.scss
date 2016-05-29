@@ -1,4 +1,5 @@
 .Post {
+  position: relative;
   :global {
 
   }
@@ -20,4 +21,42 @@
   label {
     font-size: 75%;
   }
+}
+
+.highlight {
+  .bookmarked {
+    opacity: 1;
+  }
+  hr {
+    border-color: #2390b0;
+    box-shadow: 0 0 1px #5bc0de;
+  }
+}
+
+.bookmarked {
+  position: absolute;
+  top: -2px;
+  right: 6px;
+  font-size: 16px;
+  color: #2390b0;
+  opacity: 0;
+  transition: .75s ease-in-out opacity;
+}
+
+.options {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #777;
+  outline: none;
+  padding: .25em;
+}
+
+.menuIcon {
+  background: transparent;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  display: inline-block;
+  line-height: 20px;
+  cursor: pointer;
 }

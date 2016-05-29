@@ -15,6 +15,7 @@ export default class CategoryItem extends React.Component {
     let teaser = null;
     if (category.teaser) {
       teaser = {...category.teaser, ...category.posts[0]};
+      teaser.url = '/post/' + teaser.pid;
     }
     return (
       <div className={`${styles.CategoryItem} clearfix`}>
