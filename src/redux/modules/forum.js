@@ -2,7 +2,7 @@ import React from 'react';
 import marked from 'marked';
 import update from 'react-addons-update';
 import {handleActions, createAction} from 'redux-actions';
-import {push, transitionTo} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
 import {ERROR, loadForumUnreadTotal} from './global';
 const apiClient = new ApiClient();
@@ -23,6 +23,8 @@ const HIDE_COMPOSER = 'forum/HIDE_COMPOSER';
 const TOGGLE_COMPOSER_PREVIEW = 'forum/TOGGLE_COMPOSER_PREVIEW';
 const COMPOSER_ERROR = 'forum/COMPOSER_ERROR';
 const CHANGE_TOPIC_WATCHING = 'forum/CHANGE_TOPIC_WATCHING';
+const WATCH_CATEGORY = 'forum/WATCH_CATEGORY';
+const UNWATCH_CATEGORY = 'forum/UNWATCH_CATEGORY';
 const IGNORE = 'forum/IGNORE';
 
 function _getReplySubject(topic) {
@@ -111,6 +113,28 @@ export function changeTopicWatching(command) {
       const id = getState().forum.topic.tid;
       await client.post(`/forum/topic/${id}/watch`, {data: {command}});
       return command;
+    }
+  };
+}
+
+export function watchCategory() {
+  return {
+    loader: true,
+    types: [IGNORE, WATCH_CATEGORY, ERROR],
+    promise: async ({client, getState}) => {
+      const id = getState().forum.category.cid;
+      await client.post(`/forum/category/${id}/watch`);
+    }
+  };
+}
+
+export function unwatchCategory() {
+  return {
+    loader: true,
+    types: [IGNORE, UNWATCH_CATEGORY, ERROR],
+    promise: async ({client, getState}) => {
+      const id = getState().forum.category.cid;
+      await client.del(`/forum/category/${id}/watch`);
     }
   };
 }
@@ -315,7 +339,13 @@ export default handleActions({
         break;
     }
     return {...state, topic};
-  }
+  },
+  [WATCH_CATEGORY]: (state) => update(state, {
+    category: { $merge: { isIgnored: false } }
+  }),
+  [UNWATCH_CATEGORY]: (state) => update(state, {
+    category: { $merge: { isIgnored: true } }
+  }),
 }, {
   categories: [],
   category: {},

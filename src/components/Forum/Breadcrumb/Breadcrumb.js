@@ -23,8 +23,8 @@ export default class Breadcrumb extends React.Component {
       );
     }
     return (
-      <li>
-        <Link key={item.url} to={`${item.url === '/' ? '/forum' : item.url}`}>
+      <li key={item.url}>
+        <Link to={`${item.url === '/' ? '/forum' : item.url}`}>
           <span dangerouslySetInnerHTML={{__html: this.formatText(item.text)}}>
           </span>
         </Link>

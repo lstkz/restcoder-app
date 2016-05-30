@@ -40,7 +40,7 @@ export default class ForumTopic extends React.Component {
   render() {
     const {topic, replyPost, quotePost, editPost} = this.props;
     const {location: {query}} = this.props;
-    const focusPostId = query && query.focus_post && Number(query.focus_post);
+    const focusPostId = query && query.focus_post;
 
     return (
       <ForumWrapper>

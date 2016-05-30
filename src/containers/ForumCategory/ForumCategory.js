@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import styles from './ForumCategory.scss';
 import {asyncConnect} from 'redux-async-connect';
 import ForumWrapper from '../ForumWrapper/ForumWrapper';
-import {TopicItem, Breadcrumb, Paginate} from '../../components/Forum';
+import {TopicItem, Breadcrumb, Paginate, WatchBtn} from '../../components/Forum';
 import * as actions from '../../redux/modules/forum';
 
 @asyncConnect([{
@@ -28,7 +28,7 @@ export default class Forum extends React.Component {
   }
 
   render() {
-    const { category} = this.props;
+    const { category, watchCategory, unwatchCategory} = this.props;
     const canCreateTopic = category.privileges['topics:create'];
     const {topics} = category;
     return (
@@ -39,12 +39,9 @@ export default class Forum extends React.Component {
 
             <div className="clearfix">
               {canCreateTopic && <button className="btn btn-primary btn-inverse" onClick={::this.onNewTopic}>New Topic</button>}
-              {/*<span className="pull-right">
-                 <ButtonToolbar>
-                   <WatchBtn />
-                   <SortByBtn />
-                 </ButtonToolbar>
-               </span>*/}
+              <span className="pull-right">
+                   <WatchBtn isIgnored={category.isIgnored} watch={watchCategory} unwatch={unwatchCategory} />
+               </span>
             </div>
             <hr className="hidden-xs"/>
             <p className="hidden-xs" dangerouslySetInnerHTML={{__html: category.name}}>
