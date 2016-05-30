@@ -18,14 +18,19 @@ export default class ForumTopic extends React.Component {
     replyPost: PropTypes.func.isRequired,
     quotePost: PropTypes.func.isRequired,
     editPost: PropTypes.func.isRequired,
+    changeTopicWatching: PropTypes.func.isRequired,
   };
 
   renderToolbar() {
-    const {topic, replyPost} = this.props;
+    const {topic, replyPost, changeTopicWatching} = this.props;
     return (
       <div>
         <div className="clearfix">
-          <TopicToolbar replyPost={replyPost} className="pull-right" topic={topic}/>
+          <TopicToolbar
+            changeTopicWatching={changeTopicWatching}
+            replyPost={replyPost}
+            className="pull-right"
+            topic={topic}/>
         </div>
         <hr/>
       </div>

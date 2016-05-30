@@ -22,6 +22,7 @@ const SET_COMPOSER_CATEGORY = 'forum/SET_COMPOSER_CATEGORY';
 const HIDE_COMPOSER = 'forum/HIDE_COMPOSER';
 const TOGGLE_COMPOSER_PREVIEW = 'forum/TOGGLE_COMPOSER_PREVIEW';
 const COMPOSER_ERROR = 'forum/COMPOSER_ERROR';
+const CHANGE_TOPIC_WATCHING = 'forum/CHANGE_TOPIC_WATCHING';
 const IGNORE = 'forum/IGNORE';
 
 function _getReplySubject(topic) {
@@ -101,6 +102,19 @@ export function markAllAsRead() {
     }
   };
 }
+
+export function changeTopicWatching(command) {
+  return {
+    loader: true,
+    types: [IGNORE, CHANGE_TOPIC_WATCHING, ERROR],
+    promise: async ({client, getState}) => {
+      const id = getState().forum.topic.tid;
+      await client.post(`/forum/topic/${id}/watch`, {data: {command}});
+      return command;
+    }
+  };
+}
+
 
 export const submitPost = () => async function(dispatch, getState) {
   const {composer} = getState().forum;
@@ -284,9 +298,28 @@ export default handleActions({
   [HIDE_COMPOSER]: (state) => update(state, {
     composer: { $set: _getDefaultComposerValues() }
   }),
+  [CHANGE_TOPIC_WATCHING]: (state, {payload}) => {
+    const topic = {...state.topic};
+    topic.isFollowing = false;
+    topic.isNotFollowing = false;
+    topic.isIgnoring = false;
+    switch (payload) {
+      case 'follow':
+        topic.isFollowing = true;
+        break;
+      case 'unfollow':
+        topic.isNotFollowing = true;
+        break;
+      case 'ignore':
+        topic.isIgnoring = true;
+        break;
+    }
+    return {...state, topic};
+  }
 }, {
   categories: [],
   category: {},
   unread: {},
+  topic: {},
   composer: _getDefaultComposerValues()
 });

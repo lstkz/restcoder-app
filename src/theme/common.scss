@@ -18,6 +18,15 @@ a:hover {
 }
 
 :global {
+  p small {
+    line-height: inherit;
+  }
+  .dropdown-menu {
+    p {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
   //.btn-default {
   //  color: #ffffff;
   //  background-color: #95a5a6;
