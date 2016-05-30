@@ -9,6 +9,7 @@ export default class Composer extends React.Component {
     content: PropTypes.string,
     preview: PropTypes.string,
     category: PropTypes.number,
+    focusKey: PropTypes.number,
     error: PropTypes.string,
     categories: PropTypes.array.isRequired,
     isShowPreview: PropTypes.bool.isRequired,
@@ -26,6 +27,12 @@ export default class Composer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.focusKey && nextProps.focusKey > (this.props.focusKey || 0)) {
       setTimeout(() => ReactDOM.findDOMNode(this.refs.editor).focus());
+    }
+    if (nextProps.isVisible || !this.props.isVisible) {
+      document.body.style.marginBottom = '400px';
+    }
+    if (!nextProps.isVisible || this.props.isVisible) {
+      document.body.style.marginBottom = '191px';
     }
   }
 
