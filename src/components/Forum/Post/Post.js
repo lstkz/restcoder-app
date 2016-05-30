@@ -85,10 +85,10 @@ export default class Post extends React.Component {
                   <span className={styles.menuIcon}><i className="fa fa-pencil"/></span>
                   Edit
                 </MenuItem>
-                <MenuItem eventKey="delete">
+                {/*<MenuItem eventKey="delete">
                   <span className={styles.menuIcon}><i className="fa fa-trash-o"/></span>
                   Delete
-                </MenuItem>
+                </MenuItem>*/}
               </Dropdown.Menu>
             </Dropdown>}
           </small>

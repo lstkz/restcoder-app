@@ -151,7 +151,7 @@ export const replyPost = (post, topic) => function(dispatch) {
   dispatch({type: SHOW_COMPOSER, payload: {
     mode: 'reply',
     tid: topic.tid,
-    content: `@${post.user.username}\n\n`,
+    content: post ? `@${post.user.username}\n\n` : '',
     isTitleReadOnly: true,
     title: _getReplySubject(topic)
   }});

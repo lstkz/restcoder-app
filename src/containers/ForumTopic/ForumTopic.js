@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import ForumWrapper from '../ForumWrapper/ForumWrapper';
 import styles from './ForumTopic.scss';
 import * as actions from '../../redux/modules/forum';
-import {Post, Breadcrumb, Paginate} from '../../components/Forum';
+import {Post, Breadcrumb, Paginate, TopicToolbar} from '../../components/Forum';
 
 @asyncConnect([{
   promise: ({ location, params, store: { dispatch } }) => dispatch(actions.initTopic(params.id, location.query.page))
@@ -20,6 +20,17 @@ export default class ForumTopic extends React.Component {
     editPost: PropTypes.func.isRequired,
   };
 
+  renderToolbar() {
+    const {topic, replyPost} = this.props;
+    return (
+      <div>
+        <div className="clearfix">
+          <TopicToolbar replyPost={replyPost} className="pull-right" topic={topic}/>
+        </div>
+        <hr/>
+      </div>
+    );
+  }
 
   render() {
     const {topic, replyPost, quotePost, editPost} = this.props;
@@ -40,8 +51,11 @@ export default class ForumTopic extends React.Component {
                 replyPost={replyPost}
                 quotePost={quotePost}
                 editPost={editPost}
-                post={post} /> )}
+                post={post}>
+                {post.index === 0 && this.renderToolbar()}
+              </Post>)}
 
+            {this.renderToolbar()}
             <Paginate baseUrl={`/topic/${topic.slug}`} pagination={topic.pagination} />
           </div>
         </div>
