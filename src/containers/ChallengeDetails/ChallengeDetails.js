@@ -4,6 +4,7 @@ import {asyncConnect} from 'redux-async-connect';
 import {SwaggerExplorer, Examples, ChallengeHelp} from '../../components';
 import {loadChallenge} from '../../redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
+import {Link} from 'react-router';
 import {App} from '../';
 
 @asyncConnect([{
@@ -19,12 +20,25 @@ export default class ChallengeDetails extends Component {
 
   render() {
     const { challenge } = this.props;
-    console.log(challenge);
 
     const styles = require('./ChallengeDetails.scss');
     return (
       <App>
         <div className={'container ' + styles.ChallengeDetails}>
+
+          <ol className="breadcrumb">
+            <li>
+              <Link to="/home">
+                <span>
+                  Practice
+                </span>
+              </Link>
+            </li>
+            <li className="active">
+              <span>{challenge.name}</span>
+            </li>
+          </ol>
+
           <h3>
             {challenge.name}
             <br/>
@@ -33,7 +47,7 @@ export default class ChallengeDetails extends Component {
 
 
           <div>
-            <Tabs defaultActiveKey={1}>
+            <Tabs defaultActiveKey={1} id="challengeTabs">
               <Tab eventKey={1} title="Details">
                 <div dangerouslySetInnerHTML={{__html: challenge.content}}>
                 </div>

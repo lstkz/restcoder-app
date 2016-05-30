@@ -34,7 +34,7 @@ export default class Profile extends React.Component {
 
                 <div className="col-xs-8 col-sm-9 col-md-10">
 
-                  <Tabs defaultActiveKey={1}>
+                  <Tabs defaultActiveKey={1} id="profileTabs">
                     <Tab eventKey={1} title="Stats">
                       <ProfileStats stats={user.stats} />
                     </Tab>

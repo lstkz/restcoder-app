@@ -5,7 +5,7 @@ import marked from 'marked';
 
 export default class Callout extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.any.isRequired,
     children: PropTypes.any.isRequired,
     description: PropTypes.any,
     expanded: PropTypes.bool,

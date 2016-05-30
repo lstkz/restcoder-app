@@ -124,7 +124,7 @@ export default class SwaggerExplorer extends React.Component {
                 </thead>
                 <tbody>
                 {parameters.map((parameter) =>
-                  <tr>
+                  <tr key={parameter.name}>
                     <td className="short">{parameter.name}</td>
                     <td className="short">{parameter.in}</td>
                     <td className="short">{parameter.required ? 'Yes' : 'No'}</td>
@@ -156,7 +156,7 @@ export default class SwaggerExplorer extends React.Component {
 
               <tbody>
               {_.map(responses, (response, responseCode) =>
-                <tr>
+                <tr key={responseCode}>
                   <td>
                     <ResponseCode code={responseCode} />
                   </td>
