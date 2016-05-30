@@ -29,6 +29,8 @@ export default class Forum extends React.Component {
 
   render() {
     const { category} = this.props;
+    const canCreateTopic = category.privileges['topics:create'];
+    const {topics} = category;
     return (
       <ForumWrapper>
         <div classNameName={styles.ForumCategory}>
@@ -36,7 +38,7 @@ export default class Forum extends React.Component {
             <Breadcrumb breadcrumbs={category.breadcrumbs} />
 
             <div className="clearfix">
-              <button className="btn btn-primary btn-inverse" onClick={::this.onNewTopic}>New Topic</button>
+              {canCreateTopic && <button className="btn btn-primary btn-inverse" onClick={::this.onNewTopic}>New Topic</button>}
               {/*<span className="pull-right">
                  <ButtonToolbar>
                    <WatchBtn />
@@ -45,11 +47,12 @@ export default class Forum extends React.Component {
                </span>*/}
             </div>
             <hr className="hidden-xs"/>
-            <p className="hidden-xs">
-              {category.name}
+            <p className="hidden-xs" dangerouslySetInnerHTML={{__html: category.name}}>
             </p>
-            {category.topics.map((topic) => <TopicItem key={topic.tid} topic={topic} />)}
-
+            {topics.map((topic) => <TopicItem key={topic.tid} topic={topic} />)}
+            {topics.length === 0 && <div className="dialog dialog-warning">
+              <strong>There are no topics in this category.</strong>
+            </div>}
             <Paginate baseUrl={`/category/${category.slug}`} pagination={category.pagination} />
           </div>
         </div>

@@ -17,8 +17,7 @@ export default class Breadcrumb extends React.Component {
     if (!item.url || last) {
       return (
         <li key={item.text} className="active">
-            <span>
-              {this.formatText(item.text)}
+            <span dangerouslySetInnerHTML={{__html: this.formatText(item.text)}}>
             </span>
         </li>
       );
@@ -26,8 +25,7 @@ export default class Breadcrumb extends React.Component {
     return (
       <li>
         <Link key={item.url} to={`${item.url === '/' ? '/forum' : item.url}`}>
-          <span>
-            {this.formatText(item.text)}
+          <span dangerouslySetInnerHTML={{__html: this.formatText(item.text)}}>
           </span>
         </Link>
       </li>);

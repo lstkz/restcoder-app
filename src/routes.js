@@ -15,6 +15,7 @@ import {
   Forum,
   ForumCategory,
   ForumTopic,
+  ForumUnread,
 } from './containers';
 
 export default (store, client) => {
@@ -93,6 +94,8 @@ export default (store, client) => {
         <Route path="/category/:id/:name" component={ForumCategory} />
         <Route path="/topic/:id" component={ForumTopic} />
         <Route path="/topic/:id/:name" component={ForumTopic} />
+        <Route path="/unread" component={ForumUnread} />
+        <Route path="/unread/:type" component={ForumUnread} />
         <Route path="/post/:id" onEnter={redirectPost} />
       </Route>
       <Route path="/404" component={NotFound} status={404} />

@@ -52,7 +52,7 @@ export default class ForumTopic extends React.Component {
                 quotePost={quotePost}
                 editPost={editPost}
                 post={post}>
-                {post.index === 0 && this.renderToolbar()}
+                {post.index === 0 && topic.posts.length > 1 && this.renderToolbar()}
               </Post>)}
 
             {this.renderToolbar()}

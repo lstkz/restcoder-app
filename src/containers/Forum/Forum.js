@@ -25,8 +25,8 @@ export default class Forum extends React.Component {
       <ForumWrapper>
         <div classNameName={styles.Forum}>
           <div className="container">
-            {forumUnreadTotal && <div className="clearfix">
-              <Link to="/forum/unread">
+            {forumUnreadTotal > 0 && <div className="clearfix">
+              <Link to="/unread">
                 <button className="btn btn-inverse pull-right">
                   <i className="fa fa-fw fa-inbox"/>
                   {forumUnreadTotal} unread topic(s)

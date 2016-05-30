@@ -10,3 +10,4 @@ export Profile from './Profile/Profile';
 export Forum from './Forum/Forum';
 export ForumCategory from './ForumCategory/ForumCategory';
 export ForumTopic from './ForumTopic/ForumTopic';
+export ForumUnread from './ForumUnread/ForumUnread';

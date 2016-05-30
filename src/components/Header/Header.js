@@ -38,7 +38,7 @@ export default class Header extends Component {
                 <NavItem eventKey={2}>Ranking</NavItem>
               </LinkContainer>
               <LinkContainer to="/forum">
-                <NavItem eventKey={2}>Forum {user && forumUnreadTotal && <span className="navbar-new">{forumUnreadTotal}</span>}</NavItem>
+                <NavItem eventKey={2}>Forum {user && forumUnreadTotal > 0 && <span className="navbar-new">{forumUnreadTotal}</span>}</NavItem>
               </LinkContainer>
               <NavItem eventKey={3} href="#">Help</NavItem>
             </Nav>

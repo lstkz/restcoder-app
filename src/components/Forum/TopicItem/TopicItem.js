@@ -9,7 +9,27 @@ import Teaser from '../Teaser/Teaser';
 export default class TopicItem extends React.Component {
   static propTypes = {
     topic: PropTypes.object.isRequired,
+    showCategory: PropTypes.bool,
   };
+
+  renderCategory() {
+    const {showCategory, topic: {category}} = this.props;
+    if (!showCategory) {
+      return null;
+    }
+    return (
+      <small>
+        <Link to={`/category/${category.slug}`}>
+          <span className="fa-stack fa-lg">
+            <i style={{color: category.bgColor}} className="fa fa-circle fa-stack-2x"/>
+            <i style={{color: category.color}} className={`fa ${category.icon} fa-stack-1x`}/>
+          </span>
+          {category.name}
+        </Link>
+        &nbsp; • &nbsp;
+      </small>
+    );
+  }
 
   render() {
     const { topic } = this.props;
@@ -19,7 +39,7 @@ export default class TopicItem extends React.Component {
     }
 
     return (
-      <div className={`${styles.TopicItem} clearfix`}>
+      <div className={`${styles.TopicItem} clearfix ${topic.unread ? styles.unread : styles.read}`}>
         <div className="col-md-7 col-sm-9 col-xs-10">
           <div className="pull-left">
             <UserIcon large user={topic.user}/>
@@ -28,6 +48,7 @@ export default class TopicItem extends React.Component {
           <h2>
             <Link to={`/topic/${topic.slug}`}>{topic.title}</Link>
             <br/>
+            {this.renderCategory()}
             <small className="hidden-xs">
               <TimeAgo isoDate={topic.timestampISO}/>
             </small>
@@ -51,7 +72,7 @@ export default class TopicItem extends React.Component {
         </div>
 
         <div className="col-md-3 col-sm-3 hidden-xs">
-          <Teaser emptyText="No one has replied" teaser={teaser} />
+          <Teaser color={topic.unread ? '#fda34b' : null} emptyText="No one has replied" teaser={teaser} />
         </div>
       </div>
     );

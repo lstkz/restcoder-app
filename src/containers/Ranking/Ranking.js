@@ -47,7 +47,6 @@ export default class Ranking extends React.Component {
 
   render() {
     const {filters, changePage, page, totalPages} = this.props;
-    console.log(page);
     const {filter} = this.state;
     return (
       <App>

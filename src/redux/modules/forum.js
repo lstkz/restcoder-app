@@ -13,6 +13,7 @@ const MIN_CONTENT_LENGTH = 8;
 const INIT_CATEGORIES = 'forum/INIT_CATEGORIES';
 const INIT_CATEGORY = 'forum/INIT_CATEGORY';
 const INIT_TOPIC = 'forum/INIT_TOPIC';
+const INIT_UNREAD = 'forum/INIT_UNREAD';
 const LOAD_CATEGORY_PAGE = 'forum/LOAD_CATEGORY_PAGE';
 const SHOW_COMPOSER = 'forum/SHOW_COMPOSER';
 const SET_COMPOSER_CONTENT = 'forum/SET_COMPOSER_CONTENT';
@@ -75,6 +76,29 @@ export function initTopic(id, page) {
     fatal: true,
     type: INIT_TOPIC,
     promise: _fetchForumData(({ client }) => client.get('/forum/topic/' + id, { params: { page } }))
+  };
+}
+
+export function initUnread(type, query) {
+  let url = '/forum/unread';
+  if (type) {
+    url += '/' + type;
+  }
+  return {
+    fatal: true,
+    type: INIT_UNREAD,
+    promise: _fetchForumData(({ client }) => client.get(url, { params: query }))
+  };
+}
+
+export function markAllAsRead() {
+  return {
+    loader: true,
+    types: [IGNORE, IGNORE, ERROR],
+    promise: async ({client, dispatch}) => {
+      await client.post('/forum/mark-read');
+      dispatch(push('/forum'));
+    }
   };
 }
 
@@ -211,6 +235,9 @@ export default handleActions({
   [INIT_TOPIC]: (state, { payload: topic }) => {
     return { ...state, topic };
   },
+  [INIT_UNREAD]: (state, { payload: unread }) => {
+    return { ...state, unread };
+  },
   [LOAD_CATEGORY_PAGE]: (state, {payload: category}) => ({...state, category}),
   [SHOW_COMPOSER]: (state, { payload: { content = '', ...rest } }) => {
     const composer = { ...state.composer, ...rest };
@@ -260,5 +287,6 @@ export default handleActions({
 }, {
   categories: [],
   category: {},
+  unread: {},
   composer: _getDefaultComposerValues()
 });
