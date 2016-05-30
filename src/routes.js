@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction } from './redux/modules/auth';
 import { setError } from './redux/modules/global';
 
@@ -85,12 +85,14 @@ export default (store, client) => {
       <Route path="/challenge/:id" component={ChallengeDetails} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
-      <Route path="/forum" component={Forum} />
-      <Route path="/category/:id" component={ForumCategory} />
-      <Route path="/category/:id/:name" component={ForumCategory} />
-      <Route path="/topic/:id" component={ForumTopic} />
-      <Route path="/topic/:id/:name" component={ForumTopic} />
-      <Route path="/post/:id" onEnter={redirectPost} />
+      <Route path="/forum">
+        <IndexRoute component={Forum} />
+        <Route path="/category/:id" component={ForumCategory} />
+        <Route path="/category/:id/:name" component={ForumCategory} />
+        <Route path="/topic/:id" component={ForumTopic} />
+        <Route path="/topic/:id/:name" component={ForumTopic} />
+        <Route path="/post/:id" onEnter={redirectPost} />
+      </Route>
       <Route path="/404" component={NotFound} status={404} />
 
       {}

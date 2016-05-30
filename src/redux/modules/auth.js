@@ -1,7 +1,7 @@
 import {handleActions, createAction} from 'redux-actions';
 import {push} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
-import {ERROR as GLOBAL_ERROR} from './global';
+import {ERROR as GLOBAL_ERROR, loadForumUnreadTotal} from './global';
 
 const apiClient = new ApiClient();
 
@@ -17,7 +17,13 @@ export function load() {
   return {
     fatal: true,
     type: LOAD,
-    promise: ({client}) => client.get('/me')
+    promise: async function ({client, dispatch}) {
+      const user = await client.get('/me');
+      if (user) {
+        await loadForumUnreadTotal(client, dispatch);
+      }
+      return user;
+    }
   };
 }
 

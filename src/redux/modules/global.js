@@ -8,14 +8,24 @@ const CLEAR_ERROR = 'global/CLEAR_ERROR';
 const START_LOADER = 'START_LOADER';
 const END_LOADER = 'END_LOADER';
 const NOT_FOUND = 'NOT_FOUND';
+const FORUM_UNREAD_TOTAL = 'FORUM_UNREAD_TOTAL';
 
 const initialState = {
   loading: false,
   isFatal: false,
   fatalTimestamp: null,
   error: null,
+  forumUnreadTotal: 0
 };
 
+export const loadForumUnreadTotal = async (client, dispatch) => {
+  try {
+    const {count} = await client.get('/forum/unread/total');
+    dispatch({type: FORUM_UNREAD_TOTAL, payload: count});
+  } catch (e) {
+    console.error('loadForumUnreadTotal', e);
+  }
+};
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -44,6 +54,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         error: obj.error || obj.message || 'An error occurred. Please refresh page.',
       };
+    case FORUM_UNREAD_TOTAL:
+      return {...state, forumUnreadTotal: action.payload};
     default:
       return state;
   }

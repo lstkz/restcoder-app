@@ -4,7 +4,7 @@ import update from 'react-addons-update';
 import {handleActions, createAction} from 'redux-actions';
 import {push, transitionTo} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
-import {ERROR} from './global';
+import {ERROR, loadForumUnreadTotal} from './global';
 const apiClient = new ApiClient();
 
 const MIN_TITLE_LENGTH = 3;
@@ -21,6 +21,7 @@ const SET_COMPOSER_CATEGORY = 'forum/SET_COMPOSER_CATEGORY';
 const HIDE_COMPOSER = 'forum/HIDE_COMPOSER';
 const TOGGLE_COMPOSER_PREVIEW = 'forum/TOGGLE_COMPOSER_PREVIEW';
 const COMPOSER_ERROR = 'forum/COMPOSER_ERROR';
+const IGNORE = 'forum/IGNORE';
 
 function _getReplySubject(topic) {
   return `Replying to "${topic.title}"`;
@@ -31,11 +32,33 @@ function _handleError(e, dispatch) {
   dispatch({type: ERROR, payload: e.error || 'Unexpected error occurred' });
 }
 
+function loadCategories(client, dispatch) {
+  return client.get('/forum/categories')
+    .then((categories) => dispatch({type: INIT_CATEGORIES, payload: categories}))
+}
+
+function _fetchForumData(action) {
+  return ({ client, dispatch, getState }) => {
+    const isLoggedIn = getState().auth.isLoggedIn;
+    const hasCategories = getState().forum.categories.length > 0;
+    let actionResult;
+    return Promise.all([
+      action ? action({ client, dispatch, getState }) : null,
+      !hasCategories ? loadCategories(client, dispatch) : null
+    ]).then((result) => {
+      actionResult = result[0];
+      if (isLoggedIn) {
+        return loadForumUnreadTotal(client, dispatch);
+      }
+    }).then(() => actionResult);
+  };
+}
+
 export function initCategories() {
   return {
     fatal: true,
-    type: INIT_CATEGORIES,
-    promise: ({ client }) => client.get('/forum/categories')
+    type: IGNORE,
+    promise: _fetchForumData()
   };
 }
 
@@ -43,7 +66,7 @@ export function initCategory(id, page) {
   return {
     fatal: true,
     type: INIT_CATEGORY,
-    promise: ({ client }) => Promise.all([client.get('/forum/category/' + id, {params: {page}}), client.get('/forum/categories')])
+    promise: _fetchForumData(({ client }) => client.get('/forum/category/' + id, { params: { page } }))
   };
 }
 
@@ -51,7 +74,7 @@ export function initTopic(id, page) {
   return {
     fatal: true,
     type: INIT_TOPIC,
-    promise: ({ client }) => Promise.all([client.get('/forum/topic/' + id, {params: {page}}), client.get('/forum/categories')])
+    promise: _fetchForumData(({ client }) => client.get('/forum/topic/' + id, { params: { page } }))
   };
 }
 
@@ -182,11 +205,11 @@ export default handleActions({
   [INIT_CATEGORIES]: (state, { payload: categories }) => {
     return { ...state, categories };
   },
-  [INIT_CATEGORY]: (state, { payload: [category, categories] }) => {
-    return { ...state, category, categories };
+  [INIT_CATEGORY]: (state, { payload: category}) => {
+    return { ...state, category };
   },
-  [INIT_TOPIC]: (state, { payload: [topic, categories] }) => {
-    return { ...state, topic, categories };
+  [INIT_TOPIC]: (state, { payload: topic }) => {
+    return { ...state, topic };
   },
   [LOAD_CATEGORY_PAGE]: (state, {payload: category}) => ({...state, category}),
   [SHOW_COMPOSER]: (state, { payload: { content = '', ...rest } }) => {

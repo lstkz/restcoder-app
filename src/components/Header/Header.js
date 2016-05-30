@@ -6,15 +6,16 @@ import {NavDropdown, MenuItem, Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {logout as logoutAction} from '../../redux/modules/auth';
 
-@connect(state => ({user: state.auth.user}), {logout: logoutAction})
+@connect(state => ({user: state.auth.user, forumUnreadTotal: state.global.forumUnreadTotal}), {logout: logoutAction})
 export default class Header extends Component {
   static propTypes = {
     user: PropTypes.object,
+    forumUnreadTotal: PropTypes.number,
     logout: PropTypes.func.isRequired
   };
 
   render() {
-    const {user, logout} = this.props;
+    const {user, logout, forumUnreadTotal} = this.props;
     const styles = require('./Header.scss');
 
 
@@ -37,7 +38,7 @@ export default class Header extends Component {
                 <NavItem eventKey={2}>Ranking</NavItem>
               </LinkContainer>
               <LinkContainer to="/forum">
-                <NavItem eventKey={2}>Forum</NavItem>
+                <NavItem eventKey={2}>Forum {user && forumUnreadTotal && <span className="navbar-new">{forumUnreadTotal}</span>}</NavItem>
               </LinkContainer>
               <NavItem eventKey={3} href="#">Help</NavItem>
             </Nav>
