@@ -13,7 +13,7 @@ export default class UserIcon extends React.Component {
     const { user, large } = this.props;
 
     return (
-      <OverlayTrigger trigger="hover" id="trigger" placement="top" overlay={<Tooltip>{user.username}</Tooltip>}>
+      <OverlayTrigger trigger={['hover', 'focus']} id="trigger" placement="top" overlay={<Tooltip id="username">{user.username}</Tooltip>}>
         <Link to={`/profile/${user.username}`}
               style={{backgroundColor: user['icon:bgColor']}}
               className={`${styles.UserIcon} ${large ? styles.large : ''}`}>

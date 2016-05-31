@@ -7,7 +7,7 @@ import * as actions from '../../redux/modules/profile';
 import {Link} from 'react-router';
 import {Tabs, Tab} from 'react-bootstrap';
 import {Paginate} from '../../components';
-import {Stats, SubmissionHistory, HeaderInfo} from '../../components/Profile';
+import {Stats, SubmissionHistory, HeaderInfo, ForumPosts} from '../../components/Profile';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => dispatch(actions.init(params.username))
@@ -17,11 +17,13 @@ export default class Profile2 extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
     submissions: PropTypes.object.isRequired,
+    forumPosts: PropTypes.object.isRequired,
     changeSubmissionsPage: PropTypes.func.isRequired,
+    changeForumPostsPage: PropTypes.func.isRequired,
   };
 
   render() {
-    const {user, submissions, changeSubmissionsPage} = this.props;
+    const {user, submissions, changeSubmissionsPage, forumPosts, changeForumPostsPage} = this.props;
 
     return (
       <App>
@@ -53,6 +55,9 @@ export default class Profile2 extends React.Component {
                 {submissions.totalPages > 1 && <Paginate pageNum={submissions.totalPages} clickCallback={(item) => changeSubmissionsPage(item.selected)} />}
               </Tab>
               <Tab eventKey={3} title="Forum posts">
+                <ForumPosts forumPosts={forumPosts} />
+                {forumPosts.pagination.pageCount > 1 &&
+                  <Paginate pageNum={forumPosts.pagination.pageCount} clickCallback={(item) => changeForumPostsPage(item.selected + 1)} />}
               </Tab>
             </Tabs>
 

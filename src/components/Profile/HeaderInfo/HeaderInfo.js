@@ -26,6 +26,7 @@ export default class HeaderInfo extends React.Component {
           <div className={styles.accountStats}>
             <StatsNumber className={styles.statItem} title="Rank" count={user.rank} />
             <StatsNumber className={styles.statItem} title="Score" count={user.stats.score} />
+            <StatsNumber className={styles.statItem} title="Solved problems" count={user.stats.solvedProblems} />
             <StatsNumber className={styles.statItem} title="Submissions" count={user.stats.submissions} />
             <StatsNumber className={styles.statItem} title="Forum posts" count={user.postCount} />
           </div>
