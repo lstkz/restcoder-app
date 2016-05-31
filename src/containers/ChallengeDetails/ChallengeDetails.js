@@ -4,8 +4,10 @@ import {asyncConnect} from 'redux-async-connect';
 import {SwaggerExplorer, Examples, ChallengeHelp} from '../../components';
 import {loadChallenge} from '../../redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Link} from 'react-router';
 import {App} from '../';
+import {push} from 'react-router-redux';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => {
@@ -17,6 +19,19 @@ export default class ChallengeDetails extends Component {
   static propTypes = {
     challenge: PropTypes.object.isRequired
   };
+  constructor(props) {
+    super(props);
+    this.state = {key: 1};
+  }
+
+  handleSelect(key) {
+    const {challenge, dispatch} = this.props;
+    if (key === 'forum') {
+      dispatch(push(challenge.forumTopicUrl));
+    } else {
+      this.setState({key});
+    }
+  }
 
   render() {
     const { challenge } = this.props;
@@ -47,7 +62,7 @@ export default class ChallengeDetails extends Component {
 
 
           <div>
-            <Tabs defaultActiveKey={1} id="challengeTabs">
+            <Tabs activeKey={this.state.key} id="challengeTabs" onSelect={::this.handleSelect}>
               <Tab eventKey={1} title="Details">
                 <div dangerouslySetInnerHTML={{__html: challenge.content}}>
                 </div>
@@ -62,6 +77,8 @@ export default class ChallengeDetails extends Component {
               <Tab eventKey={4} title="Help">
                 <ChallengeHelp challenge={challenge} />
               </Tab>
+
+              <Tab eventKey={'forum'} title={<span>Discuss <i className="fa fa-external-link" /></span>} />
             </Tabs>
           </div>
         </div>
