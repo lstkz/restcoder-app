@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import styles from './ProfileInfo.scss';
+import styles from './Info.scss';
 
 export default class ProfileInfo extends React.Component {
   static propTypes = {
@@ -11,8 +11,13 @@ export default class ProfileInfo extends React.Component {
     const {user} = this.props;
 
     return (
-      <div className={styles.ProfileInfo}>
-        <img className="img-responsive" src={user.image} alt=""/>
+      <div className={styles.Info}>
+
+        <div style={{backgroundColor: '#f44336'}}
+              className={`${styles.UserIcon}`}>
+          <span>T</span>
+        </div>
+
 
         <div className="rank">
           <h2>{user.rank}</h2>

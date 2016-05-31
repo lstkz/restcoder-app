@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
-import styles from './ProfileStats.scss';
+import styles from './Stats.scss';
 import ProgressBar from './ProgressBar';
 import _ from 'underscore';
 
-export default class ProfileStats extends React.Component {
+export default class Stats extends React.Component {
   static propTypes = {
     stats: PropTypes.object.isRequired
   };
@@ -11,7 +11,7 @@ export default class ProfileStats extends React.Component {
   render() {
     const {stats} = this.props;
     return (
-      <div className={styles.ProfileStats}>
+      <div className={styles.Stats}>
 
         <div className="row">
           <div className="col-md-6">

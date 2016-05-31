@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import classNames from 'classnames';
-import styles from './ProfileSubmissionHistory.scss';
+import styles from './SubmissionHistory.scss';
 import {Link} from 'react-router';
 
-export default class ProfileSubmissionHistory extends React.Component {
+export default class SubmissionHistory extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired
   };
@@ -12,7 +12,7 @@ export default class ProfileSubmissionHistory extends React.Component {
   render() {
     const {items} = this.props;
     return (
-      <div className={styles.ProfileSubmissionHistory}>
+      <div className={styles.SubmissionHistory}>
         <div className="table-responsive">
           <table className="table table-no-last-padding">
             <colgroup>

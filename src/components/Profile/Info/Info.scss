@@ -1,4 +1,4 @@
-.ProfileInfo {
+.Info {
 
   background-color: #edeff1;
   padding: 15px;
@@ -22,5 +22,20 @@
     h6 {
       margin-top: 5px;
     }
+  }
+}
+
+.UserIcon {
+  display: inline-block;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #eee;
+  font-weight: normal;
+  &:hover {
+    color: #eee;
   }
 }

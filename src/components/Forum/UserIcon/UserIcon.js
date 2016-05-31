@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import styles from './UserIcon.scss';
 import {Link} from 'react-router';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 export default class UserIcon extends React.Component {
   static propTypes = {
@@ -9,12 +10,16 @@ export default class UserIcon extends React.Component {
   };
 
   render() {
-    const {user, large} = this.props;
+    const { user, large } = this.props;
 
     return (
-      <Link to={`/profile/${user.username}`}>
-          <span className={`${styles.UserIcon} ${large ? styles.large : ''}`} style={{backgroundColor: user['icon:bgColor']}} title="">{user['icon:text']}</span>
-      </Link>
+      <OverlayTrigger trigger="hover" id="trigger" placement="top" overlay={<Tooltip>{user.username}</Tooltip>}>
+        <Link to={`/profile/${user.username}`}
+              style={{backgroundColor: user['icon:bgColor']}}
+              className={`${styles.UserIcon} ${large ? styles.large : ''}`}>
+          <span>{user['icon:text']}</span>
+        </Link>
+      </OverlayTrigger>
     );
   }
 }

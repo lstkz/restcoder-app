@@ -20,8 +20,11 @@ const paths = [
   '../components/FatalError/FatalError.scss',
   '../components/Ranking/Ranking.scss',
   '../components/Paginate/Paginate.scss',
-  '../components/ProfileStats/ProfileStats.scss',
-  '../components/ProfileInfo/ProfileInfo.scss',
+
+  '../components/Profile/Info/Info.scss',
+  '../components/Profile/Stats/Stats.scss',
+  '../components/Profile/SubmissionHistory/SubmissionHistory.scss',
+
   '../components/Forum/CategoryItem/CategoryItem.scss',
   '../components/Forum/StatsNumber/StatsNumber.scss',
   '../components/Forum/Teaser/Teaser.scss',
