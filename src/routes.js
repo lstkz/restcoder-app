@@ -76,6 +76,15 @@ export default (store, client) => {
       .catch(_handleError(cb));
   };
 
+  const redirectForumUserId = (nextState, replace, cb) => {
+    client.get('/forum-user/' + nextState.params.id)
+      .then((result) => {
+        replace('/profile/' + result.username);
+        cb();
+      })
+      .catch(_handleError(cb));
+  };
+
   return (
     <Route onEnter={loadInitialState}>
       <Route path="/" onEnter={redirectToHome} component={Landing} />
@@ -98,6 +107,7 @@ export default (store, client) => {
         <Route path="/unread/:type" component={ForumUnread} />
         <Route path="/post/:id" onEnter={redirectPost} />
       </Route>
+      <Route path="/uid/:id" onEnter={redirectForumUserId} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}
