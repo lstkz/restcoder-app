@@ -12,7 +12,6 @@ import {
   Register,
   Ranking,
   Profile,
-  Profile2,
   Forum,
   ForumCategory,
   ForumTopic,
@@ -89,7 +88,6 @@ export default (store, client) => {
       <Route path="/register" onEnter={redirectToHome} component={Register} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
-      <Route path="/profile2/:username" component={Profile2} />
       <Route path="/forum">
         <IndexRoute component={Forum} />
         <Route path="/category/:id" component={ForumCategory} />

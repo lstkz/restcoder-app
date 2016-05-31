@@ -1,4 +1,4 @@
-.Profile2 {
+.HeaderInfo {
   position: relative;
   :global {
 
@@ -6,13 +6,12 @@
 }
 
 .avatarWrapper {
-
   position: absolute;
   left: 50%;
   margin-left: -64px;
   border: 4px solid white;
   border-radius: 50%;
-  top: 0;
+  top: -130px;
 }
 
 .avatar {
@@ -45,7 +44,7 @@
   margin-top: 100px;
 }
 
-.statItem {
+div.statItem {
   min-width: 100px;
   font-size: 35px;
 }

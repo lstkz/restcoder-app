@@ -5,7 +5,7 @@ export default class StatsNumber extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
-    count: PropTypes.string.isRequired,
+    count: PropTypes.any.isRequired,
   };
 
   render() {

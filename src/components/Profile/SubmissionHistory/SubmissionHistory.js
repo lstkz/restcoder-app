@@ -11,6 +11,11 @@ export default class SubmissionHistory extends React.Component {
 
   render() {
     const {items} = this.props;
+    if (items.length === 0) {
+      return (
+        <h3 className="text-center mvl">No submissions...</h3>
+      );
+    }
     return (
       <div className={styles.SubmissionHistory}>
         <div className="table-responsive">

@@ -24,6 +24,7 @@ const paths = [
   '../components/Profile/Info/Info.scss',
   '../components/Profile/Stats/Stats.scss',
   '../components/Profile/SubmissionHistory/SubmissionHistory.scss',
+  '../components/Profile/HeaderInfo/HeaderInfo.scss',
 
   '../components/Forum/CategoryItem/CategoryItem.scss',
   '../components/Forum/StatsNumber/StatsNumber.scss',
