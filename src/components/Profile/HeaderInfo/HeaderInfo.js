@@ -2,21 +2,40 @@ import React, { PropTypes } from 'react';
 import styles from './HeaderInfo.scss';
 import StatsNumber from '../../Forum/StatsNumber/StatsNumber';
 import TimeAgo from '../../Forum/TimeAgo/TimeAgo';
+import {UserPhoto} from '../../';
 
 export default class HeaderInfo extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
   };
 
+  renderAvatar() {
+    const {user} = this.props;
+    if (!user.picture) {
+      return (
+        <div className={styles.avatarWrapper}>
+          <div className={styles.avatar} style={{backgroundColor: user.icon.bgColor}}>
+            {user.icon.text}
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className={styles.avatarWrapper}>
+        <img className={styles.avatar} src={'http://localhost:4567' + user.picture}>
+        </img>
+      </div>
+    );
+  }
+
   render() {
     const {user} = this.props;
 
     return (
       <div className={styles.HeaderInfo}>
+
         <div className={styles.avatarWrapper}>
-          <div className={styles.avatar} style={{backgroundColor: user.icon.bgColor}}>
-            {user.icon.text}
-          </div>
+          <UserPhoto user={user} size={128} />
         </div>
 
         <div className={`row ${styles.statsRow}`}>

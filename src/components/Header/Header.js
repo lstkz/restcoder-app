@@ -60,6 +60,9 @@ export default class Header extends Component {
                   <LinkContainer to={`/profile/${user.username}`}>
                     <MenuItem eventKey={3.1}>My Profile</MenuItem>
                   </LinkContainer>
+                  <LinkContainer to={`/edit-profile`}>
+                    <MenuItem eventKey={3.2}>Edit Profile</MenuItem>
+                  </LinkContainer>
                   <MenuItem divider />
                   <MenuItem eventKey={3.3} onClick={logout}>Logout</MenuItem>
                 </NavDropdown>

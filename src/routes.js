@@ -16,6 +16,7 @@ import {
   ForumCategory,
   ForumTopic,
   ForumUnread,
+  EditProfile,
 } from './containers';
 
 export default (store, client) => {
@@ -23,6 +24,14 @@ export default (store, client) => {
     const { auth: { user } } = store.getState();
     if (user) {
       replace('/home');
+    }
+    cb();
+  };
+
+  const requireAuth = (nextState, replace, cb) => {
+    const { auth: { user } } = store.getState();
+    if (!user) {
+      replace('/login');
     }
     cb();
   };
@@ -97,6 +106,8 @@ export default (store, client) => {
       <Route path="/register" onEnter={redirectToHome} component={Register} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
+      <Route path="/edit-profile" onEnter={requireAuth} component={EditProfile} />
+      <Route path="/edit-profile/:type" onEnter={requireAuth} component={EditProfile} />
       <Route path="/forum">
         <IndexRoute component={Forum} />
         <Route path="/category/:id" component={ForumCategory} />

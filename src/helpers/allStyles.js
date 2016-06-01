@@ -20,6 +20,7 @@ const paths = [
   '../components/FatalError/FatalError.scss',
   '../components/Ranking/Ranking.scss',
   '../components/Paginate/Paginate.scss',
+  '../components/UserPhoto/UserPhoto.scss',
 
   '../components/Profile/Info/Info.scss',
   '../components/Profile/Stats/Stats.scss',

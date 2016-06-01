@@ -20,7 +20,7 @@ export default class ForumPosts extends React.Component {
       <div className={styles.ForumPosts}>
 
         {posts.map((post) =>
-          <div>
+          <div key={post.pid}>
             <Link className={styles.topicTitle} to={`/post/${post.pid}`}>
               {post.isMainPost ? '' : 'RE:' }
               {post.topic.title}

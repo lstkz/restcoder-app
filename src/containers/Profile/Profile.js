@@ -4,8 +4,8 @@ import {asyncConnect} from 'redux-async-connect';
 import {connect} from 'react-redux';
 import {App} from '../';
 import * as actions from '../../redux/modules/profile';
-import {Link} from 'react-router';
-import {Tabs, Tab} from 'react-bootstrap';
+import {Tabs, Tab, Breadcrumb} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Paginate} from '../../components';
 import {Stats, SubmissionHistory, HeaderInfo, ForumPosts} from '../../components/Profile';
 
@@ -29,18 +29,16 @@ export default class Profile2 extends React.Component {
       <App>
         <div className={styles.Profile}>
           <div className="container">
-            <ol className="breadcrumb">
-              <li>
-                <Link to="/home">
-                <span>
+            <Breadcrumb>
+              <LinkContainer to="/home">
+                <Breadcrumb.Item >
                   Home
-                </span>
-                </Link>
-              </li>
-              <li className="active">
-                <span>{user.username}</span>
-              </li>
-            </ol>
+                </Breadcrumb.Item>
+              </LinkContainer>
+              <Breadcrumb.Item active>
+                {user.username}
+              </Breadcrumb.Item>
+            </Breadcrumb>
 
             <HeaderInfo user={user} />
             <hr/>

@@ -10,6 +10,7 @@ import challengeDetails from './challengeDetails';
 import ranking from './ranking';
 import profile from './profile';
 import forum from './forum';
+import editProfile from './editProfile';
 
 export default combineReducers({
   routing: routerReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   ranking,
   profile,
   forum,
+  editProfile,
 });
