@@ -53,3 +53,13 @@ div.statItem {
   text-transform: uppercase;
   color: #777;
 }
+
+.quote {
+  text-align: center;
+  p {
+    max-width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #777;
+  }
+}

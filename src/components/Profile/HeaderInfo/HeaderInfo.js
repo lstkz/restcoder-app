@@ -41,6 +41,9 @@ export default class HeaderInfo extends React.Component {
         <div className={`row ${styles.statsRow}`}>
           <h1 className={styles.fullname}>{user.fullName || user.username}</h1>
           <h1 className={styles.username}>@{user.username}</h1>
+          {user.quote && <span className={styles.quote}>
+            <p>{user.quote}</p>
+          </span>}
 
           <div className={styles.accountStats}>
             <StatsNumber className={styles.statItem} title="Rank" count={user.rank} />

@@ -2,6 +2,7 @@ import {handleActions, createAction} from 'redux-actions';
 import {push} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
 import {ERROR as GLOBAL_ERROR, loadForumUnreadTotal} from './global';
+import {USER_UPDATED} from './shared';
 
 const apiClient = new ApiClient();
 
@@ -82,6 +83,7 @@ export const handleRegisterSubmit = (values, dispatch) => {
 export default handleActions({
   [LOAD]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: !!user, loaded: true}),
   [LOGGED_IN]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: true}),
+  [USER_UPDATED]: (state, {payload: user}) => ({...state, user}),
 
   // for backend processing only
   // it will read token, set auth cookie and redirect to home

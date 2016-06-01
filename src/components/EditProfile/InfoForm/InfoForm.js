@@ -5,7 +5,7 @@ import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import classNames from 'classnames';
 const fields = [ 'fullName', 'quote'];
 
-@reduxForm({form: 'login', fields, validate: () => []}, (state) => state.editProfile.user)
+@reduxForm({form: 'userInfo', fields, validate: () => []})
 export default class InfoForm extends React.Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,

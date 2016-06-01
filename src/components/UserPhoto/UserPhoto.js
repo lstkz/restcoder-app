@@ -18,7 +18,7 @@ export default class UserPhoto extends React.Component {
       );
     }
     return (
-      <img className={className} src={'http://localhost:4567' + user.picture}>
+      <img className={className} src={user.picture}>
       </img>
     );
   }

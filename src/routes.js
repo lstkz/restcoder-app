@@ -106,7 +106,7 @@ export default (store, client) => {
       <Route path="/register" onEnter={redirectToHome} component={Register} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/profile/:username" component={Profile} />
-      <Route path="/edit-profile" onEnter={requireAuth} component={EditProfile} />
+      <Route path="/edit-profile" component={EditProfile} />
       <Route path="/edit-profile/:type" onEnter={requireAuth} component={EditProfile} />
       <Route path="/forum">
         <IndexRoute component={Forum} />
