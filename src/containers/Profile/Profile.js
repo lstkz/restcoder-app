@@ -24,7 +24,9 @@ export default class Profile2 extends React.Component {
 
   render() {
     const {user, submissions, changeSubmissionsPage, forumPosts, changeForumPostsPage} = this.props;
-
+    if (!forumPosts) {
+      return null;
+    }
     return (
       <App>
         <div className={styles.Profile}>

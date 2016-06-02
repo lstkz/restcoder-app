@@ -8,11 +8,12 @@ export default class TopicToolbar extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     topic: PropTypes.object.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     replyPost: PropTypes.func.isRequired,
   };
 
   renderWatchBtn() {
-    const {topic} = this.props;
+    const {topic, isLoggedIn} = this.props;
     if (topic.isFollowing) {
       return (
         <span>
@@ -47,18 +48,15 @@ export default class TopicToolbar extends React.Component {
     return <i className="fa fa-fw"/>;
   }
 
-  render() {
-    const {topic, className, replyPost, changeTopicWatching} = this.props;
+  renderLoggedInContent() {
+    const {topic, replyPost, changeTopicWatching, isLoggedIn} = this.props;
+    if (!isLoggedIn) {
+      return null;
+    }
     return (
-      <div className={`${styles.TopicToolbar} ${className || ''}`}>
-        <StatsNumber title="Posts" count={topic.postcount} />
-        <StatsNumber className="mhl" title="Views" count={topic.viewcount} />
-
+      <span>
         <button className="btn btn-inverse" onClick={() => replyPost(null, topic)}>Reply</button>
-        {/* &nbsp;
-        <button className="btn btn-default">
-          <i className="fa fa-inbox"/><span className="visible-sm-inline visible-md-inline visible-lg-inline"> Mark unread</span>
-        </button>*/}
+
         &nbsp;
         <Dropdown id="watch-button" onSelect={changeTopicWatching}>
           <Dropdown.Toggle>
@@ -85,6 +83,17 @@ export default class TopicToolbar extends React.Component {
             </MenuItem>
           </Dropdown.Menu>
         </Dropdown>
+      </span>
+    );
+  }
+
+  render() {
+    const {topic, className} = this.props;
+    return (
+      <div className={`${styles.TopicToolbar} ${className || ''}`}>
+        <StatsNumber title="Posts" count={topic.postcount} />
+        <StatsNumber className="mhl" title="Views" count={topic.viewcount} />
+        {this.renderLoggedInContent()}
       </div>
     );
   }

@@ -60,7 +60,7 @@ export default handleActions({
   user: {
     stats: {},
   },
-  forumPosts: {},
+  forumPosts: null,
   submissions: {
     items: [],
     total: 0,

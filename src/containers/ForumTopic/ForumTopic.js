@@ -9,12 +9,13 @@ import {Post, Breadcrumb, Paginate, TopicToolbar} from '../../components/Forum';
 @asyncConnect([{
   promise: ({ location, params, store: { dispatch } }) => dispatch(actions.initTopic(params.id, location.query.page))
 }])
-@connect(state => ({...state.forum}), actions)
+@connect(state => ({...state.forum, isLoggedIn: state.auth.isLoggedIn}), actions)
 export default class ForumTopic extends React.Component {
   static propTypes = {
     topic: PropTypes.object.isRequired,
     query: PropTypes.object,
     location: PropTypes.object.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     replyPost: PropTypes.func.isRequired,
     quotePost: PropTypes.func.isRequired,
     editPost: PropTypes.func.isRequired,
@@ -22,7 +23,7 @@ export default class ForumTopic extends React.Component {
   };
 
   renderToolbar() {
-    const {topic, replyPost, changeTopicWatching} = this.props;
+    const {topic, replyPost, changeTopicWatching, isLoggedIn} = this.props;
     return (
       <div>
         <div className="clearfix">
@@ -30,6 +31,7 @@ export default class ForumTopic extends React.Component {
             changeTopicWatching={changeTopicWatching}
             replyPost={replyPost}
             className="pull-right"
+            isLoggedIn={isLoggedIn}
             topic={topic}/>
         </div>
         <hr/>
@@ -38,7 +40,7 @@ export default class ForumTopic extends React.Component {
   }
 
   render() {
-    const {topic, replyPost, quotePost, editPost} = this.props;
+    const {topic, replyPost, quotePost, editPost, isLoggedIn} = this.props;
     const {location: {query}} = this.props;
     const focusPostId = query && query.focus_post;
 
@@ -56,6 +58,7 @@ export default class ForumTopic extends React.Component {
                 replyPost={replyPost}
                 quotePost={quotePost}
                 editPost={editPost}
+                isLoggedIn={isLoggedIn}
                 post={post}>
                 {post.index === 0 && topic.posts.length > 1 && this.renderToolbar()}
               </Post>)}

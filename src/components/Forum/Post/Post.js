@@ -15,6 +15,7 @@ export default class Post extends React.Component {
     quotePost: PropTypes.func.isRequired,
     editPost: PropTypes.func.isRequired,
     children: PropTypes.any,
+    isLoggedIn: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -41,7 +42,7 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const { children, post, replyPost, quotePost, topic, focus } = this.props;
+    const { children, post, replyPost, quotePost, topic, focus, isLoggedIn } = this.props;
     const { user } = post;
 
     return (
@@ -69,7 +70,7 @@ export default class Post extends React.Component {
         <div className={styles.content} dangerouslySetInnerHTML={{__html: post.content}}>
         </div>
 
-        <div className="clearfix">
+        {isLoggedIn && <div className="clearfix">
           <small className="pull-right">
             <span>
               <a onClick={() => replyPost(post, topic)}>reply</a> &nbsp; <a
@@ -92,7 +93,7 @@ export default class Post extends React.Component {
               </Dropdown.Menu>
             </Dropdown>}
           </small>
-        </div>
+        </div>}
 
         <hr/>
 
