@@ -3,13 +3,14 @@ import {push} from 'react-router-redux';
 import ApiClient from '../../helpers/ApiClient';
 import {ERROR as GLOBAL_ERROR, loadForumUnreadTotal} from './global';
 import {USER_UPDATED} from './shared';
+const MESSAGE_TIMEOUT = 8000;
 
 const apiClient = new ApiClient();
 
 const LOGGED_IN = 'auth/LOGGED_IN';
 const LOAD = 'auth/LOAD';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
-const REGISTERED = 'auth/REGISTERED';
+const SHOW_CONFIRM_EMAIL_INFO = 'auth/SHOW_CONFIRM_EMAIL_INFO';
 const CLEAR_CONFIRM_EMAIL_INFO = 'auth/CLEAR_CONFIRM_EMAIL_INFO';
 const IGNORE = 'auth/IGNORE';
 const EMAIL_VERIFIED = 'auth/EMAIL_VERIFIED';
@@ -77,8 +78,8 @@ export const handleRegisterSubmit = (values, dispatch) => {
     apiClient.post('/register', { data: values })
       .then(() => {
         dispatch(push('/home'));
-        dispatch({type: REGISTERED, payload: values.email});
-        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), 8000);
+        dispatch({type: SHOW_CONFIRM_EMAIL_INFO, payload: values.email});
+        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), MESSAGE_TIMEOUT);
       })
       .catch((result) => {
         if (result.error && result.error.indexOf('Email') !== -1) {
@@ -92,6 +93,17 @@ export const handleRegisterSubmit = (values, dispatch) => {
   });
 };
 
+export const handleResendActivationLinkSubmit = function(values, dispatch) {
+  return new Promise((resolve, reject) => {
+    apiClient.post('/activation-link', { data: values })
+      .then(() => {
+        dispatch(push('/home'));
+        dispatch({type: SHOW_CONFIRM_EMAIL_INFO, payload: values.email});
+        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), MESSAGE_TIMEOUT);
+      })
+      .catch(_handleError(reject));
+  });
+};
 
 export const handleForgotPasswordSubmit = function(values, dispatch) {
   return new Promise((resolve, reject) => {
@@ -99,7 +111,7 @@ export const handleForgotPasswordSubmit = function(values, dispatch) {
       .then(() => {
         dispatch(push('/home'));
         dispatch({type: INFO_MESSAGE, payload: 'Reset password link has been sent. Please check your email.'});
-        setTimeout(() => dispatch({type: INFO_MESSAGE, payload: null}), 8000);
+        setTimeout(() => dispatch({type: INFO_MESSAGE, payload: null}), MESSAGE_TIMEOUT);
       })
       .catch(_handleError(reject));
   });
@@ -126,7 +138,7 @@ export default handleActions({
   // it will read token, set auth cookie and redirect to home
   [EMAIL_VERIFIED]: (state, {payload: {user, token: authToken}}) => ({...state, user, authToken}),
   [LOGOUT_SUCCESS]: (state) => ({...state, user: null, isLoggedIn: false}),
-  [REGISTERED]: (state, {payload: confirmEmailTarget}) => ({...state, confirmEmailVisible: true, confirmEmailTarget}),
+  [SHOW_CONFIRM_EMAIL_INFO]: (state, {payload: confirmEmailTarget}) => ({...state, confirmEmailVisible: true, confirmEmailTarget}),
   [CLEAR_CONFIRM_EMAIL_INFO]: (state) => ({...state, confirmEmailVisible: false, confirmEmailTarget: null}),
   [INFO_MESSAGE]: (state, {payload: infoMessage}) => ({...state, infoMessage}),
 }, {

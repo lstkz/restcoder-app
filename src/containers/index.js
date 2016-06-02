@@ -10,6 +10,7 @@ export Profile from './Profile/Profile';
 export EditProfile from './EditProfile/EditProfile';
 export ForgotPassword from './ForgotPassword/ForgotPassword';
 export ResetPassword from './ResetPassword/ResetPassword';
+export ResendActivationLink from './ResendActivationLink/ResendActivationLink';
 
 
 export Forum from './Forum/Forum';

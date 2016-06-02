@@ -24,6 +24,7 @@ import {
   EditProfile,
   ForgotPassword,
   ResetPassword,
+  ResendActivationLink,
 } from './containers';
 
 export default (store, client) => {
@@ -144,6 +145,7 @@ export default (store, client) => {
       <Route path="/uid/:id" onEnter={redirectForumUserId} />
       <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/reset-password/:code" component={ResetPassword} />
+      <Route path="/activation-link" component={ResendActivationLink} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}
