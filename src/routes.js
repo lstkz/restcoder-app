@@ -22,6 +22,7 @@ import {
   ForumTopic,
   ForumUnread,
   EditProfile,
+  ForgotPassword,
 } from './containers';
 
 export default (store, client) => {
@@ -140,6 +141,7 @@ export default (store, client) => {
         <Route path="/post/:id" onEnter={redirectPost} />
       </Route>
       <Route path="/uid/:id" onEnter={redirectForumUserId} />
+      <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/404" component={NotFound} status={404} />
 
       {}

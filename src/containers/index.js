@@ -8,6 +8,7 @@ export Register from './Register/Register';
 export Ranking from './Ranking/Ranking';
 export Profile from './Profile/Profile';
 export EditProfile from './EditProfile/EditProfile';
+export ForgotPassword from './ForgotPassword/ForgotPassword';
 
 
 export Forum from './Forum/Forum';

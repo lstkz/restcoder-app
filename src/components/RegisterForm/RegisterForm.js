@@ -3,7 +3,7 @@ import styles from './RegisterForm.scss';
 import { reduxForm } from 'redux-form';
 import validate from './RegisterFormValidator';
 import classNames from 'classnames';
-import {FormControl} from '../../components';
+import {FormControl, ForgotLinks} from '../../components';
 const fields = [ 'username', 'email', 'password'];
 
 
@@ -19,7 +19,7 @@ export default class RegisterForm extends React.Component {
   render() {
     const { fields: { username, password, email }, handleSubmit, submitting, error } = this.props;
     return (
-      <div className={styles.LoginForm}>
+      <div className={styles.RegisterForm}>
         <form className="form-horizontal register-form" role="form" onSubmit={handleSubmit}>
           <FormControl {...username} name="username" label="Username" type="text" placeholder="Username"/>
           <FormControl {...email} name="email" label="Email" type="text" placeholder="Email"/>
@@ -28,6 +28,7 @@ export default class RegisterForm extends React.Component {
             <div className="col-lg-offset-2 col-lg-10">
               {error && <div className="help-block">{error}</div>}
               <button type="submit" className="btn btn-primary center-block" disabled={submitting}>Register</button>
+              <ForgotLinks/>
             </div>
           </div>
         </form>

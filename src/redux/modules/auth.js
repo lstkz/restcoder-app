@@ -13,17 +13,24 @@ const REGISTERED = 'auth/REGISTERED';
 const CLEAR_CONFIRM_EMAIL_INFO = 'auth/CLEAR_CONFIRM_EMAIL_INFO';
 const IGNORE = 'auth/IGNORE';
 const EMAIL_VERIFIED = 'auth/EMAIL_VERIFIED';
+const INFO_MESSAGE = 'auth/INFO_MESSAGE';
+
+function _handleError(reject) {
+  return (result) => {
+    reject({ _error: result.error || 'Unexpected error occurred' });
+  };
+}
 
 export function load() {
   return {
     fatal: true,
     type: LOAD,
     promise: async function ({client, dispatch}) {
-      const user = await client.get('/me');
-      if (user) {
+      const result = await client.get('/me');
+      if (result.user) {
         await loadForumUnreadTotal(client, dispatch);
       }
-      return user;
+      return result;
     }
   };
 }
@@ -61,9 +68,7 @@ export const handleLoginSubmit = (values, dispatch) => {
         dispatch(loggedIn(result));
         dispatch(push('/'));
       })
-      .catch((result) => {
-        reject({ _error: result.error || 'Unexpected error occurred' });
-      });
+      .catch(_handleError(reject));
   });
 };
 
@@ -73,7 +78,7 @@ export const handleRegisterSubmit = (values, dispatch) => {
       .then(() => {
         dispatch(push('/home'));
         dispatch({type: REGISTERED, payload: values.email});
-        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), 4000);
+        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), 8000);
       })
       .catch((result) => {
         if (result.error && result.error.indexOf('Email') !== -1) {
@@ -87,6 +92,24 @@ export const handleRegisterSubmit = (values, dispatch) => {
   });
 };
 
+
+export const handleForgotPasswordSubmit = function(values, dispatch) {
+  console.log(arguments);
+  return new Promise((resolve, reject) => {
+    apiClient.post('/forgot-password', { data: values })
+      .then(() => {
+        dispatch(push('/home'));
+        dispatch({type: INFO_MESSAGE, payload: 'Reset password link has been sent. Please check your email.'});
+        setTimeout(() => dispatch({type: INFO_MESSAGE, payload: null}), 8000);
+      })
+      .catch(_handleError(reject));
+  });
+};
+
+export const handleResetPasswordSubmit = (values, dispatch) => {
+
+};
+
 export default handleActions({
   [LOAD]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: !!user, loaded: true}),
   [LOGGED_IN]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: true}),
@@ -97,11 +120,13 @@ export default handleActions({
   [EMAIL_VERIFIED]: (state, {payload: {user, token: authToken}}) => ({...state, user, authToken}),
   [LOGOUT_SUCCESS]: (state) => ({...state, user: null, isLoggedIn: false}),
   [REGISTERED]: (state, {payload: confirmEmailTarget}) => ({...state, confirmEmailVisible: true, confirmEmailTarget}),
-  [CLEAR_CONFIRM_EMAIL_INFO]: (state) => ({...state, confirmEmailVisible: false, confirmEmailTarget: null})
+  [CLEAR_CONFIRM_EMAIL_INFO]: (state) => ({...state, confirmEmailVisible: false, confirmEmailTarget: null}),
+  [INFO_MESSAGE]: (state, {payload: infoMessage}) => ({...state, infoMessage}),
 }, {
   loaded: false,
   user: null,
   isLoggedIn: false,
   confirmEmailVisible: false,
-  confirmEmailTarget: null
+  confirmEmailTarget: null,
+  infoMessage: null,
 });

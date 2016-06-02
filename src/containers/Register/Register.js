@@ -4,7 +4,7 @@ import {asyncConnect} from 'redux-async-connect';
 import styles from './Register.scss';
 import {initialize} from 'redux-form';
 import {App} from '../';
-import {RegisterForm} from '../../components';
+import {RegisterForm, PageTitle} from '../../components';
 import {handleRegisterSubmit} from '../../redux/modules/auth';
 
 @asyncConnect([{
@@ -22,6 +22,7 @@ export default class Register extends React.Component {
     return (
       <App>
         <div className={'container ' + styles.Register}>
+          <PageTitle>Register</PageTitle>
           <div className="row">
             <div className="col-md-offset-2 col-md-6">
               {<RegisterForm onSubmit={handleRegisterSubmit}/>}

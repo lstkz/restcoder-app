@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import _ from 'underscore';
-import {ChallengeList, ChallengeFilter, ActivationLinkInfo} from '../../components';
+import {ChallengeList, ChallengeFilter, HeaderMessage} from '../../components';
 import * as actions from '../../redux/modules/challenges';
 import {App} from '../';
 
@@ -10,7 +10,7 @@ import {App} from '../';
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => dispatch(actions.init())
 }])
-@connect(state => ({ ...state.challenges, ..._.pick(state.auth, 'isLoggedIn', 'confirmEmailVisible', 'confirmEmailTarget') }), { ...actions })
+@connect(state => ({ ...state.challenges, ..._.pick(state.auth, 'isLoggedIn', 'confirmEmailVisible', 'confirmEmailTarget', 'infoMessage') }), { ...actions })
 export default class Home extends Component {
   static propTypes = {
     challenges: PropTypes.object.isRequired,
@@ -23,7 +23,7 @@ export default class Home extends Component {
   };
 
   render() {
-    const { challenges, toggleFilter, isLoggedIn, filter, confirmEmailVisible, confirmEmailTarget } = this.props;
+    const { challenges, toggleFilter, isLoggedIn, filter, confirmEmailVisible, confirmEmailTarget, infoMessage } = this.props;
     let { filters } = this.props;
     const styles = require('./Home.scss');
 
@@ -33,7 +33,10 @@ export default class Home extends Component {
 
     return (
       <App>
-        <ActivationLinkInfo visible={confirmEmailVisible} email={confirmEmailTarget} />
+        {confirmEmailVisible && <HeaderMessage>
+          Activation link was sent to <span className="text-primary">{confirmEmailTarget}</span>
+        </HeaderMessage>}
+        {infoMessage && <HeaderMessage>{infoMessage}</HeaderMessage>}
         <div className={'container ' + styles.Home}>
           <div className="row">
             <div className="col-md-9">

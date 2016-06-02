@@ -1,7 +1,7 @@
 const paths = [
   '../theme/common.scss',
 
-  '../components/ActivationLinkInfo/ActivationLinkInfo.scss',
+  '../components/HeaderMessage/HeaderMessage.scss',
   '../components/Callout/Callout.scss',
   '../components/ChallengeFilter/ChallengeFilter.scss',
   '../components/ChallengeHelp/ChallengeHelp.scss',
@@ -21,6 +21,7 @@ const paths = [
   '../components/Ranking/Ranking.scss',
   '../components/Paginate/Paginate.scss',
   '../components/UserPhoto/UserPhoto.scss',
+  '../components/PageTitle/PageTitle.scss',
 
   '../components/Profile/Info/Info.scss',
   '../components/Profile/Stats/Stats.scss',
