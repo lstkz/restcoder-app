@@ -1,16 +1,16 @@
 import {handleActions} from 'redux-actions';
 import {initialize, reset as resetForm} from 'redux-form';
 import ApiClient from '../../helpers/ApiClient';
-const apiClient = new ApiClient();
-
 import {USER_UPDATED} from './shared';
 import {ERROR} from './global';
+const apiClient = new ApiClient();
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const LOAD_DATA = 'editProfile::LOAD_DATA';
 export const IGNORE = 'editProfile::IGNORE';
+export const PASSWORD_CHANGED = 'editProfile::PASSWORD_CHANGED';
 
 
 // ------------------------------------
@@ -72,13 +72,28 @@ export const handleEmailChangeSubmit = (values, dispatch) => {
   });
 };
 
+export const handlePasswordChangeSubmit = (values, dispatch) => {
+  return new Promise((resolve, reject) => {
+    apiClient.put('/user/me/password', { data: values })
+      .then(() => {
+        dispatch({ type: PASSWORD_CHANGED, payload: true });
+        setTimeout(() => dispatch({ type: PASSWORD_CHANGED, payload: false }), 3000);
+        resolve();
+        dispatch(resetForm('changePassword'));
+      })
+      .catch(_handleError(reject));
+  });
+};
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 
 export default handleActions({
-  [LOAD_DATA]: (state, { payload: user }) => ({ ...state, user }),
+  [LOAD_DATA]: (state, { payload: user }) => ({ ...state, user, isPasswordChanged: false }),
   [USER_UPDATED]: (state, { payload: user }) => ({ ...state, user }),
+  [PASSWORD_CHANGED]: (state, { payload: isPasswordChanged }) => ({ ...state, isPasswordChanged }),
 }, {
   user: {},
+  isPasswordChanged: false,
 });

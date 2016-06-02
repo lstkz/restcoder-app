@@ -8,3 +8,4 @@
 export LeftMenu from './LeftMenu/LeftMenu';
 export EmailForm from './EmailForm/EmailForm';
 export InfoForm from './InfoForm/InfoForm';
+export PasswordForm from './PasswordForm/PasswordForm';

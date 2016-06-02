@@ -5,9 +5,9 @@ import {connect} from 'react-redux';
 import {Breadcrumb} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import * as actions from '../../redux/modules/editProfile';
-import {handleInfoSubmit, handleEmailChangeSubmit} from '../../redux/modules/editProfile';
+import {handleInfoSubmit, handleEmailChangeSubmit, handlePasswordChangeSubmit} from '../../redux/modules/editProfile';
 import {App} from '../';
-import {LeftMenu, InfoForm, EmailForm} from '../../components/EditProfile';
+import {LeftMenu, InfoForm, EmailForm, PasswordForm} from '../../components/EditProfile';
 import {initialize} from 'redux-form';
 
 @asyncConnect([{
@@ -23,6 +23,7 @@ export default class EditProfile extends React.Component {
     initialize: PropTypes.func.isRequired,
     updatePicture: PropTypes.func.isRequired,
     removePicture: PropTypes.func.isRequired,
+    isPasswordChanged: PropTypes.bool.isRequired,
   };
   constructor(props) {
     super(props);
@@ -52,11 +53,12 @@ export default class EditProfile extends React.Component {
   initForms() {
     this.props.initialize('userInfo', this.props.user, ['fullName', 'quote']);
     this.props.initialize('changeEmail', this.props.user, ['email']);
+    this.props.initialize('changePassword', {}, ['password', 'newPassword']);
   }
 
   renderForm() {
     const {tab} = this.state;
-    const {user} = this.props;
+    const {user, isPasswordChanged} = this.props;
     switch (tab) {
       case 'info':
         return (<InfoForm onSubmit={handleInfoSubmit} />);
@@ -64,8 +66,12 @@ export default class EditProfile extends React.Component {
         return (
           <EmailForm user={user} onSubmit={handleEmailChangeSubmit} />
         );
+      case 'password':
+        return (
+          <PasswordForm isPasswordChanged={isPasswordChanged} onSubmit={handlePasswordChangeSubmit} />
+        );
       default:
-        return null;
+        return (<InfoForm onSubmit={handleInfoSubmit} />);
     }
   }
 
