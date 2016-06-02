@@ -38,7 +38,7 @@ function _handleError(e, dispatch) {
 
 function loadCategories(client, dispatch) {
   return client.get('/forum/categories')
-    .then((categories) => dispatch({type: INIT_CATEGORIES, payload: categories}))
+    .then((categories) => dispatch({type: INIT_CATEGORIES, payload: categories}));
 }
 
 function _fetchForumData(action) {
@@ -62,7 +62,7 @@ export function initCategories() {
   return {
     fatal: true,
     type: IGNORE,
-    promise: _fetchForumData()
+    promise: ({client, dispatch}) => loadCategories(client, dispatch)
   };
 }
 
