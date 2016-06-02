@@ -5,9 +5,9 @@ import {connect} from 'react-redux';
 import {Breadcrumb} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import * as actions from '../../redux/modules/editProfile';
-import {handleInfoSubmit} from '../../redux/modules/editProfile';
+import {handleInfoSubmit, handleEmailChangeSubmit} from '../../redux/modules/editProfile';
 import {App} from '../';
-import {LeftMenu, InfoForm} from '../../components/EditProfile';
+import {LeftMenu, InfoForm, EmailForm} from '../../components/EditProfile';
 import {initialize} from 'redux-form';
 
 @asyncConnect([{
@@ -29,6 +29,17 @@ export default class EditProfile extends React.Component {
     this.state = this.getStateFromProps(props);
   }
 
+  componentWillMount() {
+    this.initForms();
+  }
+
+  componentWillReceiveProps(props) {
+    if (this.props.routeParams.type !== props.routeParams.type) {
+      this.initForms();
+    }
+    this.setState(this.getStateFromProps(props));
+  }
+
   getStateFromProps(props) {
     const {routeParams} = props;
     let tab = 'info';
@@ -38,12 +49,45 @@ export default class EditProfile extends React.Component {
     return {tab};
   }
 
-  componentWillReceiveProps(props) {
-    this.setState(this.getStateFromProps(props));
+  initForms() {
+    this.props.initialize('userInfo', this.props.user, ['fullName', 'quote']);
+    this.props.initialize('changeEmail', this.props.user, ['email']);
   }
 
-  componentWillMount() {
-    this.props.initialize('userInfo', this.props.user, ['fullName', 'quote']);
+  renderForm() {
+    const {tab} = this.state;
+    const {user} = this.props;
+    switch (tab) {
+      case 'info':
+        return (<InfoForm onSubmit={handleInfoSubmit} />);
+      case 'email':
+        return (
+          <EmailForm user={user} onSubmit={handleEmailChangeSubmit} />
+        );
+      default:
+        return null;
+    }
+  }
+
+  renderBreadcrumbPart() {
+    const {tab} = this.state;
+    if (tab === 'info') {
+      return (
+        <Breadcrumb.Item active>
+          Edit
+        </Breadcrumb.Item>
+      );
+    }
+    return ([
+      <LinkContainer key={1} to={`/edit-profile`}>
+        <Breadcrumb.Item >
+          Edit
+        </Breadcrumb.Item>
+      </LinkContainer>,
+      <Breadcrumb.Item key={2} active>
+        Change {tab}
+      </Breadcrumb.Item>
+    ]);
   }
 
   render() {
@@ -65,9 +109,7 @@ export default class EditProfile extends React.Component {
                   {user.username}
                 </Breadcrumb.Item>
               </LinkContainer>
-              <Breadcrumb.Item active>
-                Edit
-              </Breadcrumb.Item>
+              {this.renderBreadcrumbPart()}
             </Breadcrumb>
             <div className="col-md-2 col-sm-4">
               <LeftMenu
@@ -76,7 +118,7 @@ export default class EditProfile extends React.Component {
                 user={user} selectedTab={tab} />
             </div>
             <div className="col-md-10 col-sm-8">
-              <InfoForm onSubmit={handleInfoSubmit} />
+              {this.renderForm()}
             </div>
           </div>
         </div>

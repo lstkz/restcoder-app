@@ -25,7 +25,7 @@ export default class InfoForm extends React.Component {
             <FormControl {...fullName} maxLength="50" type="text" placeholder="Full Name" />
           </FormGroup>
           <FormGroup controlId="quote">
-            <ControlLabel>Quote (0/255)</ControlLabel>
+            <ControlLabel>Quote ({quote.value.length}/255)</ControlLabel>
             <FormControl {...quote} rows="5" maxLength="255" componentClass="textarea" />
           </FormGroup>
           <div className={classNames('form-group', {'has-error': error})}>

@@ -35,6 +35,13 @@ export function verifyEmail(code) {
   };
 }
 
+export function changeEmail(code) {
+  return {
+    types: [IGNORE, EMAIL_VERIFIED, GLOBAL_ERROR],
+    promise: ({client}) => client.post('/change-email/' + code)
+  };
+}
+
 export function isLoaded(globalState:Object) {
   return globalState.auth && globalState.auth.loaded;
 }

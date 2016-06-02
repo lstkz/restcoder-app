@@ -1,5 +1,5 @@
-import {createAction, handleActions} from 'redux-actions';
-import React from 'react';
+import {handleActions} from 'redux-actions';
+import {initialize, reset as resetForm} from 'redux-form';
 import ApiClient from '../../helpers/ApiClient';
 const apiClient = new ApiClient();
 
@@ -17,6 +17,12 @@ export const IGNORE = 'editProfile::IGNORE';
 // Actions
 // ------------------------------------
 
+
+function _handleError(reject) {
+  return (result) => {
+    reject({ _error: result.error || 'Unexpected error occurred' });
+  };
+}
 
 export const loadData = () => (dispatch, getState) => {
   dispatch({type: LOAD_DATA, payload: getState().auth.user});
@@ -48,9 +54,21 @@ export const handleInfoSubmit = (values, dispatch) => {
         dispatch({type: USER_UPDATED, payload: user});
         resolve();
       })
-      .catch((result) => {
-        reject({ _error: result.error || 'Unexpected error occurred' });
-      });
+      .catch(_handleError(reject));
+  });
+};
+
+
+export const handleEmailChangeSubmit = (values, dispatch) => {
+  return new Promise((resolve, reject) => {
+    apiClient.put('/user/me/email', { data: values })
+      .then((user) => {
+        dispatch({type: USER_UPDATED, payload: user});
+        resolve();
+        dispatch(initialize('changeEmail', {email: values.email}, ['email']));
+        dispatch(resetForm('changeEmail'));
+      })
+      .catch(_handleError(reject));
   });
 };
 

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { isLoaded as isAuthLoaded, load as loadAuth, verifyEmail as verifyEmailAction } from './redux/modules/auth';
+import {
+  isLoaded as isAuthLoaded,
+  load as loadAuth,
+  verifyEmail as verifyEmailAction,
+  changeEmail as changeEmailAction,
+} from './redux/modules/auth';
 import { setError } from './redux/modules/global';
 
 import {
@@ -75,6 +80,21 @@ export default (store, client) => {
       .catch(done);
   };
 
+  const changeEmail = (nextState, replace, cb) => {
+    const done = (result) => {
+      replace({
+        pathname: '/home',
+        query: {
+          error: result && result.error,
+        },
+      });
+      cb();
+    };
+    store.dispatch(changeEmailAction(nextState.params.code))
+      .then(done)
+      .catch(done);
+  };
+
   const redirectPost = (nextState, replace, cb) => {
     client.get('/forum/post/' + nextState.params.id)
       .then((result) => {
@@ -105,8 +125,9 @@ export default (store, client) => {
       <Route path="/login" onEnter={redirectToHome} component={Login} />
       <Route path="/register" onEnter={redirectToHome} component={Register} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
+      <Route path="/change-email/:code" onEnter={changeEmail} />
       <Route path="/profile/:username" component={Profile} />
-      <Route path="/edit-profile" component={EditProfile} />
+      <Route path="/edit-profile" onEnter={requireAuth} component={EditProfile} />
       <Route path="/edit-profile/:type" onEnter={requireAuth} component={EditProfile} />
       <Route path="/forum">
         <IndexRoute component={Forum} />
