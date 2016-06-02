@@ -9,6 +9,7 @@ export Ranking from './Ranking/Ranking';
 export Profile from './Profile/Profile';
 export EditProfile from './EditProfile/EditProfile';
 export ForgotPassword from './ForgotPassword/ForgotPassword';
+export ResetPassword from './ResetPassword/ResetPassword';
 
 
 export Forum from './Forum/Forum';

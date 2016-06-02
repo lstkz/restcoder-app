@@ -94,7 +94,6 @@ export const handleRegisterSubmit = (values, dispatch) => {
 
 
 export const handleForgotPasswordSubmit = function(values, dispatch) {
-  console.log(arguments);
   return new Promise((resolve, reject) => {
     apiClient.post('/forgot-password', { data: values })
       .then(() => {
@@ -107,7 +106,15 @@ export const handleForgotPasswordSubmit = function(values, dispatch) {
 };
 
 export const handleResetPasswordSubmit = (values, dispatch) => {
-
+  return new Promise((resolve, reject) => {
+    apiClient.post('/reset-password', { data: values })
+      .then((result) => {
+        resolve();
+        dispatch(loggedIn(result));
+        dispatch(push('/'));
+      })
+      .catch(_handleError(reject));
+  });
 };
 
 export default handleActions({

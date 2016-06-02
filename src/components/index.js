@@ -29,3 +29,4 @@ export UserPhoto from './UserPhoto/UserPhoto';
 export PageTitle from './PageTitle/PageTitle';
 export ForgotLinks from './ForgotLinks/ForgotLinks';
 export ForgotPasswordForm from './ForgotPasswordForm/ForgotPasswordForm';
+export ResetPasswordForm from './ResetPasswordForm/ResetPasswordForm';
