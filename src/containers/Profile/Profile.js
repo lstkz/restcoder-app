@@ -22,47 +22,55 @@ export default class Profile2 extends React.Component {
     changeForumPostsPage: PropTypes.func.isRequired,
   };
 
-  render() {
-    const {user, submissions, changeSubmissionsPage, forumPosts, changeForumPostsPage} = this.props;
+  renderMain() {
+    const { user, submissions, changeSubmissionsPage, forumPosts, changeForumPostsPage } = this.props;
     if (!forumPosts) {
       return null;
     }
     return (
-      <App>
-        <div className={styles.Profile}>
-          <div className="container">
-            <Breadcrumb>
-              <LinkContainer to="/home">
-                <Breadcrumb.Item >
-                  Home
-                </Breadcrumb.Item>
-              </LinkContainer>
-              <Breadcrumb.Item active>
-                {user.username}
+      <div className={styles.Profile}>
+        <div className="container">
+          <Breadcrumb>
+            <LinkContainer to="/home">
+              <Breadcrumb.Item >
+                Home
               </Breadcrumb.Item>
-            </Breadcrumb>
+            </LinkContainer>
+            <Breadcrumb.Item active>
+              {user.username}
+            </Breadcrumb.Item>
+          </Breadcrumb>
 
-            <HeaderInfo user={user} />
-            <hr/>
+          <HeaderInfo user={user}/>
+          <hr/>
 
 
-            <Tabs defaultActiveKey={1} id="profileTabs">
-              <Tab eventKey={1} title="Stats">
-                <Stats stats={user.stats} />
-              </Tab>
-              <Tab eventKey={2} title="Submission history">
-                <SubmissionHistory items={submissions.items} />
-                {submissions.totalPages > 1 && <Paginate pageNum={submissions.totalPages} clickCallback={(item) => changeSubmissionsPage(item.selected)} />}
-              </Tab>
-              <Tab eventKey={3} title="Forum posts">
-                <ForumPosts forumPosts={forumPosts} />
-                {forumPosts.pagination.pageCount > 1 &&
-                  <Paginate pageNum={forumPosts.pagination.pageCount} clickCallback={(item) => changeForumPostsPage(item.selected + 1)} />}
-              </Tab>
-            </Tabs>
+          <Tabs defaultActiveKey={1} id="profileTabs">
+            <Tab eventKey={1} title="Stats">
+              <Stats stats={user.stats}/>
+            </Tab>
+            <Tab eventKey={2} title="Submission history">
+              <SubmissionHistory items={submissions.items}/>
+              {submissions.totalPages > 1 && <Paginate pageNum={submissions.totalPages}
+                                                       clickCallback={(item) => changeSubmissionsPage(item.selected)}/>}
+            </Tab>
+            <Tab eventKey={3} title="Forum posts">
+              <ForumPosts forumPosts={forumPosts}/>
+              {forumPosts.pagination.pageCount > 1 &&
+              <Paginate pageNum={forumPosts.pagination.pageCount}
+                        clickCallback={(item) => changeForumPostsPage(item.selected + 1)}/>}
+            </Tab>
+          </Tabs>
 
-          </div>
         </div>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <App>
+        {this.renderMain()}
       </App>
     );
   }
