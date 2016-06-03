@@ -27,6 +27,10 @@ const WATCH_CATEGORY = 'forum/WATCH_CATEGORY';
 const UNWATCH_CATEGORY = 'forum/UNWATCH_CATEGORY';
 const IGNORE = 'forum/IGNORE';
 
+const MARKED_OPTS = {
+  breaks: true, sanitize: true
+};
+
 function _getReplySubject(topic) {
   return `Replying to "${topic.title}"`;
 }
@@ -283,7 +287,7 @@ export default handleActions({
       return { ...state, composer: {
         ..._getDefaultComposerValues(),
         content,
-        preview: marked(content, {sanitize: true}),
+        preview: marked(content, MARKED_OPTS),
         isVisible: true,
         isShowPreview: true,
         focusKey: new Date().getTime(),
@@ -291,7 +295,7 @@ export default handleActions({
     }
     if (content) {
       composer.content += '\n' + content;
-      composer.preview = marked(composer.content, {sanitize: true});
+      composer.preview = marked(composer.content, MARKED_OPTS);
     }
     if (rest.category) {
       composer.category = rest.category;
@@ -303,7 +307,7 @@ export default handleActions({
     composer: {
       $merge: {
         content,
-        preview: marked(content, {sanitize: true})
+        preview: marked(content, MARKED_OPTS)
       }
     }
   }),
