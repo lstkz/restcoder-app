@@ -4,10 +4,11 @@ import styles from './Help.scss';
 export default class SubmitCodeSection extends React.Component {
   static propTypes = {
     lang: PropTypes.string.isRequired,
+    fileCount: PropTypes.number.isRequired,
   };
 
   render() {
-    const {lang} = this.props;
+    const {lang, fileCount} = this.props;
 
     return (
       <div>
@@ -21,7 +22,7 @@ export default class SubmitCodeSection extends React.Component {
 
           <pre><code>
             Packing source code...<br/>
-Found 3 file(s)<br/>
+Found {fileCount} file(s)<br/>
 Packing source code... <span className={styles.success}>Success</span><br/>
 Submitting source code...<br/>
 Submitting source code... <span className={styles.success}>Success</span><br/>

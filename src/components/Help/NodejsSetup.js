@@ -16,7 +16,7 @@ export default class NodejsSetup extends React.Component {
   render() {
     return (
       <div className={styles.steps}>
-        <h1 className="text-center">Getting started with Node.js</h1>
+        <h1 className="text-center">Getting Started with Node.js</h1>
         <h3>Setup</h3>
         <section>
           Install <Link to="/help/cli-tool">RestCoder CLI tool</Link>
@@ -70,7 +70,7 @@ export default class NodejsSetup extends React.Component {
             <span className={styles.cyan}>11:25:48 AM web.1 |</span>  READY
           </RunForeman>
         </section>
-        <SubmitCodeSection lang="nodejs@4.4.4'"/>
+        <SubmitCodeSection lang="nodejs@4.4.4" fileCount={3} />
       </div>
     );
   }
