@@ -9,10 +9,6 @@ import RunForeman from './RunForeman';
 export default class NodejsSetup extends React.Component {
   static propTypes = {};
 
-  renderVersion(version) {
-    return <pre><code>{`"engines": { "node": "${version}" }`}</code></pre>;
-  }
-
   render() {
     return (
       <div className={styles.steps}>
@@ -73,6 +69,7 @@ export default class NodejsSetup extends React.Component {
             <span className={styles.cyan}>12:14:53 PM web.1 |</span> {'[Thread-0] INFO org.eclipse.jetty.server.ServerConnector - Started ServerConnector@397f5f60{HTTP/1.1}{0.0.0.0:5000}'}<br/>
             <span className={styles.cyan}>12:14:53 PM web.1 |</span> READY
           </RunForeman>
+          <strong>Important: </strong>Use <code>nf start -j Procfile.windows</code> command in Windows
         </section>
         <SubmitCodeSection lang="java@1.8.0" fileCount={6} />
       </div>

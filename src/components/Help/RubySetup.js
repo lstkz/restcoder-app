@@ -9,10 +9,6 @@ import RunForeman from './RunForeman';
 export default class RubySetup extends React.Component {
   static propTypes = {};
 
-  renderVersion(version) {
-    return <pre><code>{`"engines": { "node": "${version}" }`}</code></pre>;
-  }
-
   render() {
     return (
       <div className={styles.steps}>

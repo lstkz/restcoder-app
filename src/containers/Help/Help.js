@@ -4,7 +4,7 @@ import {App} from '../';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {Link} from 'react-router';
-import {NodejsSetup, JavaSetup, ProcfileInfo, RubySetup} from '../../components/Help';
+import {NodejsSetup, JavaSetup, ProcfileInfo, RubySetup, PythonSetup, DotNetSetup} from '../../components/Help';
 
 @asyncConnect([{
   promise: () => Promise.resolve()
@@ -21,6 +21,10 @@ export default class Help extends React.Component {
         return <JavaSetup />;
       case 'ruby':
         return <RubySetup />;
+      case 'python':
+        return <PythonSetup />;
+      case 'dotnet':
+        return <DotNetSetup />;
       default:
         return this.renderDefaultContent();
     }
