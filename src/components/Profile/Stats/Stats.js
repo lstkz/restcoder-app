@@ -32,13 +32,13 @@ export default class Stats extends React.Component {
       <div className={styles.Stats}>
 
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-6">
             <h3><i className="fa fa-code"/> Languages</h3>
             {languages.map((item) =>
               <ProgressBar key={item.name} title={item.name} score={item.score} />
             )}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-6">
             <h3><i className="fa fa-cloud"/> Technologies</h3>
             {technologies.map((item) =>
               <ProgressBar key={item.name} title={item.name} score={item.score} />

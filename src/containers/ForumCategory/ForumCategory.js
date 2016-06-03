@@ -9,12 +9,13 @@ import * as actions from '../../redux/modules/forum';
 @asyncConnect([{
   promise: ({ params, location, store: { dispatch } }) => dispatch(actions.initCategory(params.id, location.query.page))
 }])
-@connect(state => state.forum, actions)
+@connect(state => ({...state.forum, isLoggedIn: state.auth.isLoggedIn}), actions)
 export default class Forum extends React.Component {
   static
   propTypes = {
     category: PropTypes.object.isRequired,
     showComposer: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
   };
 
   onNewTopic() {
@@ -28,7 +29,7 @@ export default class Forum extends React.Component {
   }
 
   render() {
-    const { category, watchCategory, unwatchCategory} = this.props;
+    const { category, watchCategory, unwatchCategory, isLoggedIn} = this.props;
     const canCreateTopic = category.privileges['topics:create'];
     const {topics} = category;
     return (
@@ -37,12 +38,12 @@ export default class Forum extends React.Component {
           <div className="container">
             <Breadcrumb breadcrumbs={category.breadcrumbs} />
 
-            <div className="clearfix">
+            {isLoggedIn && <div className="clearfix">
               {canCreateTopic && <button className="btn btn-primary btn-inverse" onClick={::this.onNewTopic}>New Topic</button>}
               <span className="pull-right">
                    <WatchBtn isIgnored={category.isIgnored} watch={watchCategory} unwatch={unwatchCategory} />
                </span>
-            </div>
+            </div>}
             <hr className="hidden-xs"/>
             <p className="hidden-xs" dangerouslySetInnerHTML={{__html: category.name}}>
             </p>

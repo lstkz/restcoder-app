@@ -21,6 +21,12 @@ a:hover {
   p small {
     line-height: inherit;
   }
+  .mainContent {
+    min-height: 300px;
+  }
+  .table-responsive .table {
+    max-width: none;
+  }
   .dropdown-menu {
     p {
       font-size: 16px;

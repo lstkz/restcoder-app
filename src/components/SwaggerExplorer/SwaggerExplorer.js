@@ -53,6 +53,7 @@ export default class SwaggerExplorer extends React.Component {
       return (<td/>);
     }
     return (<td>
+      <div className="table-responsive">
       <table className="respnse-headers">
         <thead>
         <tr>
@@ -77,6 +78,7 @@ export default class SwaggerExplorer extends React.Component {
         )}
         </tbody>
       </table>
+      </div>
     </td>);
   }
 
@@ -111,7 +113,7 @@ export default class SwaggerExplorer extends React.Component {
           {!!parameters.length &&
           <section className="parameters">
             <h5>Parameters</h5>
-            <div>
+            <div className="table-responsive">
               <table className="table table-condensed">
                 <thead>
                 <tr>
@@ -143,7 +145,7 @@ export default class SwaggerExplorer extends React.Component {
         <section>
           <h5>Responses</h5>
 
-          <div>
+          <div className="table-responsive">
             <table className="table table-condensed responses">
               <thead>
               <tr>

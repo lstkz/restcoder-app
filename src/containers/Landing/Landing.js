@@ -38,7 +38,7 @@ export default class Landing extends Component {
               <nav className="navbar" role="navigation">
                 <div className="navbar-header pull-left">
                   <a className="brand" href="#">
-                    {<img src={require('./logo.png')} height="70" width="97" alt=""/>}
+                    {<img src={require('./logo.png')} height="70"  alt=""/>}
                     RestCoder
                   </a>
                 </div>

@@ -3,7 +3,7 @@ import styles from './Examples.scss';
 import {Callout, ResponseCode} from '../';
 import {Tabs, Tab} from 'react-bootstrap';
 import _ from 'underscore';
-import Codemirror from 'react-code-mirror';
+import Codemirror from './CodeMirror';
 
 require('codemirror/lib/codemirror.css');
 require('codemirror/theme/material.css');

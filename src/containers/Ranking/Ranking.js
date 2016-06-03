@@ -52,14 +52,14 @@ export default class Ranking extends React.Component {
       <App>
         <div className={classNames(styles.Ranking, 'container')}>
           <div className="row">
-            <div className="col-md-9">
+            <div className="col-sm-9">
               <h4>Overall ranking</h4>
               <RankingComp {...this.props} />
 
               <Paginate pageNum={totalPages} clickCallback={(item) => changePage(item.selected)} />
             </div>
 
-            <div className="col-md-3">
+            <div className="col-sm-3">
               <h4>Filter</h4>
               <ChallengeFilter filters={filters} toggleFilter={::this.toggleFilter} filter={filter}/>
             </div>

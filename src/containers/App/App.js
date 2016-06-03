@@ -24,8 +24,10 @@ export default class App extends Component {
         <Helmet {...config.app.head}/>
         <Header />
         <ErrorMessage error={error} clearError={clearError} />
-        {isFatal && <FatalError timestamp={fatalTimestamp} />}
-        {!isFatal && children}
+        <div className="mainContent">
+          {isFatal && <FatalError timestamp={fatalTimestamp} />}
+          {!isFatal && children}
+        </div>
         <Footer />
       </div>
     );

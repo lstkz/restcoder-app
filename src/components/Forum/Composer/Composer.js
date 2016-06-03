@@ -32,7 +32,7 @@ export default class Composer extends React.Component {
       document.body.style.marginBottom = '400px';
     }
     if (!nextProps.isVisible || this.props.isVisible) {
-      document.body.style.marginBottom = '191px';
+      document.body.style.marginBottom = null;
     }
   }
 

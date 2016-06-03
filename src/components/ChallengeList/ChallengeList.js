@@ -24,9 +24,9 @@ export default class ChallengeList extends Component {
               {isLoggedIn && <th/>}
               <th>ID</th>
               <th>Name</th>
-              <th>Attempts</th>
-              <th>Users</th>
-              <th>Accuracy</th>
+              <th className="hidden-sm hidden-xs">Attempts</th>
+              <th className="hidden-xs">Users</th>
+              <th className="hidden-sm hidden-xs">Accuracy</th>
               <th>Level</th>
             </tr>
             </thead>
@@ -44,9 +44,9 @@ export default class ChallengeList extends Component {
                   <br/>
                   <small>{item.tags.join(', ')}</small>
                 </td>
-                <td className="center">{item.stats.attempts}</td>
-                <td className="center">{item.stats.totalUniqueSolved}</td>
-                <td className="center">{item.stats.attempts && Math.floor(item.stats.totalSolved / item.stats.attempts * 100)}%
+                <td className="center hidden-sm hidden-xs">{item.stats.attempts}</td>
+                <td className="center hidden-xs">{item.stats.totalUniqueSolved}</td>
+                <td className="center hidden-sm hidden-xs">{item.stats.attempts && Math.floor(item.stats.totalSolved / item.stats.attempts * 100)}%
                 </td>
                 <td className="center">{item.level}</td>
               </tr>

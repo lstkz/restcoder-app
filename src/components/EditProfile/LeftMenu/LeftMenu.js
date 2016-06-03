@@ -28,7 +28,7 @@ export default class LeftMenu extends React.Component {
         <input className="hidden" type="file" ref="file" onChange={::this.handleFile}/>
         <div className="text-center">
           <div className="row">
-            <div className="col-xs-12 hidden-xs mbl">
+            <div className="col-xs-12  mbl">
               <UserPhoto user={user} size={128} />
             </div>
           </div>
