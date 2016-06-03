@@ -4,7 +4,7 @@ import {App} from '../';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {Link} from 'react-router';
-import {NodejsSetup, JavaSetup, ProcfileInfo, RubySetup, PythonSetup, DotNetSetup} from '../../components/Help';
+import {NodejsSetup, JavaSetup, ProcfileInfo, RubySetup, PythonSetup, DotNetSetup, RestCoderCLI} from '../../components/Help';
 
 @asyncConnect([{
   promise: () => Promise.resolve()
@@ -37,6 +37,8 @@ export default class Help extends React.Component {
         return this.renderLanguage(params.subtopic);
       case 'procfile':
         return <ProcfileInfo/>;
+      case 'cli-tool':
+        return <RestCoderCLI/>;
       default:
         return this.renderDefaultContent();
     }
