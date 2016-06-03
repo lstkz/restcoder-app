@@ -4,7 +4,6 @@ import {asyncConnect} from 'redux-async-connect';
 import {SwaggerExplorer, Examples, ChallengeHelp} from '../../components';
 import {loadChallenge} from '../../redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
 import {Link} from 'react-router';
 import {App} from '../';
 import {push} from 'react-router-redux';
@@ -66,6 +65,20 @@ export default class ChallengeDetails extends Component {
               <Tab eventKey={1} title="Details">
                 <div dangerouslySetInnerHTML={{__html: challenge.content}}>
                 </div>
+                <section>
+                  <h5>Checkout code</h5>
+                  <div className="row">
+                    <div className="col-sm-6">
+                      Create new directory (optional)
+                      <pre><code><span className="nv">$ </span>mkdir {challenge.slug} && cd $_</code></pre>
+                    </div>
+                    <div className="col-sm-6">
+                      Init template
+                      <pre><code><span className="nv">$ </span>restcoder init {challenge.id}</code></pre>
+                    </div>
+                  </div>
+
+                </section>
               </Tab>
 
               <Tab eventKey={2} title="Endpoints">
