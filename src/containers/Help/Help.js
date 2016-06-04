@@ -4,7 +4,7 @@ import {App} from '../';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {Link} from 'react-router';
-import {NodejsSetup, JavaSetup, ProcfileInfo, RubySetup, PythonSetup, DotNetSetup, RestCoderCLI, PlatformInformation, Limitations} from '../../components/Help';
+import {NodejsSetup, JavaSetup, Scoring, ProcfileInfo, RubySetup, PythonSetup, DotNetSetup, RestCoderCLI, PlatformInformation, Limitations} from '../../components/Help';
 
 @asyncConnect([{
   promise: () => Promise.resolve()
@@ -43,6 +43,8 @@ export default class Help extends React.Component {
         return <PlatformInformation/>;
       case 'limitations':
         return <Limitations/>;
+      case 'scoring':
+        return <Scoring/>;
       default:
         return this.renderDefaultContent();
     }
@@ -98,6 +100,7 @@ export default class Help extends React.Component {
                 {this.renderLink('Procfile and foreman', 'procfile')}
                 {this.renderLink('Platform information', 'platform-information')}
                 {this.renderLink('Limitations', 'limitations')}
+                {this.renderLink('Scoring', 'scoring')}
               </ul>
             </div>
 

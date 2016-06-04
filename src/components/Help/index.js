@@ -9,3 +9,4 @@ export ProcfileInfo from './ProcfileInfo';
 export RestCoderCLI from './RestCoderCLI';
 export PlatformInformation from './PlatformInformation';
 export Limitations from './Limitations';
+export Scoring from './Scoring';

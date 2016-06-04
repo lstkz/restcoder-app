@@ -64,7 +64,7 @@ export default class ProcfileInfo extends React.Component {
           <br/>
           <strong>Important:</strong> RestCoder tester will also set the <code>FOREMAN_WORKER_NAME</code> variable automatically.<br/>
           If you must initialize any database schema, do it only if <code>FOREMAN_WORKER_NAME</code> is equal to <code>web.1</code>.<br/>
-          See example problem: <Link to="/challenges/3">Starter: Multiple instances</Link>
+          See example problem: <Link to="/challenge/3">Starter: Multiple instances</Link>
           <br/>
           <strong>Important:</strong> Always read problem statements carefully. Sometimes there is only 1 instances of a process, but sometimes there are multiple.
           <br/>
