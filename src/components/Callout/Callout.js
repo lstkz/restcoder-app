@@ -29,7 +29,8 @@ export default class Callout extends React.Component {
     const {title, children, type: originalType, className, httpMethod, description} = this.props;
     const httpMethod2Color = {
       get: 'green',
-      post: 'orange'
+      post: 'orange',
+      delete: 'red',
     };
     const type = originalType || httpMethod2Color[httpMethod.toLowerCase()];
     const {expanded} = this.state;

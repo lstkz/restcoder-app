@@ -40,11 +40,12 @@ export default class Examples extends React.Component {
 
   renderTabs(obj, titlePrefix) {
     const headerCount = _.keys(obj.headers || {}).length;
+    const renderBody = obj.body || titlePrefix !== 'REQUEST';
     return (
       <Tabs defaultActiveKey={1} id="examplesTabs">
-        <Tab eventKey={1} title={titlePrefix + ' BODY'}>
+        {renderBody && <Tab eventKey={1} title={titlePrefix + ' BODY'}>
           {this.renderCodeMirror(obj)}
-        </Tab>
+        </Tab>}
 
         {!!headerCount && <Tab eventKey={2} title={titlePrefix + ' HEADERS'}>
           <div className="row">
@@ -66,7 +67,7 @@ export default class Examples extends React.Component {
     const title = (<span>{item.request.method} {item.request.url} → <ResponseCode code={item.response.status} /></span>);
     return (
       <Callout className="example" key={i} title={title} httpMethod={item.request.method} description={item.description}>
-        {item.request.body && this.renderTabs(item.request, 'REQUEST')}
+        {(item.request.body || item.request.headers) && this.renderTabs(item.request, 'REQUEST')}
         {this.renderTabs(item.response, 'RESPONSE')}
       </Callout>
     );
