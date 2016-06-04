@@ -42,7 +42,7 @@ export default class Examples extends React.Component {
     const headerCount = _.keys(obj.headers || {}).length;
     const renderBody = obj.body || titlePrefix !== 'REQUEST';
     return (
-      <Tabs defaultActiveKey={1} id="examplesTabs">
+      <Tabs id="examplesTabs">
         {renderBody && <Tab eventKey={1} title={titlePrefix + ' BODY'}>
           {this.renderCodeMirror(obj)}
         </Tab>}
