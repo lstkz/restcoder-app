@@ -20,7 +20,7 @@ export default class Teaser extends React.Component {
         <p>
           <UserIcon user={teaser.user} />
           &nbsp;
-          <Permalink time={teaser.timestampISO} to={teaser.url} />
+          <Permalink time={teaser.timestampISO} to={`/post/${teaser.pid}`} />
         </p>
         <div className={styles.postContent} dangerouslySetInnerHTML={{__html: teaser.content}}>
         </div>
