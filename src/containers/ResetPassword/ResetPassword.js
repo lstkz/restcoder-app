@@ -6,6 +6,7 @@ import styles from './ResetPassword.scss';
 import {ResetPasswordForm, PageTitle} from '../../components';
 import {handleResetPasswordSubmit} from '../../redux/modules/auth';
 import {App} from '../';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => {
@@ -27,6 +28,7 @@ export default class ResetPassword extends React.Component {
   render() {
     return (
       <App>
+        <Helmet title="Reset Password" />
         <div className={'container ' + styles.ResetPassword}>
           <PageTitle>Reset Password</PageTitle>
           <div className="row">

@@ -6,6 +6,7 @@ import {asyncConnect} from 'redux-async-connect';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {UnreadTypeBtn, Paginate, TopicItem} from '../../components/Forum';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({ location, params, store: { dispatch } }) => dispatch(actions.initUnread(params.type, location.query))
@@ -25,6 +26,7 @@ export default class ForumUnread extends React.Component {
 
     return (
       <ForumWrapper>
+        <Helmet title="Unread topics" />
         <div className={styles.ForumUnread}>
           <div className="container">
 

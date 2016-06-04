@@ -9,6 +9,7 @@ import {handleInfoSubmit, handleEmailChangeSubmit, handlePasswordChangeSubmit} f
 import {App} from '../';
 import {LeftMenu, InfoForm, EmailForm, PasswordForm} from '../../components/EditProfile';
 import {initialize} from 'redux-form';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({store: {dispatch}}) => {
@@ -102,6 +103,7 @@ export default class EditProfile extends React.Component {
 
     return (
       <App>
+        <Helmet title="Edit profile" />
         <div className={styles.EditProfile}>
           <div className="container">
             <Breadcrumb>

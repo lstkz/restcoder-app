@@ -5,6 +5,7 @@ import _ from 'underscore';
 import {ChallengeList, ChallengeFilter, HeaderMessage} from '../../components';
 import * as actions from '../../redux/modules/challenges';
 import {App} from '../';
+import Helmet from 'react-helmet';
 
 
 @asyncConnect([{
@@ -33,6 +34,7 @@ export default class Home extends Component {
 
     return (
       <App>
+        <Helmet title="Practice" />
         {confirmEmailVisible && <HeaderMessage>
           Activation link was sent to <span className="text-primary">{confirmEmailTarget}</span>
         </HeaderMessage>}

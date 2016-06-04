@@ -6,6 +6,7 @@ import styles from './Ranking.scss';
 import classNames from 'classnames';
 import {Ranking as RankingComp, ChallengeFilter, Paginate} from '../../components';
 import {App} from '../';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => dispatch(actions.init())
@@ -50,6 +51,7 @@ export default class Ranking extends React.Component {
     const {filter} = this.state;
     return (
       <App>
+        <Helmet title="Ranking" />
         <div className={classNames(styles.Ranking, 'container')}>
           <div className="row">
             <div className="col-sm-9">

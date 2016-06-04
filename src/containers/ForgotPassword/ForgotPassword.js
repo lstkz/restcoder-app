@@ -6,6 +6,7 @@ import styles from './ForgotPassword.scss';
 import {ForgotPasswordForm, PageTitle} from '../../components';
 import {handleForgotPasswordSubmit} from '../../redux/modules/auth';
 import {App} from '../';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => {
@@ -21,6 +22,7 @@ export default class ForgotPassword extends React.Component {
   render() {
     return (
     <App>
+      <Helmet title="Forgot password" />
       <div className={'container ' + styles.ForgotPassword}>
         <PageTitle>Forgot Password</PageTitle>
         <div className="row">

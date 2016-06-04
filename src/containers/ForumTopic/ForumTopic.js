@@ -5,6 +5,7 @@ import ForumWrapper from '../ForumWrapper/ForumWrapper';
 import styles from './ForumTopic.scss';
 import * as actions from '../../redux/modules/forum';
 import {Post, Breadcrumb, Paginate, TopicToolbar} from '../../components/Forum';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({ location, params, store: { dispatch } }) => dispatch(actions.initTopic(params.id, location.query.page))
@@ -46,6 +47,7 @@ export default class ForumTopic extends React.Component {
 
     return (
       <ForumWrapper>
+        <Helmet title={topic.title} />
         <div className={styles.ForumTopic}>
           <div className="container">
             <Breadcrumb breadcrumbs={topic.breadcrumbs} />

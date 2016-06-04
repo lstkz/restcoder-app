@@ -7,6 +7,7 @@ import {Tabs, Tab} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {App} from '../';
 import {push} from 'react-router-redux';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => {
@@ -38,6 +39,7 @@ export default class ChallengeDetails extends Component {
     const styles = require('./ChallengeDetails.scss');
     return (
       <App>
+        <Helmet title={challenge.name} />
         <div className={'container ' + styles.ChallengeDetails}>
 
           <ol className="breadcrumb">

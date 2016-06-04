@@ -8,6 +8,7 @@ import {Tabs, Tab, Breadcrumb} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Paginate} from '../../components';
 import {Stats, SubmissionHistory, HeaderInfo, ForumPosts} from '../../components/Profile';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({ params, store: { dispatch } }) => dispatch(actions.init(params.username))
@@ -68,8 +69,10 @@ export default class Profile2 extends React.Component {
   }
 
   render() {
+    const {user} = this.props;
     return (
       <App>
+        <Helmet title={user.username} />
         {this.renderMain()}
       </App>
     );

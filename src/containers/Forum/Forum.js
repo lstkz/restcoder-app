@@ -6,6 +6,7 @@ import {asyncConnect} from 'redux-async-connect';
 import ForumWrapper from '../ForumWrapper/ForumWrapper';
 import {CategoryItem} from '../../components/Forum';
 import {initCategories} from '../../redux/modules/forum';
+import Helmet from 'react-helmet';
 
 
 @asyncConnect([{
@@ -23,6 +24,7 @@ export default class Forum extends React.Component {
     const { categories, forumUnreadTotal } = this.props;
     return (
       <ForumWrapper>
+        <Helmet title="Forum" />
         <div classNameName={styles.Forum}>
           <div className="container">
             {forumUnreadTotal > 0 && <div className="clearfix">

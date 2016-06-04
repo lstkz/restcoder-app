@@ -6,6 +6,7 @@ import styles from './ResendActivationLink.scss';
 import {ForgotPasswordForm, PageTitle} from '../../components';
 import {handleResendActivationLinkSubmit} from '../../redux/modules/auth';
 import {App} from '../';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => {
@@ -21,6 +22,7 @@ export default class ResendActivationLink extends React.Component {
   render() {
     return (
     <App>
+      <Helmet title="Resend Activation Link" />
       <div className={'container ' + styles.ResendActivationLink}>
         <PageTitle>Resend Activation Link</PageTitle>
         <div className="row">

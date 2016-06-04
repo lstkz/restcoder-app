@@ -31,7 +31,7 @@ export default class Landing extends Component {
 //    };
     return (
       <div className="landingPage">
-        <Helmet {...config.app.head}/>
+        <Helmet {...config.app.head} title="RestCoder" titleTemplate="%s" />
         <div className="page-wrapper">
           <header className="header-3">
             <div className="container">

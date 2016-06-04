@@ -6,6 +6,7 @@ import {initialize} from 'redux-form';
 import {App} from '../';
 import {RegisterForm, PageTitle} from '../../components';
 import {handleRegisterSubmit} from '../../redux/modules/auth';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => {
@@ -21,6 +22,7 @@ export default class Register extends React.Component {
   render() {
     return (
       <App>
+        <Helmet title="Ranking" />
         <div className={'container ' + styles.Register}>
           <PageTitle>Register</PageTitle>
           <div className="row">

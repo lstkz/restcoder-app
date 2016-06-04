@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {Link} from 'react-router';
 import {NodejsSetup, JavaSetup, Scoring, ProcfileInfo, RubySetup, PythonSetup, DotNetSetup, RestCoderCLI, PlatformInformation, Limitations} from '../../components/Help';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => Promise.resolve()
@@ -80,6 +81,7 @@ export default class Help extends React.Component {
   render() {
     return (
       <App>
+        <Helmet title="Help" />
         <div className={'container ' + styles.Help}>
           <div className="row">
             <div className="col-sm-3">

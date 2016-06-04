@@ -5,6 +5,7 @@ import styles from './Contact.scss';
 import {ContactForm, PageTitle} from '../../components';
 import {handleContactSubmit} from '../../redux/modules/auth';
 import {App} from '../';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => Promise.resolve()
@@ -19,6 +20,7 @@ export default class Contact extends React.Component {
     const {auth: {isLoggedIn}} = this.props;
     return (
       <App>
+        <Helmet title="Contact" />
         <div className={'container ' + styles.Contact}>
           <PageTitle>Contact</PageTitle>
           <div className="row">

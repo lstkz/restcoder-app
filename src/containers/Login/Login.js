@@ -5,6 +5,7 @@ import {initialize} from 'redux-form';
 import {LoginForm, PageTitle} from '../../components';
 import {App} from '../';
 import {handleLoginSubmit} from '../../redux/modules/auth';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: () => {
@@ -22,6 +23,7 @@ export default class Login extends Component {
 
     return (
       <App>
+        <Helmet title="Login" />
         <div className={'container ' + styles.Login}>
           <PageTitle>Login</PageTitle>
           <div className="row">

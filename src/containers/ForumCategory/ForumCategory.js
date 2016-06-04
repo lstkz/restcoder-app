@@ -5,6 +5,7 @@ import {asyncConnect} from 'redux-async-connect';
 import ForumWrapper from '../ForumWrapper/ForumWrapper';
 import {TopicItem, Breadcrumb, Paginate, WatchBtn} from '../../components/Forum';
 import * as actions from '../../redux/modules/forum';
+import Helmet from 'react-helmet';
 
 @asyncConnect([{
   promise: ({ params, location, store: { dispatch } }) => dispatch(actions.initCategory(params.id, location.query.page))
@@ -34,6 +35,7 @@ export default class Forum extends React.Component {
     const {topics} = category;
     return (
       <ForumWrapper>
+        <Helmet title={category.name} />
         <div classNameName={styles.ForumCategory}>
           <div className="container">
             <Breadcrumb breadcrumbs={category.breadcrumbs} />
