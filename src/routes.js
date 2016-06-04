@@ -26,6 +26,7 @@ import {
   ResetPassword,
   ResendActivationLink,
   Help,
+  Contact,
 } from './containers';
 
 export default (store, client) => {
@@ -147,6 +148,7 @@ export default (store, client) => {
       <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/reset-password/:code" component={ResetPassword} />
       <Route path="/activation-link" component={ResendActivationLink} />
+      <Route path="/contact" component={Contact} />
       <Route path="/help">
         <IndexRoute component={Help} />
         <Route path="/help/:topic" component={Help} />

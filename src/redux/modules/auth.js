@@ -129,6 +129,19 @@ export const handleResetPasswordSubmit = (values, dispatch) => {
   });
 };
 
+export const handleContactSubmit = (values, dispatch) => {
+  return new Promise((resolve, reject) => {
+    apiClient.post('/contact', { data: values })
+      .then(() => {
+        resolve();
+        dispatch({type: INFO_MESSAGE, payload: 'Your message has been sent. Thank you for contacting us.'});
+        setTimeout(() => dispatch({type: INFO_MESSAGE, payload: null}), MESSAGE_TIMEOUT);
+        dispatch(push('/home'));
+      })
+      .catch(_handleError(reject));
+  });
+};
+
 export default handleActions({
   [LOAD]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: !!user, loaded: true}),
   [LOGGED_IN]: (state, {payload: {user}}) => ({...state, user, isLoggedIn: true}),

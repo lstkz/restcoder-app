@@ -18,7 +18,8 @@ export default class FormControl extends React.Component {
       <div className={classNames(styles.FormControl, 'form-group', {'has-error': values.touched && values.error})}>
         <label htmlFor={name} className={`${!vertical ? 'col-lg-2 ' : '' } control-label`}>{label}</label>
         <div className={`${!vertical ? 'col-lg-10 ' : ''}`}>
-          <input type={type} className="form-control" id={name} placeholder={placeholder} {...values}/>
+          {type !== 'textarea' && <input type={type} className="form-control" id={name} placeholder={placeholder} {...values}/>}
+          {type === 'textarea' && <textarea rows="5" className="form-control" id={name} placeholder={placeholder} {...values}/>}
           {values.touched && values.error && <div className="help-block">{values.error}</div>}
         </div>
       </div>
