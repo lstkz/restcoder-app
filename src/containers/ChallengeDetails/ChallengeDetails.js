@@ -87,9 +87,9 @@ export default class ChallengeDetails extends Component {
               <Tab eventKey={3} title="Examples">
                 <Examples challenge={challenge} />
               </Tab>
-              <Tab eventKey={4} title="Help">
+              {/*<Tab eventKey={4} title="Help">
                 <ChallengeHelp challenge={challenge} />
-              </Tab>
+              </Tab>*/}
 
               <Tab eventKey={'forum'} title={<span>Discuss <i className="fa fa-external-link" /></span>} />
             </Tabs>
