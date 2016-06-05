@@ -66,6 +66,8 @@ export default handleActions({
         items: [
           { name: 'Very Easy', count: _.where(items, { level: 'Very Easy' }).length },
           { name: 'Easy', count: _.where(items, { level: 'Easy' }).length },
+          { name: 'Medium', count: _.where(items, { level: 'Medium' }).length },
+          { name: 'Hard', count: _.where(items, { level: 'Hard' }).length },
         ],
       },
       {
