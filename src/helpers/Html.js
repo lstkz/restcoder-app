@@ -32,6 +32,7 @@ export default class Html extends Component {
           {head.meta.toComponent()}
           {head.link.toComponent()}
           {head.script.toComponent()}
+          <meta name="google-site-verification" content="Wk6TSEJfjJssQmf1JlPU2e1T36VTyxzJH4PhdV6hpbE" />
           <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
           <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
           <link rel="stylesheet" href="/css/bootstrap.min.css"/>
