@@ -9,7 +9,7 @@ export default class Scoring extends React.Component {
       <div className={styles.steps}>
         <h1 className="text-center">Scoring</h1>
         <section>
-          You receive score for each solved problem. <br/>
+          The score for each solved problem is: <br/>
           Very Easy = 1 score <br/>
           Easy = 2 score <br/>
           Medium = 4 score <br/>

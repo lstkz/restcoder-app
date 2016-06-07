@@ -71,7 +71,7 @@ export default class ChallengeDetails extends Component {
                   <h5>Checkout code</h5>
                   <div className="row">
                     <div className="col-sm-6">
-                      Create new directory (optional)
+                      Create a new directory (optional)
                       <pre><code><span className="nv">$ </span>mkdir {challenge.slug} && cd $_</code></pre>
                     </div>
                     <div className="col-sm-6">

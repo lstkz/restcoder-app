@@ -54,8 +54,8 @@ export default class Help extends React.Component {
   renderDefaultContent() {
     return (
       <div className="text-center">
-        <h1>Getting Started on RestCoder</h1>
-        <p>Please choose topic from <span className="hidden-xs">left</span> menu</p>
+        <h1>Getting Started with RestCoder</h1>
+        <p>Please select a topic on the left sidebar</p>
       </div>
     );
   }

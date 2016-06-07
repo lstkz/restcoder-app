@@ -56,7 +56,7 @@ export default class Landing extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-sm-12 text-center">
-                  <h3>RestCoder, Practice technologies.</h3>
+                  <h3>RestCoder - Practice technologies</h3>
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@ export default class Landing extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-sm-8 col-sm-offset-2">
-                  <h3>Become a better backend developer</h3>
+                  <h3>Become a better backend developer!</h3>
 
                   <p className="lead">We’ve created API challenges that will help you improve your skills.</p>
                 </div>
@@ -78,8 +78,8 @@ export default class Landing extends Component {
               <div className="row features">
                 <div className="col-sm-4">
                   <img src={require('./icons/bulb.svg')} alt="" width="100" height="100"/>
-                  <h6>Pick challenge</h6>
-                  We have more than 10+ challenges to solve. <br/>More challenges are coming!
+                  <h6>Pick a challenge</h6>
+                  We have 10+ challenges to solve. <br/>More challenges are coming!
                 </div>
                 <div className="col-sm-4 col-sm-offset-0">
                   <img src={require('./icons/pc.svg')} alt="" width="145" height="100"/>
