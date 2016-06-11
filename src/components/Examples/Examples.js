@@ -78,6 +78,13 @@ export default class Examples extends React.Component {
 
     return (
       <div className={styles.Examples}>
+
+        <div className="mbl">
+          <a target="_blank" href="https://app.getpostman.com/run-collection/87262e6e50b5f5e157d3">
+            <img id="postman-btn" src="https://run.pstmn.io/button.svg" />
+          </a>
+        </div>
+
         {examples.map((suit, i) =>
           <div key={i}>
             {suit.requests.map(::this.renderItem)}

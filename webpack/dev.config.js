@@ -70,6 +70,7 @@ module.exports = {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
       './src/theme/common.scss',
+      './src/theme/global.scss',
       './src/client.js'
     ],
     'vendor': [
@@ -97,7 +98,12 @@ module.exports = {
         loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap'
       },
       {
+        test: /global\.scss$/,
+        loader: 'style!css!sass'
+      },
+      {
         test: /\.scss$/,
+        exclude: /global/,
         loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
       },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },

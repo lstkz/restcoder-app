@@ -76,10 +76,11 @@ export const handleLoginSubmit = (values, dispatch) => {
 export const handleRegisterSubmit = (values, dispatch) => {
   return new Promise((resolve, reject) => {
     apiClient.post('/register', { data: values })
-      .then(() => {
-        dispatch(push('/home'));
-        dispatch({type: SHOW_CONFIRM_EMAIL_INFO, payload: values.email});
-        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), MESSAGE_TIMEOUT);
+      .then((result) => {
+        dispatch(loggedIn(result));
+        dispatch(push('/challenge/1'));
+//        dispatch({type: SHOW_CONFIRM_EMAIL_INFO, payload: values.email});
+//        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), MESSAGE_TIMEOUT);
       })
       .catch((result) => {
         if (result.error && result.error.indexOf('Email') !== -1) {
