@@ -31,3 +31,5 @@ export ForgotLinks from './ForgotLinks/ForgotLinks';
 export ForgotPasswordForm from './ForgotPasswordForm/ForgotPasswordForm';
 export ResetPasswordForm from './ResetPasswordForm/ResetPasswordForm';
 export ContactForm from './ContactForm/ContactForm';
+export ExternalLink from './ExternalLink/ExternalLink';
+export BashCode from './BashCode/BashCode';
