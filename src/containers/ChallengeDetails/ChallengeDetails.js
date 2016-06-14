@@ -138,7 +138,7 @@ export default class ChallengeDetails extends Component {
 
               <Tab eventKey={'forum'} title={<span id="discuss-tab">Discuss <i className="fa fa-external-link" /></span>}/>
               <Tab eventKey={4} title={<span id="solution-tab" className="">Step by step solution</span>}>
-                <Solution1 />
+                <Solution1 challenge={challenge} />
               </Tab>
             </Tabs>
           </div>

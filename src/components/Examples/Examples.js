@@ -4,6 +4,7 @@ import {Callout, ResponseCode} from '../';
 import {Tabs, Tab} from 'react-bootstrap';
 import _ from 'underscore';
 import Codemirror from './CodeMirror';
+import RunInPostman from './RunInPostman';
 
 require('codemirror/lib/codemirror.css');
 require('codemirror/theme/material.css');
@@ -74,15 +75,13 @@ export default class Examples extends React.Component {
   }
 
   render() {
-    const { challenge: { examples } } = this.props;
+    const { challenge: { examples, postmanCollectionId } } = this.props;
 
     return (
       <div className={styles.Examples}>
 
         <div className="mbl">
-          <a target="_blank" href="https://app.getpostman.com/run-collection/87262e6e50b5f5e157d3">
-            <img id="postman-btn" src="https://run.pstmn.io/button.svg" />
-          </a>
+          <RunInPostman collectionId={postmanCollectionId} />
         </div>
 
         {examples.map((suit, i) =>

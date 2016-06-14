@@ -14,7 +14,7 @@ if (__CLIENT__) {
 
 export default class Solution1 extends React.Component {
   static propTypes = {
-
+    challenge: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -126,6 +126,7 @@ export default class Solution1 extends React.Component {
   }
 
   renderTestLocally() {
+    const {challenge} = this.props;
     return (
       <div>
         <h4>Test Locally</h4>
@@ -142,7 +143,7 @@ export default class Solution1 extends React.Component {
         <small>(You can find it also in the Examples tab)</small>
 
         <div className="mvm">
-          <RunInPostman />
+          <RunInPostman collectionId={challenge.postmanCollectionId} />
         </div>
 
       </div>
