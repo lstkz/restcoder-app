@@ -5,11 +5,14 @@ import {BashCode, ExternalLink} from '../';
 import styles from './Solution1.scss';
 import Codemirror from '../Examples/CodeMirror';
 import RunInPostman from '../Examples/RunInPostman';
-import {nodejsSolution} from './solution1Codes';
+import {nodejsSolution, rubySolution, pythonSolution, javaSolution, dotnetSolution} from './solution1Codes';
 
 
 if (__CLIENT__) {
   require('codemirror/mode/javascript/javascript');
+  require('codemirror/mode/ruby/ruby');
+  require('codemirror/mode/python/python');
+  require('codemirror/mode/clike/clike');
 }
 
 export default class Solution1 extends React.Component {
@@ -37,13 +40,13 @@ export default class Solution1 extends React.Component {
   renderMenuItem(text) {
     if (_.isArray(text)) {
       return (
-        <ul className="nav nav-list">
+        <ul key={text} className="nav nav-list">
           {text.map(::this.renderMenuItem)}
         </ul>
       );
     }
     return (
-      <li onClick={() => this.setState({step: text})} className={this.state.step === text ? 'active' : ''}>
+      <li key={text} onClick={() => this.setState({step: text})} className={this.state.step === text ? 'active' : ''}>
         <a>{text}</a>
       </li>
     );
@@ -73,6 +76,9 @@ export default class Solution1 extends React.Component {
         Open a terminal and run the following command:<br/>
         <BashCode>restcoder init 1</BashCode>
         You will be asked to choose your target language.
+        <br/>
+        Change your working directory:
+        <BashCode>cd starter-hello</BashCode>
         {this.renderNextBtn('Solve')}
       </div>
     );
@@ -120,6 +126,74 @@ export default class Solution1 extends React.Component {
         By default <code>app.js</code> contains an empty expressjs application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
         <Codemirror className="mvl" {...this.getCodeOpts('javascript')} value={nodejsSolution}/>
+        {this.renderNextBtn('Test locally with Postman')}
+      </div>
+    );
+  }
+
+  renderSolveRuby() {
+    return (
+      <div>
+        <h4>Solve in Ruby</h4>
+        <ExternalLink href="/help/getting-started/ruby">Please check the Help section how to install and setup Ruby</ExternalLink>
+        <br/>
+        Install gems
+        <BashCode>bundler install</BashCode>
+        By default <code>app.rb</code> contains an empty sinatra application. It doesn't contain any endpoints.<br/>
+        Replace the whole content by below code:
+        <Codemirror className="mvl" {...this.getCodeOpts('ruby')} value={rubySolution}/>
+        {this.renderNextBtn('Test locally with Postman')}
+      </div>
+    );
+  }
+
+  renderSolvePython() {
+    return (
+      <div>
+        <h4>Solve in Python</h4>
+        <ExternalLink href="/help/getting-started/python">Please check the Help section how to install and setup Python</ExternalLink>
+        <br/>
+        Install packages
+        <BashCode>pip install -r requirements.txt</BashCode>
+        By default <code>app.py</code> contains an empty flask application. It doesn't contain any endpoints.<br/>
+        Replace the whole content by below code:
+        <Codemirror className="mvl" {...this.getCodeOpts('python')} value={pythonSolution}/>
+        {this.renderNextBtn('Test locally with Postman')}
+      </div>
+    );
+  }
+
+  renderSolveJava() {
+    return (
+      <div>
+        <h4>Solve in Java</h4>
+        <ExternalLink href="/help/getting-started/java">Please check the Help section how to install and setup Java</ExternalLink>
+        <br/>
+        Install packages
+        <BashCode>mvn install</BashCode>
+        By default <code>src/main/java/Main.java</code> contains an empty spark application. It doesn't contain any endpoints.<br/>
+        Replace the whole content by below code:
+        <Codemirror className="mvl" {...this.getCodeOpts('clike')} value={javaSolution}/>
+        <strong>Make sure to recompile sources! Run:</strong>
+        <BashCode>mvn package</BashCode>
+        {this.renderNextBtn('Test locally with Postman')}
+      </div>
+    );
+  }
+
+  renderSolveDotnet() {
+    return (
+      <div>
+        <h4>Solve in .NET</h4>
+        <ExternalLink href="/help/getting-started/dotnet">Please check the Help section how to install and setup .NET</ExternalLink>
+        <br/>
+        Install packages
+        <BashCode>nuget restore -NonInteractive</BashCode>
+        By default <code>Program.cs</code> contains an empty web application. It doesn't contain any endpoints.<br/>
+        Replace the whole content by below code:
+        <Codemirror className="mvl" {...this.getCodeOpts('clike')} value={dotnetSolution}/>
+        <strong>Make sure to recompile sources! Run:</strong>
+        <BashCode>xbuild</BashCode>
         {this.renderNextBtn('Test locally with Postman')}
       </div>
     );
@@ -248,6 +322,10 @@ export default class Solution1 extends React.Component {
       'Checkout code': 'renderCheckoutCode',
       Solve: 'renderSolve',
       'Node.js': 'renderSolveNodejs',
+      'Ruby': 'renderSolveRuby',
+      'Python': 'renderSolvePython',
+      'Java': 'renderSolveJava',
+      '.NET': 'renderSolveDotnet',
       'Test locally with Postman': 'renderTestLocally',
       'Test locally with CLI': 'renderTestLocallyCLI',
       'Submit': 'renderSubmit',
@@ -261,7 +339,7 @@ export default class Solution1 extends React.Component {
             {menu.map(::this.renderMenuItem)}
           </ul>
         </div>
-        <div className="col-sm-9">
+        <div className="col-sm-9" key={step}>
           {fn && fn.bind(this)()}
         </div>
       </div>

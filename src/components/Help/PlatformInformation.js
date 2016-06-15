@@ -39,7 +39,7 @@ export default class PlatformInformation extends React.Component {
               </tr>
               <tr>
                 <td>.NET (mono)</td>
-                <td>4.2.3</td>
+                <td>4.0.5.1</td>
               </tr>
             </tbody>
           </table>
