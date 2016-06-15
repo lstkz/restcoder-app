@@ -106,7 +106,7 @@ export default class ChallengeDetails extends Component {
           </h3>
 
 
-          <div>
+          <div key={challenge.id}>
             <Tabs activeKey={this.state.key} id="challengeTabs" onSelect={::this.handleSelect}>
               <Tab eventKey={1} title="Details">
                 <div dangerouslySetInnerHTML={{__html: challenge.content}}>

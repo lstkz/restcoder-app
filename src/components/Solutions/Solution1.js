@@ -28,10 +28,10 @@ export default class Solution1 extends React.Component {
     return {
       autoRefresh: true,
       lineNumbers: false,
-      mode: 'application/ld+json',
+      mode,
       readOnly: true,
       theme: 'material'
-    }
+    };
   }
 
   renderMenuItem(text) {
@@ -120,7 +120,7 @@ export default class Solution1 extends React.Component {
         By default <code>app.js</code> contains an empty expressjs application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
         <Codemirror className="mvl" {...this.getCodeOpts('javascript')} value={nodejsSolution}/>
-        {this.renderNextBtn('Test locally')}
+        {this.renderNextBtn('Test locally with Postman')}
       </div>
     );
   }
@@ -129,23 +129,99 @@ export default class Solution1 extends React.Component {
     const {challenge} = this.props;
     return (
       <div>
-        <h4>Test Locally</h4>
+        <h4>Test locally with Postman</h4>
 
         The restcoder CLI can start your application.<br/>
         Simply run:
         <BashCode>restcoder start</BashCode>
 
-        <small>Please check the Help section from the top menu. It contains more information about starting.</small>
-        <br/>
-        <br/>
 
         Click below button to import a postman collection. <br/>
-        <small>(You can find it also in the Examples tab)</small>
 
         <div className="mvm">
           <RunInPostman collectionId={challenge.postmanCollectionId} />
         </div>
 
+        Two routes should be automatically imported to your Postman application.<br/>
+        Routes have format like: <code>{"{{URL}}/hello"}</code><br/>
+        The <code>URL</code> is a postman variable and it represents a base URL for your API.<br/>
+        If you use a default port it should be equal to <code>http://localhost:5000</code><br/>
+
+        You can create a custom environment manually and set above variable or import it in the following way:
+        <br/>
+        <ul>
+          <li>
+            Click from the left menu: <strong>Import</strong> -> <strong>Import From Link</strong>
+          </li>
+          <li>
+            Enter URL: <code>{"http://bit.ly/1Q0etJo"}</code> and click <strong>Import</strong>
+          </li>
+          <li>
+            In the right menu switch from <code>No environment</code> to <code>RestCoder</code>
+          </li>
+        </ul>
+        Now you are ready to test your API in Postman!<br/>
+        Notice that every Postman endpoint contains a test suite. If you made any mistake you should be able to detect issues quickly.
+
+        <br/><br/>
+
+        Problems? Watch the video below!
+        <div className="text-center mvm">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/cqP4G8fYKZU" frameBorder="0" allowFullScreen/>
+        </div>
+
+        {this.renderNextBtn('Test locally with CLI')}
+      </div>
+    );
+  }
+
+  renderTestLocallyCLI() {
+    return (
+      <div>
+        <h4>Test locally with CLI</h4>
+
+        You can run Postman tests automatically in the CLI.<br/>
+        Start your application:<br/>
+        <BashCode>restcoder start</BashCode>
+        Open a new terminal window and run:<br/>
+        <BashCode>restcoder test</BashCode>
+
+        <div className={styles.consoleImg}>
+          <img width="762" height="312" src="https://s3-eu-west-1.amazonaws.com/restcoder-prod/assets/solution-1/test-cli.gif"/>
+        </div>
+
+        <p>
+          <strong>Important!</strong><br/>
+          Local tests don't guarantee that your application is 100% correct.<br/>
+          It can help you to catch common mistakes like missing headers, invalid status codes or wrong json format.<br/>
+          Only RestCoder tests will verify all uses cases of your application.
+        </p>
+
+        {this.renderNextBtn('Submit')}
+      </div>
+    );
+  }
+
+  renderSubmit() {
+    return (
+      <div>
+        <h4>Submit</h4>
+
+        If you are ready to submit just run:<br/>
+        <BashCode>restcoder submit</BashCode>
+        and wait for the result..
+
+        <div className={styles.consoleImg}>
+          <img width="746" height="374" src="https://s3-eu-west-1.amazonaws.com/restcoder-prod/assets/solution-1/hello-world-submit.gif"/>
+        </div>
+
+        <strong>Congratulations!</strong><br/>
+        You solved your first challenge. In the next challenge you will be using a database.
+
+
+        <div className="mvl text-center">
+          <Link to="/challenge/2" className="btn btn-inverse btn-wide " >Solve next challenge</Link>
+        </div>
       </div>
     );
   }
@@ -163,7 +239,8 @@ export default class Solution1 extends React.Component {
         'Java',
         '.NET',
       ],
-      'Test locally',
+      'Test locally with Postman',
+      'Test locally with CLI',
       'Submit',
     ];
     const steps = {
@@ -171,7 +248,9 @@ export default class Solution1 extends React.Component {
       'Checkout code': 'renderCheckoutCode',
       Solve: 'renderSolve',
       'Node.js': 'renderSolveNodejs',
-      'Test locally': 'renderTestLocally',
+      'Test locally with Postman': 'renderTestLocally',
+      'Test locally with CLI': 'renderTestLocallyCLI',
+      'Submit': 'renderSubmit',
     };
     const fn = this[steps[step]];
 
