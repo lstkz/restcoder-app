@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import styles from './Help.scss';
 import {Link} from 'react-router';
+import {ExternalLink, BashCode} from '../';
 
 export default class ProcfileInfo extends React.Component {
   static propTypes = {};
@@ -8,7 +9,7 @@ export default class ProcfileInfo extends React.Component {
   render() {
     return (
       <div className={styles.steps}>
-        <h1 className="text-center">Procfile and foreman</h1>
+        <h1 className="text-center">Procfile</h1>
         <h3>Procfile</h3>
         <section>
           Procfile is a file that declares how your application will be started.<br/>
@@ -23,9 +24,10 @@ export default class ProcfileInfo extends React.Component {
 
           Example Procfile for Java.<br/>
           <pre><code>{'web: java -cp target/classes:target/dependency/* Main'}</code></pre>
-          <strong>Important Windows users:</strong> this must be a linux command. Use always slashes <code>/</code>, not backslashes <code>\</code>.
+          <strong>Important Windows users:</strong><br/>
+          This must be a linux command. Use always slashes <code>/</code>, not backslashes <code>\</code>.<br/>
+          You can define a Windows version of all commands in <code>Procfile.windows</code>.<br/>
 
-          <br/>
           <br/>
           Example with multiple processes.<br/>
           In <Link to="/challenge/4">Starter: Background worker</Link> you must create an extra worker process.<br/>
@@ -35,11 +37,12 @@ export default class ProcfileInfo extends React.Component {
         </section>
         <h3>Running Profile locally</h3>
         <section>
-          We recommend using <a href="https://github.com/strongloop/node-foreman">node foreman <i
-          className="fa fa-external-link"/></a>.
-          <br/>
+          You can start your application using the CLI tool.
+          <BashCode>restcoder start</BashCode>
           <h4>The <code>.env</code> file</h4>
-          Node foreman can read automatically environmental variables from the <code>.env</code>file.
+          The <code>.env</code>file must contains all environmental variables that are required by your application (except <code>PORT</code>).<br/>
+          They are used only for local development. If any variable is missing the CLI tool will automatically throw an error.
+
           <br/>
           Example:<br/>
           In <Link to="/challenge/2">Starter: Database connection</Link> problem, you must set a
@@ -49,25 +52,33 @@ export default class ProcfileInfo extends React.Component {
           <pre><code>
             POSTGRES_URL="postgres://localhost:5432/mydb"
           </code></pre>
-          <strong>Important:</strong> <code>.env</code> file is ignored by RestCoder tester. Never override any provided variables in your code.
           <h4>Default port</h4>
-          The <code>PORT</code> variable is always set by foreman automatically with a default value <code>5000</code>.
+          The <code>PORT</code> variable is always set by the CLI automatically with a default value <code>5000</code>.
           <br/>
-          You can override it by adding a <code>-p</code> parameter. For example: <code>nf start -p 5555</code>
+          You can override it by adding a <code>-p</code> parameter. For example: <code>restcoder start -p 5555</code>
 
           <h4>Multiple instances</h4>
           It's possible to run multiple instances of a single process.<br/>
           Each process has an additional automatic environment variable, <code>FOREMAN_WORKER_NAME</code>, that contains the process name and number. <br/>
-          Example: for command <code>nf start web=4 worker=2</code><br/> there will be
-          <code>web.1</code>, <code>web.2</code>, <code>web.3</code>, <code>web.4</code>,
-          <code>worker.1</code>, <code>worker.2</code>
-          <br/>
-          <strong>Important:</strong> RestCoder tester will also set the <code>FOREMAN_WORKER_NAME</code> variable automatically.<br/>
-          If you must initialize any database schema, do it only if <code>FOREMAN_WORKER_NAME</code> is equal to <code>web.1</code>.<br/>
-          See example problem: <Link to="/challenge/3">Starter: Multiple instances</Link>
-          <br/>
-          <strong>Important:</strong> Always read problem statements carefully. Sometimes there is only 1 instances of a process, but sometimes there are multiple.
-          <br/>
+
+          The CLI tool will automatically run your application in multiple instances depending on the problem requirements.<br/>
+
+          For example: in <Link to="/challenge/3">Starter: Multiple instances</Link> problem there are two instances of <code>web</code> process.<br/>
+          if you start the application using <code>restcoder start</code> you will see output:<br/>
+          <pre><code>
+          [OKAY] Starting Proxy Server [web] on port 5000 -> (5001-5002)
+          </code></pre>
+          The first web process has <code>FOREMAN_WORKER_NAME</code> set to <code>web.1</code> and listens on PORT <code>5001</code><br/>
+          The second web process has <code>FOREMAN_WORKER_NAME</code> set to <code>web.2</code> and listens on PORT <code>5002</code><br/>
+          Additionally there is a proxy between above two processes on PORT <code>5000</code>.<br/>
+          If you test your API you should use the proxy PORT to unsure your application is stateless.<br/>
+          That means:
+          <ul>
+            <li>You should not use any global variables to store state.</li>
+            <li>You should commit your database session and complete all transactions.<br/>Make sure to properly configure your ORM (if you use any).</li>
+          </ul>
+
+
         </section>
       </div>
     );
