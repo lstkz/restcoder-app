@@ -33,8 +33,8 @@ export default class Html extends Component {
           {head.link.toComponent()}
           {head.script.toComponent()}
           <meta name="google-site-verification" content="Wk6TSEJfjJssQmf1JlPU2e1T36VTyxzJH4PhdV6hpbE" />
-          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-          <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+          <link rel="shortcut icon" href="/favicon-32.png" type="image/x-icon"/>
+          <link rel="icon" href="/favicon-32.png" type="image/x-icon"/>
           <link rel="stylesheet" href="/css/bootstrap.min.css"/>
           <link rel="stylesheet" href="/css/font-awesome.min.css"/>
           <link rel="stylesheet" href="/css/flat-ui-pro.min.css"/>

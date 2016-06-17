@@ -25,7 +25,7 @@ export default class Header extends Component {
         <Navbar staticTop inverse>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">RestCoder</Link>
+              <Link to="/"><img src={require('./logo_white.png')}/></Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
