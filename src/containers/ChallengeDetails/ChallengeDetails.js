@@ -58,12 +58,16 @@ export default class ChallengeDetails extends Component {
 
   stepCallback() {
     const progress = this.refs.joyride.getProgress();
-    let joyride = this.refs.joyride;
+    const joyride = this.refs.joyride;
     if (progress.step) {
       if (progress.step.tab && this.state.key !== progress.step.tab) {
         this.setState({ key: progress.step.tab });
       }
-      setTimeout(() => joyride.start(true), 300);
+      setTimeout(() => {
+        joyride.start(true);
+        var scroll = require('scroll');
+        scroll.top(joyride._getBrowser() === 'firefox' ? document.documentElement : document.body, joyride._getScrollTop());
+      }, 300);
     }
   }
 
@@ -111,16 +115,6 @@ export default class ChallengeDetails extends Component {
               <Tab eventKey={1} title="Details">
                 <div dangerouslySetInnerHTML={{__html: challenge.content}}>
                 </div>
-                <section id="checkout-code">
-                  <h5>Checkout code</h5>
-                  <div className="row">
-                    <div className="col-sm-6">
-                      Init template
-                      <pre><code><span className="nv">$ </span>restcoder init {challenge.id}</code></pre>
-                    </div>
-                  </div>
-
-                </section>
               </Tab>
 
               <Tab eventKey={2} title={<span id="endpoints-tab" className="">Endpoints</span>}>
@@ -133,9 +127,9 @@ export default class ChallengeDetails extends Component {
               </Tab>
 
               <Tab eventKey={'forum'} title={<span id="discuss-tab">Discuss <i className="fa fa-external-link" /></span>}/>
-              <Tab eventKey={4} title={<span id="solution-tab" className="">Step by step solution</span>}>
+              {challenge.id === 1 && <Tab eventKey={4} title={<span id="solution-tab" className="">Step by step solution</span>}>
                 <Solution1 challenge={challenge} />
-              </Tab>
+              </Tab>}
             </Tabs>
           </div>
         </div>

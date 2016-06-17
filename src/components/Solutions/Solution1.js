@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
 import _ from 'underscore';
 import {Link} from 'react-router';
+import scroll from 'scroll';
 import {BashCode, ExternalLink} from '../';
 import styles from './Solution1.scss';
 import Codemirror from '../Examples/CodeMirror';
 import RunInPostman from '../Examples/RunInPostman';
 import {nodejsSolution, rubySolution, pythonSolution, javaSolution, dotnetSolution} from './solution1Codes';
-
+import $ from 'jquery';
 
 if (__CLIENT__) {
   require('codemirror/mode/javascript/javascript');
@@ -37,6 +38,14 @@ export default class Solution1 extends React.Component {
     };
   }
 
+  setStep(step) {
+    this.setState({step}, () => {
+      const isFirefox = typeof InstallTrigger !== 'undefined';
+      const offset = $('.tab-content').offset().top + 20;
+      scroll.top(isFirefox ? document.documentElement : document.body, offset);
+    });
+  }
+
   renderMenuItem(text) {
     if (_.isArray(text)) {
       return (
@@ -54,7 +63,7 @@ export default class Solution1 extends React.Component {
   renderNextBtn(step) {
     return (
       <div className="mtm text-center">
-        <a className="btn btn-inverse btn-wide btn-sm" onClick={() => this.setState({step})}>Next</a>
+        <a className="btn btn-inverse btn-wide btn-sm" onClick={() => this.setStep(step)}>Next</a>
       </div>
     );
   }
@@ -88,7 +97,7 @@ export default class Solution1 extends React.Component {
     const size = 100;
     const renderImg = (imageName, step) => {
       return (
-        <a onClick={() => this.setState({step})}>
+        <a onClick={() => this.setStep(step)}>
           <img
             className={styles.langImage}
             width={size}

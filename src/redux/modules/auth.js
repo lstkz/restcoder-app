@@ -78,9 +78,9 @@ export const handleRegisterSubmit = (values, dispatch) => {
     apiClient.post('/register', { data: values })
       .then((result) => {
         dispatch(loggedIn(result));
-        dispatch(push('/challenge/1'));
-//        dispatch({type: SHOW_CONFIRM_EMAIL_INFO, payload: values.email});
-//        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), MESSAGE_TIMEOUT);
+        dispatch(push('/tutorial'));
+        dispatch({type: SHOW_CONFIRM_EMAIL_INFO, payload: values.email});
+        setTimeout(() => dispatch({type: CLEAR_CONFIRM_EMAIL_INFO, payload: values.email}), MESSAGE_TIMEOUT);
       })
       .catch((result) => {
         if (result.error && result.error.indexOf('Email') !== -1) {

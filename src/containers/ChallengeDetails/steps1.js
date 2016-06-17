@@ -32,17 +32,23 @@ All problems contain the <code>READY</code> requirement.<br/> Sometimes there ca
     title: 'Environmental Variables',
     text: `Your application must get all configuration from the environmental variables.<br/>
 This section contains all required variables that your app must use.<br/>
-<strong>Never hardcode any settings!</strong>
+<strong>Never hard-code any settings!</strong>
 `,
     selector: '#env-variables'
   },
   {
     tab: 1,
     position: 'top',
-    title: 'Checkout code',
-    text: `Just copy commands from this section for the initial setup.<br/>
-RestCoder will create a code template for you.`,
-    selector: '#checkout-code'
+    title: 'Docker setup',
+    text: `We recommend using Docker for 3rd party software setup.<br/>It's not required, but it will speed up your development.`,
+    selector: '#docker-setup'
+  },
+  {
+    tab: 1,
+    position: 'top',
+    title: 'Getting started',
+    text: `Here is the list of all CLI commands that you need for this challenge.`,
+    selector: '#getting-started'
   },
   {
     tab: 2,
