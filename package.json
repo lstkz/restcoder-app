@@ -78,6 +78,7 @@
     "invariant": "^2.2.0",
     "joi": "^8.0.5",
     "joi-browser": "^8.0.5",
+    "jquery": "^3.0.0",
     "json-schema-view-js": "^0.4.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
