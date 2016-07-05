@@ -46,6 +46,7 @@ const paths = [
   '../containers/Ranking/Ranking.scss',
   '../containers/Forum/Forum.scss',
   '../containers/ForumTopic/ForumTopic.scss',
+  '../containers/Tutorial/Tutorial.scss',
 ];
 
 // this will fix blinking of unstyled content in initial page load

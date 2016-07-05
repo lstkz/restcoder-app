@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
-import {SwaggerExplorer, Examples, ChallengeHelp} from '../../components';
+import {SwaggerExplorer, Examples, ChallengeHelp, ChallengeSetup} from '../../components';
 import * as actions from '../../redux/modules/challengeDetails';
 import {Tabs, Tab} from 'react-bootstrap';
 import {Link} from 'react-router';
@@ -56,18 +56,23 @@ export default class ChallengeDetails extends Component {
     }
   }
 
-  stepCallback() {
-    const progress = this.refs.joyride.getProgress();
-    const joyride = this.refs.joyride;
-    if (progress.step) {
-      if (progress.step.tab && this.state.key !== progress.step.tab) {
-        this.setState({ key: progress.step.tab });
+  stepCallback({type, skipped}) {
+    if (skipped) {
+      return;
+    }
+    if (type === 'step:after') {
+      const joyride = this.refs.joyride;
+      const progress = joyride.getProgress();
+      if (progress.step) {
+        setTimeout(() => {
+          if (progress.step.tab && this.state.key !== progress.step.tab) {
+            this.setState({ key: progress.step.tab });
+          }
+          joyride.start(true);
+          var scroll = require('scroll');
+          scroll.top(joyride._getBrowser() === 'firefox' ? document.documentElement : document.body, joyride._getScrollTop());
+        }, 300);
       }
-      setTimeout(() => {
-        joyride.start(true);
-        var scroll = require('scroll');
-        scroll.top(joyride._getBrowser() === 'firefox' ? document.documentElement : document.body, joyride._getScrollTop());
-      }, 300);
     }
   }
 
@@ -81,11 +86,12 @@ export default class ChallengeDetails extends Component {
           ref="joyride"
           steps={this.state.steps}
           scrollToSteps={false}
-          stepCallback={::this.stepCallback}
+          callback={::this.stepCallback}
           locale={{
             close: 'OK'
           }}
-          type="single"
+          showSkipButton
+          disableOverlay
           showOverlay/>
         <Helmet title={challenge.name}/>
         <div className={'container ' + styles.ChallengeDetails}>
@@ -111,23 +117,25 @@ export default class ChallengeDetails extends Component {
 
 
           <div key={challenge.id}>
-            <Tabs activeKey={this.state.key} id="challengeTabs" onSelect={::this.handleSelect}>
+            <Tabs animation={false} activeKey={this.state.key} id="challengeTabs" onSelect={::this.handleSelect}>
               <Tab eventKey={1} title="Details">
                 <div dangerouslySetInnerHTML={{__html: challenge.content}}>
                 </div>
               </Tab>
-
-              <Tab eventKey={2} title={<span id="endpoints-tab" className="">Endpoints</span>}>
+              <Tab eventKey={2} title={<span id="setup-tab">Setup</span>}>
+                <ChallengeSetup challenge={challenge}/>
+              </Tab>
+              <Tab eventKey={3} title={<span id="endpoints-tab">Endpoints</span>}>
                 <div id="endpoints">
                   <SwaggerExplorer challenge={challenge}/>
                 </div>
               </Tab>
-              <Tab eventKey={3} title={<span id="examples-tab" className="">Examples</span>}>
+              <Tab eventKey={4} title={<span id="examples-tab">Examples</span>}>
                 <Examples challenge={challenge}/>
               </Tab>
 
               <Tab eventKey={'forum'} title={<span id="discuss-tab">Discuss <i className="fa fa-external-link" /></span>}/>
-              {challenge.id === 1 && <Tab eventKey={4} title={<span id="solution-tab" className="">Step by step solution</span>}>
+              {challenge.id === 1 && <Tab eventKey={5} title={<span id="solution-tab">Step by step solution</span>}>
                 <Solution1 challenge={challenge} />
               </Tab>}
             </Tabs>

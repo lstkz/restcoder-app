@@ -71,7 +71,7 @@ export default class ProcfileInfo extends React.Component {
           The first web process has <code>FOREMAN_WORKER_NAME</code> set to <code>web.1</code> and listens on PORT <code>5001</code><br/>
           The second web process has <code>FOREMAN_WORKER_NAME</code> set to <code>web.2</code> and listens on PORT <code>5002</code><br/>
           Additionally there is a proxy between above two processes on PORT <code>5000</code>.<br/>
-          If you test your API you should use the proxy PORT to unsure your application is stateless.<br/>
+          If you test your API you should use the proxy PORT to ensure your application is stateless.<br/>
           That means:
           <ul>
             <li>You should not use any global variables to store state.</li>

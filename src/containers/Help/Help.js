@@ -99,7 +99,7 @@ export default class Help extends React.Component {
                 <li className="divider"/>
                 <li className="nav-header">General</li>
                 {this.renderLink('RestCoder CLI tool', 'cli-tool')}
-                {this.renderLink('Procfile and foreman', 'procfile')}
+                {this.renderLink('Procfile', 'procfile')}
                 {this.renderLink('Platform information', 'platform-information')}
                 {this.renderLink('Limitations', 'limitations')}
                 {this.renderLink('Scoring', 'scoring')}

@@ -33,3 +33,4 @@ export ResetPasswordForm from './ResetPasswordForm/ResetPasswordForm';
 export ContactForm from './ContactForm/ContactForm';
 export ExternalLink from './ExternalLink/ExternalLink';
 export BashCode from './BashCode/BashCode';
+export ChallengeSetup from './ChallengeSetup/ChallengeSetup';

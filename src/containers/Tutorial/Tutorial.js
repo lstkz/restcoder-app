@@ -7,6 +7,7 @@ import * as actions from '../../redux/modules/challengeDetails';
 import {PageTitle, ExternalLink, BashCode} from '../../components';
 import Helmet from 'react-helmet';
 import {Link} from 'react-router';
+import _ from 'underscore';
 
 @asyncConnect([{
   promise: () => Promise.resolve()
@@ -18,21 +19,21 @@ export default class Tutorial extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 0
+      tab: 'renderIntroduction'
     };
   }
 
-  renderNextBtn() {
+  renderNextBtn(tab) {
     return (
-      <a className="btn btn-inverse btn-wide" onClick={() => this.setState({step: this.state.step + 1})}>Next</a>
+      <a className="btn btn-inverse btn-wide" onClick={() => this.setState({tab})}>Next</a>
     );
   }
 
-  renderNextBtnWithProblem() {
+  renderNextBtnWithProblem(tab) {
     return (
       <div>
         <div className="text-center">
-          {this.renderNextBtn()}
+          {this.renderNextBtn(tab)}
         </div>
         <div className="text-center">
           <small><Link to="/category/4/comments-feedback" target="_blank"> (Problems? Report it here)</Link></small>
@@ -41,13 +42,6 @@ export default class Tutorial extends React.Component {
     );
   }
 
-  renderMenuItem(text, step) {
-    return (
-      <li key={step} onClick={() => this.setState({step})} className={this.state.step === step ? 'active' : ''}>
-        <a>{text}</a>
-      </li>
-    );
-  }
 
   renderIntroduction() {
     return (
@@ -55,15 +49,17 @@ export default class Tutorial extends React.Component {
         <h3 className="text-center">Introduction</h3>
         <section>
           Welcome to the first online judge for software developers!<br/>
-          On our RestCoder platform you can practice how to create professional applications with the
-          {' '}
-          <ExternalLink href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</ExternalLink> architectural style
-          <br/>
           Before you can solve any practice challenges you must setup required tools.<br/>
-          It shouldn't take more than 5 minutes!
+          It shouldn't take more than 5 minutes!<br/>
         </section>
-        <div className="text-center">
-          {this.renderNextBtn()}
+        <h4 className="text-center">Do you prefer a local environment or <a href="http://c9.io">c9.io</a>?</h4>
+        <div className="text-center mtl">
+          <div className="col-xs-3 col-xs-offset-3">
+            <a className="btn btn-inverse btn-wide" onClick={() => this.setState({tab: 'renderCLI'})}>Local</a>
+          </div>
+          <div className="col-xs-3">
+            <a className="btn btn-inverse btn-wide" onClick={() => this.setState({tab: 'renderSetupC9'})}>c9.io</a>
+          </div>
         </div>
       </div>
     );
@@ -91,14 +87,14 @@ export default class Tutorial extends React.Component {
           if you receive an EACCESS error please check <ExternalLink
           href="https://docs.npmjs.com/getting-started/fixing-npm-permissions">this article</ExternalLink>.
           <br/><br/>
-          Login with your account.<br/>
+          Log in with your account.<br/>
           Use your username and password from RestCoder.<br/>
           <BashCode>restcoder login<br/>
             <span className="c-gray">Your username:</span> myUsername<br/>
             <span className="c-gray">Your password:</span> <br/>
             Authenticated successfully</BashCode>
         </section>
-        {this.renderNextBtnWithProblem()}
+        {this.renderNextBtnWithProblem('renderLocalPostman')}
       </div>
     );
   }
@@ -121,7 +117,7 @@ export default class Tutorial extends React.Component {
   }
 
 
-  renderPostman() {
+  renderPostman(next) {
     return (
       <div>
         <h3 className="text-center">Install Postman</h3>
@@ -143,11 +139,17 @@ export default class Tutorial extends React.Component {
           </div>
 
           <div className="text-center">
-            {this.renderNextBtn()}
+            {this.renderNextBtn(next)}
           </div>
         </section>
       </div>
     );
+  }
+  renderLocalPostman() {
+    return this.renderPostman('renderSampleAPI');
+  }
+  renderC9Postman() {
+    return this.renderPostman();
   }
 
   renderSampleAPI() {
@@ -165,7 +167,7 @@ export default class Tutorial extends React.Component {
           <BashCode>cd restcoder-tutorial</BashCode>
 
           The CLI can start your application automatically.<br/>
-          Just run a command:
+          Just run the command:
           <BashCode>restcoder start</BashCode>
 
           <div className={styles.consoleImg}>
@@ -173,7 +175,34 @@ export default class Tutorial extends React.Component {
           </div>
 
         </section>
-        {this.renderNextBtnWithProblem()}
+        {this.renderNextBtnWithProblem('renderTestAPI')}
+      </div>
+    );
+  }
+
+  renderC9SampleAPI() {
+    return (
+      <div>
+        <h3 className="text-center">Run a sample API</h3>
+        <section>
+          Sample API has only one route: <code>GET /test</code><br/>
+
+          Open your terminal and type:<br/>
+          <BashCode>restcoder tutorial ./</BashCode>
+          It will create a sample nodejs app in current directory.<br/>
+
+          The CLI can start your application automatically (don't use <strong>Run</strong> button in c9).<br/>
+          Just run the command:
+          <BashCode>restcoder start</BashCode>
+
+          Copy your application URL. It will be needed in the next step!
+
+          <div className={styles.consoleC9Img + ' mtm'}>
+            <img width="810" height="272" src="https://s3-eu-west-1.amazonaws.com/restcoder-prod/assets/tutorial/c9-tutorial.gif"/>
+          </div>
+
+        </section>
+        {this.renderNextBtnWithProblem('renderC9TestAPI')}
       </div>
     );
   }
@@ -188,41 +217,104 @@ export default class Tutorial extends React.Component {
           However such format is not user friendly.<br/>
 
           Open postman and test above URL.
-  
+
           <div className="text-center mvm">
             <img className="img-responsive"
                  width="788"
                  height="530"
                  src="https://s3-eu-west-1.amazonaws.com/restcoder-prod/assets/tutorial/postman.gif"/>
           </div>
-
         </section>
-        {this.renderNextBtnWithProblem()}
+        {this.renderNextBtnWithProblem('renderReady')}
       </div>
     );
   }
 
+  renderC9TestAPI() {
+    return (
+      <div>
+        <h3 className="text-center">Test a sample API</h3>
+        <section>
+          Every API application must be tested in some way.<br/>
+
+          You can just open <a href="http://project-restcoder.c9users.io/test" target="_blank">http://project-restcoder.c9users.io/test</a> in your browser and see the output. <br/>
+          However such format is not user friendly.<br/>
+
+          Open postman and test above URL.<br/>
+
+          <div className="alert alert-warning" role="alert">
+            <strong>Warning!</strong> Use the URL from the previous step instead of <code>http://project-restcoder.c9users.io</code>
+          </div>
+          <div className="text-center mvm">
+            <img className="img-responsive"
+                 width="706"
+                 height="513"
+                 src="https://s3-eu-west-1.amazonaws.com/restcoder-prod/assets/tutorial/c9-postman.gif"/>
+          </div>
+
+          <hr/>
+
+          <div className="alert alert-danger" role="alert">
+            <strong>Invalid response?</strong><br/>
+            Make your Application public in c9. Click <strong>Share</strong> in the right-upper corner.
+          </div>
+          <div className="text-center mvm">
+            <img className="img-responsive"
+                 width="560"
+                 height="208"
+                 src="https://s3-eu-west-1.amazonaws.com/restcoder-prod/assets/tutorial/c9-public.png"/>
+          </div>
+        </section>
+        {this.renderNextBtnWithProblem('renderReady')}
+      </div>
+    );
+  }
+
+  renderSetupC9() {
+    return (
+      <div>
+        <h3 className="text-center">Setup c9.io</h3>
+        <section>
+          Setup is pretty straightforward.
+          <ul>
+            <li>Create a free account at <a target="_blank">c9.io</a></li>
+            <li>Create a new workspace and choose a blank template</li>
+            <li>Execute below command in terminal <br/>
+              <BashCode>{"source <(curl -s https://raw.githubusercontent.com/restcoder/sh/master/c9-install.sh)"}</BashCode>
+            </li>
+            <li>
+              Log in with your account.<br/>
+              Use your username and password from RestCoder.<br/>
+              <BashCode>restcoder login<br/>
+                <span className="c-gray">Your username:</span> myUsername<br/>
+                <span className="c-gray">Your password:</span> <br/>
+                Authenticated successfully</BashCode>
+            </li>
+          </ul>
+
+
+          <div className="text-center mvl">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/R94n0nTwaHA" frameBorder="0"
+                    allowFullScreen></iframe>
+          </div>
+        </section>
+        {this.renderNextBtnWithProblem('renderC9Postman')}
+      </div>
+    );
+  }
+
+  renderMenuItem(text, tab) {
+    return (
+      <li onClick={() => this.setState({tab})} className={this.state.tab === tab ? 'active' : ''}>
+        <a>{text}</a>
+      </li>
+    );
+  }
 
   render() {
-    const { step } = this.state;
+    const { tab } = this.state;
     const { auth: { user } } = this.props;
-    const menu = [
-      'Introduction',
-      'RestCoder CLI',
-      'Install Postman',
-      'Run a sample API',
-      'Test a sample API',
-      'Ready',
-    ];
-    const steps = [
-      'renderIntroduction',
-      'renderCLI',
-      'renderPostman',
-      'renderSampleAPI',
-      'renderTestAPI',
-      'renderReady'
-    ];
-    const fn = this[steps[step]];
+    const fn = this[tab];
     return (
       <App>
         <Helmet title="Ranking"/>
@@ -232,7 +324,26 @@ export default class Tutorial extends React.Component {
           <div className="row">
             <div className="col-sm-3">
               <ul className="nav nav-list">
-                {menu.map(::this.renderMenuItem)}
+                {this.renderMenuItem('Introduction', 'renderIntroduction')}
+                <li className="nav-header">Local</li>
+                <li>
+                  <ul className="nav nav-list">
+                    {this.renderMenuItem('RestCoder CLI', 'renderCLI')}
+                    {this.renderMenuItem('Install Postman', 'renderLocalPostman')}
+                    {this.renderMenuItem('Run a sample API', 'renderSampleAPI')}
+                    {this.renderMenuItem('Test a sample API', 'renderTestAPI')}
+                  </ul>
+                </li>
+                <li className="nav-header">c9.io</li>
+                <li>
+                  <ul className="nav nav-list">
+                    {this.renderMenuItem('Setup c9', 'renderSetupC9')}
+                    {this.renderMenuItem('Install Postman', 'renderC9Postman')}
+                    {this.renderMenuItem('Run a sample API', 'renderC9SampleAPI')}
+                    {this.renderMenuItem('Test a sample API', 'renderC9TestAPI')}
+                  </ul>
+                </li>
+                {this.renderMenuItem('Ready', 'renderReady')}
               </ul>
             </div>
             <div className="col-sm-9">

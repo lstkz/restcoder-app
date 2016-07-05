@@ -37,28 +37,21 @@ This section contains all required variables that your app must use.<br/>
     selector: '#env-variables'
   },
   {
-    tab: 1,
-    position: 'top',
-    title: 'Docker setup',
-    text: `We recommend using Docker for 3rd party software setup.<br/>It's not required, but it will speed up your development.`,
-    selector: '#docker-setup'
-  },
-  {
-    tab: 1,
-    position: 'top',
-    title: 'Getting started',
-    text: `Here is the list of all CLI commands that you need for this challenge.`,
-    selector: '#getting-started'
-  },
-  {
     tab: 2,
+    position: 'top',
+    title: 'Setup',
+    text: `Check here deployment instructions for either local or c9 development.`,
+    selector: '#setup-tab'
+  },
+  {
+    tab: 3,
     position: 'top',
     title: 'Endpoints',
     text: `The <strong>Endpoints</strong> tab contains all required endpoints that your application must implement.`,
     selector: '#endpoints-tab'
   },
   {
-    tab: 2,
+    tab: 3,
     position: 'top',
     title: 'Endpoints',
     text: `This is an endpoint definition.<br/> The <code>Schema</code> describes a required response format.<br/>
@@ -66,7 +59,7 @@ In this endpoint you must return a plain text.`,
     selector: '#endpoints .operations'
   },
   {
-    tab: 2,
+    tab: 3,
     position: 'top',
     title: 'Endpoints',
     text: `In RestCoder almost all responses will be in the JSON format. Always check the <code>Schema</code> carefully.<br/>
@@ -75,22 +68,22 @@ Don't include any additional properties.`,
     selector: '#endpoints .operations:nth-child(2) .json-schema-view'
   },
   {
-    tab: 3,
+    tab: 4,
     position: 'top',
     title: 'Examples',
     text: `The <strong>Examples</strong> tab contains sample requests and responses. <br/> Your API should produce the same result.`,
     selector: '#examples-tab'
   },
   {
-    tab: 3,
+    tab: 4,
     position: 'top',
     title: 'Endpoints',
     text: `This is an example HTTP request.<br/> It contains all information about the request and response.
 <br/>Always check the response headers if available.`,
-    selector: '#challengeTabs-pane-3 .example'
+    selector: '#challengeTabs-pane-4 .example'
   },
   {
-    tab: 3,
+    tab: 4,
     position: 'top',
     title: 'Endpoints',
     text: `Click this button to quickly import all examples to Postman.`,
