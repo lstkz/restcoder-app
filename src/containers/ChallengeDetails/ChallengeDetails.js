@@ -33,6 +33,12 @@ export default class ChallengeDetails extends Component {
     };
   }
 
+  componentWillReceiveProps(props) {
+    if (this.challenge !== props.challenge) {
+      this.setState({key: 1});
+    }
+  }
+
   componentDidMount() {
     if (__CLIENT__) {
       setTimeout(() => {

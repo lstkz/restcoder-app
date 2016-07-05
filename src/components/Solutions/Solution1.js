@@ -4,17 +4,10 @@ import {Link} from 'react-router';
 import scroll from 'scroll';
 import {BashCode, ExternalLink} from '../';
 import styles from './Solution1.scss';
-import Codemirror from '../Examples/CodeMirror';
 import RunInPostman from '../Examples/RunInPostman';
 import {nodejsSolution, rubySolution, pythonSolution, javaSolution, dotnetSolution} from './solution1Codes';
 import $ from 'jquery';
-
-if (__CLIENT__) {
-  require('codemirror/mode/javascript/javascript');
-  require('codemirror/mode/ruby/ruby');
-  require('codemirror/mode/python/python');
-  require('codemirror/mode/clike/clike');
-}
+import Highlight from 'react-highlight';
 
 export default class Solution1 extends React.Component {
   static propTypes = {
@@ -81,13 +74,21 @@ export default class Solution1 extends React.Component {
   renderCheckoutCode() {
     return (
       <div>
-        <h4>Checkout</h4>
+        <h4>Local development</h4>
         Open a terminal and run the following command:<br/>
         <BashCode>restcoder init 1</BashCode>
         You will be asked to choose your target language.
         <br/>
         Change your working directory:
         <BashCode>cd starter-hello</BashCode>
+        <h4>c9 development</h4>
+        Open a terminal and run the following command:<br/>
+        <BashCode>restcoder init 1 ./</BashCode>
+        You will be asked to choose your target language.
+        <div className="alert alert-info mtl">
+          <strong>Tip!</strong> Run below command to see the whole usage:
+          <BashCode>restcoder init -h</BashCode>
+        </div>
         {this.renderNextBtn('Solve')}
       </div>
     );
@@ -134,7 +135,9 @@ export default class Solution1 extends React.Component {
         <BashCode>npm install</BashCode>
         By default <code>app.js</code> contains an empty expressjs application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
-        <Codemirror className="mvl" {...this.getCodeOpts('javascript')} value={nodejsSolution}/>
+        <Highlight>
+          {nodejsSolution}
+        </Highlight>
         {this.renderNextBtn('Test locally with Postman')}
       </div>
     );
@@ -150,7 +153,9 @@ export default class Solution1 extends React.Component {
         <BashCode>bundler install</BashCode>
         By default <code>app.rb</code> contains an empty sinatra application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
-        <Codemirror className="mvl" {...this.getCodeOpts('ruby')} value={rubySolution}/>
+        <Highlight>
+          {rubySolution}
+        </Highlight>
         {this.renderNextBtn('Test locally with Postman')}
       </div>
     );
@@ -166,7 +171,9 @@ export default class Solution1 extends React.Component {
         <BashCode>pip install -r requirements.txt</BashCode>
         By default <code>app.py</code> contains an empty flask application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
-        <Codemirror className="mvl" {...this.getCodeOpts('python')} value={pythonSolution}/>
+        <Highlight>
+          {pythonSolution}
+        </Highlight>
         {this.renderNextBtn('Test locally with Postman')}
       </div>
     );
@@ -182,7 +189,9 @@ export default class Solution1 extends React.Component {
         <BashCode>mvn install</BashCode>
         By default <code>src/main/java/Main.java</code> contains an empty spark application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
-        <Codemirror className="mvl" {...this.getCodeOpts('clike')} value={javaSolution}/>
+        <Highlight>
+          {javaSolution}
+        </Highlight>
         <strong>Make sure to recompile sources! Run:</strong>
         <BashCode>mvn package</BashCode>
         {this.renderNextBtn('Test locally with Postman')}
@@ -200,7 +209,9 @@ export default class Solution1 extends React.Component {
         <BashCode>nuget restore -NonInteractive</BashCode>
         By default <code>Program.cs</code> contains an empty web application. It doesn't contain any endpoints.<br/>
         Replace the whole content by below code:
-        <Codemirror className="mvl" {...this.getCodeOpts('clike')} value={dotnetSolution}/>
+        <Highlight>
+          {dotnetSolution}
+        </Highlight>
         <strong>Make sure to recompile sources! Run:</strong>
         <BashCode>xbuild</BashCode>
         {this.renderNextBtn('Test locally with Postman')}
@@ -228,21 +239,28 @@ export default class Solution1 extends React.Component {
         Two routes should be automatically imported to your Postman application.<br/>
         Routes have format like: <code>{"{{URL}}/hello"}</code><br/>
         The <code>URL</code> is a postman variable and it represents a base URL for your API.<br/>
-        If you use a default port it should be equal to <code>http://localhost:5000</code><br/>
+        <div className="mtm">
+          <strong>Create a new environment in Postman:</strong>
+          <ul>
+            <li>In the right menu switch from <code>No environment</code> to <code>Manage Environments</code></li>
+            <li>Click <code>Add</code></li>
+            <li>Set name: <code>RestCoder</code></li>
+            <li>add a key with name <code>URL</code> and value <code>http://localhost:5000</code></li>
+            <li>
+              In the right menu switch from <code>No environment</code> to <code>RestCoder</code>
+            </li>
+            <li>Click <code>Add</code></li>
+          </ul>
 
-        You can create a custom environment manually and set above variable or import it in the following way:
-        <br/>
-        <ul>
-          <li>
-            Click from the left menu: <strong>Import</strong> -> <strong>Import From Link</strong>
-          </li>
-          <li>
-            Enter URL: <code>{"http://bit.ly/1Q0etJo"}</code> and click <strong>Import</strong>
-          </li>
-          <li>
-            In the right menu switch from <code>No environment</code> to <code>RestCoder</code>
-          </li>
-        </ul>
+          <div className="alert alert-warning">
+            <strong>Warning c9.io developers!</strong><br/>
+            Don't use <code>localhost</code> domain! <br/>
+            Construct the url <code>{'http://<workspace>-<username>.c9.users.io'}</code><br/>
+            Or type <code>echo $C9_HOSTNAME</code> in terminal to get this value.<br/>
+            Example: <code>http://project-restcoder.c9users.io</code>
+          </div>
+        </div>
+
         Now you are ready to test your API in Postman!<br/>
         Notice that every Postman endpoint contains a test suite. If you made any mistake you should be able to detect issues quickly.
 
@@ -250,7 +268,7 @@ export default class Solution1 extends React.Component {
 
         Problems? Watch the video below!
         <div className="text-center mvm">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/cqP4G8fYKZU" frameBorder="0" allowFullScreen/>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/n_24KAJruuI" frameBorder="0" allowFullScreen/>
         </div>
 
         {this.renderNextBtn('Test locally with CLI')}

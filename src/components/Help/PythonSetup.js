@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import styles from './Help.scss';
 import VersionWarning from './VersionWarning';
+import C9Setup from './C9Setup';
 import {ExternalLink, BashCode} from '../';
 
 export default class PythonSetup extends React.Component {
@@ -10,7 +11,7 @@ export default class PythonSetup extends React.Component {
     return (
       <div className={styles.steps}>
         <h1 className="text-center">Getting Started with Python</h1>
-        <h3>Setup</h3>
+        <h3>Local Setup</h3>
         <section>
           Install <ExternalLink href="http://docs.python-guide.org/en/latest/starting/installation/">Python</ExternalLink>
           <br/>
@@ -18,13 +19,16 @@ export default class PythonSetup extends React.Component {
           <br/>
           Install <ExternalLink href="https://github.com/kennethreitz/python-guide/blob/master/docs/dev/virtualenvs.rst">Virtualenv</ExternalLink> (recommended)
           <br/>
+        </section>
+        <C9Setup>{'source <(curl -s https://raw.githubusercontent.com/restcoder/sh/master/c9-install-python.sh)'}</C9Setup>
+        <section>
           Check if python is properly installed:
           <br/>
           <BashCode>python --version<br/>
             Python 2.7.10
           </BashCode>
           <BashCode>pip --version<br/>
-           pip 8.1.2 from /Library/Python/2.7/site-packages (python 2.7)
+            pip 8.1.2 from /Library/Python/2.7/site-packages (python 2.7)
           </BashCode>
         </section>
 

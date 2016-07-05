@@ -1,9 +1,6 @@
 import React, {PropTypes} from 'react';
 import styles from './Help.scss';
-import {Link} from 'react-router';
-import CheckoutCodeSection from './CheckoutCodeSection';
-import SubmitCodeSection from './SubmitCodeSection';
-import RunForeman from './RunForeman';
+import C9Setup from './C9Setup';
 import {ExternalLink, BashCode} from '../';
 
 export default class DotNetSetup extends React.Component {
@@ -34,6 +31,9 @@ export default class DotNetSetup extends React.Component {
           <br/>
           Check if .NET is properly installed:
           <br/>
+        </section>
+        <C9Setup>{'source <(curl -s https://raw.githubusercontent.com/restcoder/sh/master/c9-install-dotnet.sh)'}</C9Setup>
+        <section>
           <BashCode>nuget<br/>
             NuGet Version: 2.8.5.0<br/>
             ....

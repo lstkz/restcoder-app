@@ -52,7 +52,7 @@ export default class Tutorial extends React.Component {
           Before you can solve any practice challenges you must setup required tools.<br/>
           It shouldn't take more than 5 minutes!<br/>
         </section>
-        <h4 className="text-center">Do you prefer a local environment or <a href="http://c9.io">c9.io</a>?</h4>
+        <h4 className="text-center">Do you prefer a local environment or <a target="_blank" href="http://c9.io">c9.io</a>?</h4>
         <div className="text-center mtl">
           <div className="col-xs-3 col-xs-offset-3">
             <a className="btn btn-inverse btn-wide" onClick={() => this.setState({tab: 'renderCLI'})}>Local</a>
@@ -277,7 +277,7 @@ export default class Tutorial extends React.Component {
         <section>
           Setup is pretty straightforward.
           <ul>
-            <li>Create a free account at <a target="_blank">c9.io</a></li>
+            <li>Create a free account at <a href="http://c9.io" target="_blank">c9.io</a></li>
             <li>Create a new workspace and choose a blank template</li>
             <li>Execute below command in terminal <br/>
               <BashCode>{"source <(curl -s https://raw.githubusercontent.com/restcoder/sh/master/c9-install.sh)"}</BashCode>

@@ -26,6 +26,11 @@ export default class NodejsSetup extends React.Component {
           </BashCode>
         </section>
 
+        <div className="alert alert-danger">
+          <strong>c9.io Setup</strong><br/>
+          We currently don't support Java in c9.io. Sorry!
+        </div>
+
         <h3>Define Java version</h3>
         <section>
           You can define a target version in system.properties. <br/>
