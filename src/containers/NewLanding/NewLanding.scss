@@ -26,7 +26,7 @@
   }
   :global {
   }
-  h1, h2 {
+  h1, h2, h3 {
     font-weight: 400;
   }
   h2 {
@@ -163,11 +163,165 @@
   height: 86px;
 }
 
+.iconChallenge {
+  display: inline-block;
+  background: url("./images/icon-challenge.png") no-repeat;
+  background-size: 163px 136px;
+  width: 163px;
+  height: 136px;
+}
+
+.iconKeyboard {
+  display: inline-block;
+  background: url("./images/icon-keyboard.png") no-repeat;
+  background-size: 125px 136px;
+  width: 125px;
+  height: 136px;
+}
+
+.iconSubmit {
+  display: inline-block;
+  background: url("./images/icon-submit.png") no-repeat;
+  background-size: 117px 130px;
+  width: 117px;
+  height: 136px;
+}
+
+.become {
+  padding: 50px 0 30px;
+  h2 {
+    color: #9b9b9b;
+    font-size: 24px;
+    margin-bottom: 70px;
+  }
+  text-align: center;
+}
+
+
+.iconHipster {
+  display: inline-block;
+  background: url("./images/icon-hipster.png") no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 267px;
+  background-position: center;
+}
+
+.familiar {
+  padding: 60px 0;
+  background: #ecf0f1;
+  p {
+    font-size: 30px;
+  }
+}
+
+.tech {
+}
+.techRow {
+  display: flex;
+  align-items: center;
+  padding: 60px 0;
+}
+
+.techRowWrapper {
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.techInnerRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconC9 {
+  display: inline-block;
+  background: url("./images/logo-c9.png") no-repeat;
+  background-size: 185px 156px;
+  width: 185px;
+  height: 156px;
+}
+
+.iconPostman {
+  display: inline-block;
+  background: url("./images/logo-postman.png") no-repeat;
+  background-size: 238px 156px;
+  width: 238px;
+  height: 156px;
+}
+
+.iconDocker {
+  display: inline-block;
+  background: url("./images/logo-docker.png") no-repeat;
+  background-size: 188px 156px;
+  width: 188px;
+  height: 156px;
+}
+
+
+.iconJs {
+  background-image: url("./images/icon-js.png");
+  background-size: 80px 82px;
+  width: 80px;
+}
+.iconRuby {
+  background-image: url("./images/icon-ruby.png");
+  background-size: 78px 82px;
+  width: 78px;
+}
+.iconPython {
+  background-image: url("./images/icon-python.png");
+  background-size: 83px 86px;
+  width: 83px;
+}
+.iconJava {
+  background-image: url("./images/icon-java.png");
+  background-size: 63px 86px;
+  width: 63px;
+}
+.iconDotnet {
+  background-image: url("./images/icon-dotnet.png");
+  background-size: 153px 61px;
+  width: 153px;
+}
+.iconPhp {
+  background-image: url("./images/icon-php.png");
+  background-size: 124px 64px;
+  width: 124px;
+}
+.iconGo {
+  background-image: url("./images/icon-go.png");
+  background-size: 59px 81px;
+  width: 124px;
+}
+.iconClojure {
+  background-image: url("./images/icon-clojure.png");
+  background-size: 83px 83px;
+  width: 124px;
+}
+.iconScala {
+  background-image: url("./images/icon-scala.png");
+  background-size: 51px 83px;
+  width: 124px;
+}
+
+.lang {
+  text-align: center;
+  i {
+    display: block;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 86px;
+  }
+  span {
+    font-size: 22px;
+  }
+}
 
 /* Ipad  and Mobile */
 
 @media only screen
-and (max-device-width : 1024px)  {
+and (max-device-width : 1024px)
+and (orientation : portrait)   {
   .macWrapper {
     background: none;
   }
@@ -181,6 +335,11 @@ and (max-device-width : 1024px)  {
   .infoList {
     text-align: center;
   }
+  .techRow {
+    display: block;
+  }
+  .techInnerRow {
+  }
 }
 
 
@@ -188,7 +347,8 @@ and (max-device-width : 1024px)  {
 
 @media only screen
 and (min-device-width : 768px)
-and (max-device-width : 1024px)  {
+and (max-device-width : 1024px)
+and (orientation : portrait) {
   .socialBtn {
     display: block;
     width: 250px;
@@ -206,16 +366,24 @@ and (max-device-width : 1024px)  {
 @media only screen
 and (max-device-width : 767px)  {
 
-  header {
-    :global {
-      .navbar-toggle {
-        margin: 10px 0 0 0;
+  .NewLanding {
+    header {
+      padding-top: 20px;
+      height: 70px;
+      :global {
+        .navbar-toggle {
+          margin: 10px 0 0 0;
+        }
+        .navbar-collapse.collapse {
+          background-color: #34495e !important;
+        }
       }
     }
   }
   .cover {
     text-align: left;
-    padding: 50% 20px 0;
+    padding: 30% 20px 0;
+    margin-top: -70px;
     h1 {
       font-size: 22px;
       line-height: 40px;
@@ -229,5 +397,11 @@ and (max-device-width : 767px)  {
     display: block;
     width: 100%;
     margin: 20px auto;
+  }
+  .platform p {
+    text-align: left;
+    font-size: 30px;
+  }
+  .iconHipster {
   }
 }
