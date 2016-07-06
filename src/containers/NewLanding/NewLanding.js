@@ -5,7 +5,8 @@ import {asyncConnect} from 'redux-async-connect';
 import styles from './NewLanding.scss';
 import {Navbar} from 'react-bootstrap';
 import classNames from 'classnames';
-
+import {Footer} from '../../components';
+import $ from 'jquery';
 
 @asyncConnect([{
   promise: () => {
@@ -15,13 +16,23 @@ import classNames from 'classnames';
 export default class NewLanding extends React.Component {
   static propTypes = {};
 
+  componentWillMount() {
+    if (__CLIENT__) {
+      $('html').addClass('html-landing');
+    }
+  }
+
+  componentWillUnmount() {
+    if (__CLIENT__) {
+      $('html').removeClass('html-landing');
+    }
+  }
+
   render() {
     return (
       <div className={styles.NewLanding}>
         <Helmet {...config.app.head} title="RestCoder" titleTemplate="%s" />
-        <header>
-          <div className="container">
-
+          <header>
             <Navbar>
               <Navbar.Header>
                 <Navbar.Brand>
@@ -39,8 +50,7 @@ export default class NewLanding extends React.Component {
 
               </Navbar.Collapse>
             </Navbar>
-          </div>
-        </header>
+          </header>
         <section className={styles.cover}>
           <h1>Looking for the best way to practice coding?</h1>
           <h2>
@@ -180,7 +190,7 @@ export default class NewLanding extends React.Component {
                   If you are familiar with competitive programming, but are into software development rather than algorithms, RestCoder is the platform you have been waiting for.
                 </p>
               </div>
-              <div className="col-sm-4 col-sm-offset-2">
+              <div className="col-sm-4 col-sm-offset-2 col-xs-6 col-xs-offset-3">
                 <i className={styles.iconHipster}/>
               </div>
             </div>
@@ -267,6 +277,35 @@ export default class NewLanding extends React.Component {
             </div>
           </div>
         </section>
+
+
+        <section className={styles.author}>
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-6 col-xs-12 col-lg-8">
+                <p>
+                  Benefit from practical exercises that really help you understand - created by a two-times winner of the TopCoder Open development tournament.
+                </p>
+                <p>
+                  Learn from the best!
+                </p>
+                <p>
+                  <strong>Łukasz Sentkiewicz, <a target="_blank" href="https://www.topcoder.com/members/Sky_/">@Sky_</a></strong>
+                </p>
+              </div>
+              <div className="col-lg-3 col-lg-offset-1 col-sm-4 col-sm-offset-2 col-xs-6 col-xs-offset-3">
+                <i className={styles.iconSky}/>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.joinNow}>
+          <div className="container text-center">
+            <button className="btn btn-lg btn-primary">Join now</button>
+          </div>
+        </section>
+        <Footer />
       </div>
     );
   }

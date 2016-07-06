@@ -24,8 +24,13 @@ export default class Html extends Component {
     const {assets, component, store} = this.props;
     const content = component ? ReactDOM.renderToString(component) : '';
     const head = Helmet.rewind();
+    const {routing, auth} = store.getState();
+    let htmlClass = '';
+    if (routing.locationBeforeTransitions.pathname === '/' && !auth.isLoggedIn) {
+      htmlClass = 'html-landing';
+    }
     return (
-      <html lang="en-us">
+      <html lang="en-us" className={htmlClass}>
         <head>
           {head.base.toComponent()}
           {head.title.toComponent()}

@@ -1,9 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic);
 
+:global {
+  .html-landing {
+    height: 100%;
+    body, #content {
+      height: 100%;
+    }
+  }
+}
+
 .NewLanding {
   height: 100%;
   font-family: 'Open Sans', sans-serif;
-  position: relative;
   font-weight: 300;
   color: #4a4a4a;
   header {
@@ -24,6 +32,9 @@
       }
     }
   }
+  footer {
+    position: static !important;
+  }
   :global {
   }
   h1, h2, h3 {
@@ -40,6 +51,11 @@
 }
 
 .cover {
+  &:before {
+    display: block;
+    height: 50%;
+    content: " ";
+  }
   margin-top: -100px;
   background: url("./images/cover.jpg");
   background-size: cover;
@@ -47,8 +63,9 @@
   height: 100%;
   color: white;
   text-align: center;
-  padding-top: 25%;
+  min-height: 500px;
 }
+
 .socialBtn {
   border-radius: 3px;
   color: #fff;
@@ -317,10 +334,33 @@
   }
 }
 
+.author {
+  padding: 60px 0;
+  background: #ecf0f1;
+  p {
+    font-size: 28px;
+    strong {
+      font-weight: 400;
+    }
+  }
+}
+.iconSky {
+  display: inline-block;
+  background: url("./images/sky.png") no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 312px;
+  background-position: center;
+}
+
+.joinNow {
+  padding: 40px 0;
+}
+
 /* Ipad  and Mobile */
 
 @media only screen
-and (max-device-width : 1024px)
+and (max-device-width : 767px), (max-device-width : 1024px)
 and (orientation : portrait)   {
   .macWrapper {
     background: none;
@@ -356,7 +396,6 @@ and (orientation : portrait) {
   }
 
   .cover {
-    padding-top: 50%;
   }
 }
 
@@ -381,8 +420,11 @@ and (max-device-width : 767px)  {
     }
   }
   .cover {
+    &:before {
+      height: 15%;
+    }
     text-align: left;
-    padding: 30% 20px 0;
+    padding: 0 20px 0;
     margin-top: -70px;
     h1 {
       font-size: 22px;
@@ -402,6 +444,14 @@ and (max-device-width : 767px)  {
     text-align: left;
     font-size: 30px;
   }
-  .iconHipster {
+  .tech {
+    text-align: center;
+  }
+  .techInnerRow {
+    flex-direction: column;
+    align-items: center;
+    i {
+      margin-top: 30px;
+    }
   }
 }

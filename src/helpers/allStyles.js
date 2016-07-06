@@ -41,6 +41,7 @@ const paths = [
   '../containers/ChallengeDetails/ChallengeDetails.scss',
   '../containers/Home/Home.scss',
   '../containers/Landing/Landing.scss',
+  '../containers/NewLanding/NewLanding.scss',
   '../containers/Login/Login.scss',
   '../containers/Register/Register.scss',
   '../containers/Ranking/Ranking.scss',
