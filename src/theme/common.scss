@@ -3,9 +3,11 @@
 html {
   position: relative;
   min-height: 100%;
+  height: 100%;
 }
 body {
   margin-bottom: 191px;
+  height: 100%;
 }
 @media (max-width: 767px) {
   body {
@@ -18,6 +20,9 @@ a:hover {
 }
 
 :global {
+  #content {
+    height: 100%;
+  }
   p small {
     line-height: inherit;
   }

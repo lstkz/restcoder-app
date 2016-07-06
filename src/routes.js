@@ -11,6 +11,7 @@ import { setError } from './redux/modules/global';
 import {
   Home,
   Landing,
+  NewLanding,
   NotFound,
   Login,
   ChallengeDetails,
@@ -122,7 +123,7 @@ export default (store, client) => {
 
   return (
     <Route onEnter={loadInitialState}>
-      <Route path="/" onEnter={redirectToHome} component={Landing} />
+      <Route path="/" onEnter={redirectToHome} component={NewLanding} />
       <Route path="/home">
         <IndexRoute component={Home} />
         <Route path="/challenge/:id" component={ChallengeDetails} />

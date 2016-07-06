@@ -1,0 +1,233 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic);
+
+.NewLanding {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  position: relative;
+  font-weight: 300;
+  color: #4a4a4a;
+  header {
+    padding-top: 50px;
+    height: 100px;
+    :global {
+      .navbar {
+        background: transparent;
+      }
+      .btn-lg {
+        padding: 22px 19px;
+        font-size: 17px;
+        line-height: 0;
+        color: white;
+      }
+      .navbar-toggle:before {
+        color: white !important;
+      }
+    }
+  }
+  :global {
+  }
+  h1, h2 {
+    font-weight: 400;
+  }
+  h2 {
+    font-weight: 300;
+  }
+}
+
+
+.tryItNow {
+  border: 1px solid white;
+}
+
+.cover {
+  margin-top: -100px;
+  background: url("./images/cover.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 25%;
+}
+.socialBtn {
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  height: 44px;
+  vertical-align: middle;
+  font-size: 18px;
+  font-weight: 300;
+  padding-right: 30px;
+  &:hover {
+    color: #fff;
+  }
+  i {
+    border-right: 1px solid rgba(0,0,0,0.1);
+    float: left;
+    font-size: 24px;
+    line-height: 44px;
+    padding: 0 18px;
+  }
+  span {
+     float: left;
+     line-height: 44px;
+     padding-left: 10px;
+   }
+}
+
+.socialBtnFB {
+  background-color: #6475c4;
+}
+
+.socialBtnG {
+  margin: 0 30px;
+  background-color: #e3513c;
+}
+
+.socialBtnGH {
+  background-color: #66c139;
+}
+
+.platform {
+  padding: 60px 0;
+  p {
+    font-size: 36px;
+    color: #4a4a4a
+  }
+}
+
+
+.info {
+  background: #ecf0f1;
+  padding: 80px 0;
+  p {
+    font-size: 30px;
+  }
+  strong {
+    font-weight: 500;
+  }
+}
+
+.macWrapper {
+  min-height: 800px;
+  font-size: 20px;
+  background: url("./images/mac.png") no-repeat right;
+  background-size: 479px 744px, cover;
+}
+.infoList {
+  padding-top: 80px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.infoIcon {
+  display: block;
+  float: left;
+  margin-right: 25px;
+  flex-shrink: 0;
+}
+
+.iconAtom {
+  composes: infoIcon;
+  background: url("./images/icon-atom.png") no-repeat;
+  background-size: 76px 86px;
+  width: 76px;
+  height: 86px;
+}
+
+.iconPentagram {
+  composes: infoIcon;
+  background: url("./images/icon-pentagram.png") no-repeat;
+  background-size: 92px 86px;
+  width: 92px;
+  height: 86px;
+}
+
+.iconFinger {
+  composes: infoIcon;
+  background: url("./images/icon-finger.png") no-repeat;
+  background-size: 75px 85px;
+  width: 75px;
+  height: 85px;
+}
+
+.iconCode {
+  composes: infoIcon;
+  background: url("./images/icon-code.png") no-repeat;
+  background-size: 87px 86px;
+  width: 87px;
+  height: 86px;
+}
+
+
+/* Ipad  and Mobile */
+
+@media only screen
+and (max-device-width : 1024px)  {
+  .macWrapper {
+    background: none;
+  }
+  .infoIcon {
+    float: none;
+    margin: 0 auto 20px;
+  }
+  .infoItem {
+    display: block;
+  }
+  .infoList {
+    text-align: center;
+  }
+}
+
+
+/* Ipad */
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  {
+  .socialBtn {
+    display: block;
+    width: 250px;
+    margin: 10px auto;
+  }
+
+  .cover {
+    padding-top: 50%;
+  }
+}
+
+
+/* Mobile */
+
+@media only screen
+and (max-device-width : 767px)  {
+
+  header {
+    :global {
+      .navbar-toggle {
+        margin: 10px 0 0 0;
+      }
+    }
+  }
+  .cover {
+    text-align: left;
+    padding: 50% 20px 0;
+    h1 {
+      font-size: 22px;
+      line-height: 40px;
+    }
+    h2 {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+  .socialBtn {
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+  }
+}
