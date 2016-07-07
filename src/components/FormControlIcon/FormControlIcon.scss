@@ -1,0 +1,45 @@
+$error-color: #e74c3c;
+$focus-color: #1abc9c;
+$text-color: #bfc9ca;
+
+.FormControlIcon {
+  :global {
+  }
+
+  :global {
+    .tooltip.right .tooltip-arrow {
+      border-right-color: $error-color;
+    }
+    .tooltip-inner {
+      background: $error-color;
+    }
+  }
+}
+
+.control {
+  &:focus {
+    border-color: $focus-color !important;
+    & + .icon {
+      color: $focus-color;
+    }
+  }
+}
+
+.icon {
+  color: $text-color;
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 3px;
+  transition: all .25s;
+}
+
+.error {
+  .control {
+    color: $error-color;
+    border-color: $error-color !important;
+  }
+  .icon {
+    color: $error-color !important;
+  }
+}

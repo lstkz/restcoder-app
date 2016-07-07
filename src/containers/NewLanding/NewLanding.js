@@ -5,7 +5,7 @@ import {asyncConnect} from 'redux-async-connect';
 import styles from './NewLanding.scss';
 import {Navbar} from 'react-bootstrap';
 import classNames from 'classnames';
-import {Footer} from '../../components';
+import {Footer, LoginModal} from '../../components';
 import $ from 'jquery';
 
 @asyncConnect([{
@@ -32,6 +32,7 @@ export default class NewLanding extends React.Component {
     return (
       <div className={styles.NewLanding}>
         <Helmet {...config.app.head} title="RestCoder" titleTemplate="%s" />
+          <LoginModal />
           <header>
             <Navbar>
               <Navbar.Header>

@@ -34,3 +34,6 @@ export ContactForm from './ContactForm/ContactForm';
 export ExternalLink from './ExternalLink/ExternalLink';
 export BashCode from './BashCode/BashCode';
 export ChallengeSetup from './ChallengeSetup/ChallengeSetup';
+export LoginModal from './LoginModal/LoginModal';
+export ShortModal from './ShortModal/ShortModal';
+export FormControlIcon from './FormControlIcon/FormControlIcon';
