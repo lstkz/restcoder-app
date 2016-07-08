@@ -10,7 +10,7 @@ export default class Header extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-2 col-sm-2">
-              <a href="/" className="bottom-menu-brand">RestCoder</a>
+              <Link to="/" className="bottom-menu-brand">RestCoder</Link>
             </div>
             <div className="col-md-8 col-sm-8">
               <ul className="bottom-menu-list">

@@ -4,18 +4,19 @@ import {GlobalSpinner} from '../';
 import {connect} from 'react-redux';
 import {NavDropdown, MenuItem, Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import {logout as logoutAction} from '../../redux/modules/auth';
+import * as actions from '../../redux/modules/auth';
 
-@connect(state => ({user: state.auth.user, forumUnreadTotal: state.global.forumUnreadTotal}), {logout: logoutAction})
+@connect(state => ({user: state.auth.user, forumUnreadTotal: state.global.forumUnreadTotal}), actions)
 export default class Header extends Component {
   static propTypes = {
     user: PropTypes.object,
     forumUnreadTotal: PropTypes.number,
-    logout: PropTypes.func.isRequired
+    logout: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired,
   };
 
   render() {
-    const {user, logout, forumUnreadTotal} = this.props;
+    const {user, logout, forumUnreadTotal, openModal} = this.props;
     const styles = require('./Header.scss');
 
 
@@ -46,14 +47,10 @@ export default class Header extends Component {
             </Nav>
             {!user &&
               <Navbar.Form pullRight>
-                <Link to="/login" >
-                  <button className="btn btn-primary btn-wide hidden-xs hidden-sm">LOGIN</button>
-                  <button className="btn btn-primary hidden-md hidden-lg">LOGIN</button>
-                </Link>
-                <Link to="/register" >
-                  <button className="btn btn-danger btn-wide btn-register hidden-xs hidden-sm">REGISTER</button>
-                  <button className="btn btn-danger btn-register hidden-md hidden-lg">REGISTER</button>
-                </Link>
+                <button onClick={() => openModal('login')} className="btn btn-primary btn-wide hidden-xs hidden-sm">LOGIN</button>
+                <button onClick={() => openModal('login')} className="btn btn-primary hidden-md hidden-lg">LOGIN</button>
+                <button onClick={() => openModal('register')} className="btn btn-danger btn-wide btn-register hidden-xs hidden-sm">REGISTER</button>
+                <button onClick={() => openModal('register')} className="btn btn-danger btn-register hidden-md hidden-lg">REGISTER</button>
               </Navbar.Form>
             }
             {user &&

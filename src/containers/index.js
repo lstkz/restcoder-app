@@ -4,8 +4,6 @@ export NotFound from './NotFound/NotFound';
 export Landing from './Landing/Landing';
 export NewLanding from './NewLanding/NewLanding';
 export ChallengeDetails from './ChallengeDetails/ChallengeDetails';
-export Login from './Login/Login';
-export Register from './Register/Register';
 export Ranking from './Ranking/Ranking';
 export Profile from './Profile/Profile';
 export EditProfile from './EditProfile/EditProfile';

@@ -40,8 +40,6 @@ const paths = [
   '../containers/Home/Home.scss',
   '../containers/Landing/Landing.scss',
   '../containers/NewLanding/NewLanding.scss',
-  '../containers/Login/Login.scss',
-  '../containers/Register/Register.scss',
   '../containers/Ranking/Ranking.scss',
   '../containers/Forum/Forum.scss',
   '../containers/ForumTopic/ForumTopic.scss',

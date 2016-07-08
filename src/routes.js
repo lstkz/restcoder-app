@@ -10,12 +10,9 @@ import { setError } from './redux/modules/global';
 
 import {
   Home,
-  Landing,
   NewLanding,
   NotFound,
-  Login,
   ChallengeDetails,
-  Register,
   Ranking,
   Profile,
   Forum,
@@ -129,8 +126,6 @@ export default (store, client) => {
         <Route path="/challenge/:id" component={ChallengeDetails} />
       </Route>
       <Route path="/ranking" component={Ranking} />
-      <Route path="/login" onEnter={redirectToHome} component={Login} />
-      <Route path="/register" onEnter={redirectToHome} component={Register} />
       <Route path="/verify-email/:code" onEnter={verifyEmail} />
       <Route path="/change-email/:code" onEnter={changeEmail} />
       <Route path="/profile/:username" component={Profile} />
@@ -159,7 +154,6 @@ export default (store, client) => {
       </Route>
       <Route path="/404" component={NotFound} status={404} />
 
-      {}
       <Route path="*" component={NotFound} status={404} />
     </Route>
   );
