@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import {Footer} from '../../components';
 import $ from 'jquery';
 import * as actions from '../../redux/modules/auth';
+import AnimatedCode from './AnimatedCode';
 
 @asyncConnect([{
   promise: () => {
@@ -111,6 +112,30 @@ export default class NewLanding extends React.Component {
             </div>
           </div>
           <div className={styles.macWrapper}>
+            <div className={styles.code}>
+              <pre>
+                <AnimatedCode/>
+                {/*<code>
+                  $ restcoder submit<br/>
+                  Submitting source code...<br/>
+                  Problem: My First Challenge<br/>
+                  Language: nodejs@4.4.4<br/>
+                  Waiting for tester...<br/>
+                  tester: Initializing unit tests...<br/>
+                  tester: Running 2 test(s)<br/>
+                  tester: TEST 1: running...<br/>
+                  tester: TEST 1: PASS<br/>
+                  tester: TEST 2: running...<br/>
+                  tester: TEST 2: PASS<br/>
+                  tester: TEST 3: running...<br/>
+                  tester: TEST 3: PASS<br/>
+                  tester: TEST 4: running...<br/>
+                  tester: TEST 4: PASS<br/>
+                  tester: Result: PASS
+
+                </code>*/}
+              </pre>
+            </div>
             <div className={classNames('container', styles.infoList)}>
               <div className="row">
                 <div className="col-md-6 col-xs-12">

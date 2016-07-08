@@ -123,11 +123,40 @@
 }
 
 .macWrapper {
+  position: relative;
   min-height: 800px;
   font-size: 20px;
   background: url("./images/mac.png") no-repeat right;
   background-size: 479px 744px, cover;
 }
+.code {
+  right: 0;
+  top: 60px;
+  position: absolute;
+  width: 420px;
+  height: 300px;
+  pre,
+  code {
+    background: transparent;
+  }
+  strong {
+    font-weight: bold;
+  }
+}
+
+.cursor {
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
 .infoList {
   padding-top: 80px;
 }
