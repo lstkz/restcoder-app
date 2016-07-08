@@ -90,6 +90,7 @@
     "moment": "^2.12.0",
     "ms": "^0.7.1",
     "multireducer": "^2.0.0",
+    "oauthio-web": "^0.5.2",
     "piping": "^1.0.0-rc.2",
     "pretty-error": "^2.0.0",
     "react": "^15.0.2",

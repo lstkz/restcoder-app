@@ -11,9 +11,7 @@ const paths = [
   '../components/Footer/Footer.scss',
   '../components/FormControl/FormControl.scss',
   '../components/Header/Header.scss',
-  '../components/LoginForm/LoginForm.scss',
   '../components/RecentSubmissions/RecentSubmissions.scss',
-  '../components/RegisterForm/RegisterForm.scss',
   '../components/ResponseCode/ResponseCode.scss',
   '../components/SwaggerExplorer/SwaggerExplorer.scss',
   '../components/SwaggerExplorer/JSONSchema.scss',
@@ -48,6 +46,9 @@ const paths = [
   '../containers/Forum/Forum.scss',
   '../containers/ForumTopic/ForumTopic.scss',
   '../containers/Tutorial/Tutorial.scss',
+
+  '../components/Auth/LoginForm/LoginForm.scss',
+  '../components/Auth/SocialAuth/SocialAuth.scss',
 ];
 
 // this will fix blinking of unstyled content in initial page load

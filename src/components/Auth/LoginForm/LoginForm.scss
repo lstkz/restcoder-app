@@ -1,0 +1,51 @@
+.LoginForm {
+  :global {
+  }
+}
+
+
+.Icon {
+  color: #bfc9ca;
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 3px;
+  transition: all .25s;
+}
+
+.link {
+  color: #9b9b9b;
+  display: block;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 5px;
+  text-align: right;
+}
+.forgotLink {
+  margin-top: -10px;
+  text-align: right;
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+/* Mobile */
+
+@media only screen
+and (max-device-width : 767px)  {
+
+  .social {
+    flex-direction: column;
+    align-items: center;
+    i {
+      width: 40px;
+    }
+    a {
+      margin-top: 10px;
+      width: 150px;
+      span {
+        padding-left: 10px;
+      }
+    }
+  }
+}

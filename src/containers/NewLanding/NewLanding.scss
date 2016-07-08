@@ -68,16 +68,13 @@
 
 .socialBtn {
   border-radius: 3px;
-  color: #fff;
+  color: #fff !important;
   display: inline-block;
   height: 44px;
   vertical-align: middle;
   font-size: 18px;
   font-weight: 300;
   padding-right: 30px;
-  &:hover {
-    color: #fff;
-  }
   i {
     border-right: 1px solid rgba(0,0,0,0.1);
     float: left;

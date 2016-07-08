@@ -89,6 +89,7 @@ module.exports = {
     publicPath: 'http://' + host + ':' + port + '/dist/'
   },
   module: {
+    noParse: /(oauth\.min\.js)|(dist\/bundle\.js)/,
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel?' + JSON.stringify(babelLoaderQuery)] },
       { test: /\.json$/, loader: 'json-loader' },

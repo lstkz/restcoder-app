@@ -18,12 +18,11 @@ export default class FormControlIcon extends React.Component {
     const tooltip = <Tooltip>{error}</Tooltip>;
     return (
       <div ref="target" className={classNames('form-group', styles.FormControlIcon, {[styles.error]: error})}>
-        <Overlay animation={false} show={!!error} container={this} target={() => ReactDOM.findDOMNode(this.refs.target)}>
+        <Overlay animation={false} show={!!error && error !== 'error'} container={this} target={() => ReactDOM.findDOMNode(this.refs.target)}>
           {tooltip}
         </Overlay>
         <input type={type} className={classNames('form-control', styles.control)} id={name} placeholder={placeholder} {...values}/>
         <label className={classNames(icon, styles.icon)} htmlFor={name}/>
-        {error && <div className="help-block visible-xs">{error}</div>}
       </div>
     );
   }

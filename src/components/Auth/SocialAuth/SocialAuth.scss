@@ -1,32 +1,8 @@
-.LoginModal {
+.SocialAuth {
   :global {
   }
 }
 
-
-.Icon {
-  color: #bfc9ca;
-  font-size: 16px;
-  position: absolute;
-  right: 15px;
-  top: 3px;
-  transition: all .25s;
-}
-
-.link {
-  color: #9b9b9b;
-  display: block;
-  font-size: 13px;
-  margin-top: -10px;
-  margin-bottom: 5px;
-  text-align: right;
-}
-.forgotLink {
-  margin-top: -10px;
-  text-align: right;
-  display: block;
-  margin-bottom: 5px;
-}
 
 .or {
   margin-top: 20px;
@@ -60,7 +36,7 @@
     vertical-align: middle;
     font-size: 14px;
     font-weight: 300;
-    padding-right: 10px;
+    padding-right: 15px;
     i {
       border-right: 1px solid rgba(0,0,0,0.1);
       float: left;
@@ -71,7 +47,7 @@
     span {
       float: left;
       line-height: 35px;
-      padding-left: 5px;
+      padding-left: 10px;
     }
   }
 }
@@ -85,25 +61,4 @@
 
 .socialBtnGH {
   background-color: #66c139;
-}
-
-/* Mobile */
-
-@media only screen
-and (max-device-width : 767px)  {
-
-  .social {
-    flex-direction: column;
-    align-items: center;
-    i {
-      width: 40px;
-    }
-    a {
-      margin-top: 10px;
-      width: 150px;
-      span {
-        padding-left: 10px;
-      }
-    }
-  }
 }

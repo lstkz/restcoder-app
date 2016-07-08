@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Header, Footer, ErrorMessage, FatalError} from '../../components';
+import AuthModals from '../AuthModals/AuthModals';
 import Helmet from 'react-helmet';
 import config from '../../config';
 import {connect} from 'react-redux';
@@ -23,6 +24,7 @@ export default class App extends Component {
       <div>
         <Helmet {...config.app.head}/>
         <Header />
+        <AuthModals />
         <ErrorMessage error={error} clearError={clearError} />
         <div className="mainContent">
           {isFatal && <FatalError timestamp={fatalTimestamp} />}

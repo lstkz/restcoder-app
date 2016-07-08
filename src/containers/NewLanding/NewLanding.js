@@ -1,20 +1,27 @@
 import React, {PropTypes} from 'react';
 import Helmet from 'react-helmet';
+import {connect} from 'react-redux';
 import config from '../../config';
 import {asyncConnect} from 'redux-async-connect';
+import AuthModals from '../AuthModals/AuthModals';
 import styles from './NewLanding.scss';
 import {Navbar} from 'react-bootstrap';
 import classNames from 'classnames';
-import {Footer, LoginModal} from '../../components';
+import {Footer} from '../../components';
 import $ from 'jquery';
+import * as actions from '../../redux/modules/auth';
 
 @asyncConnect([{
   promise: () => {
     return Promise.resolve();
   }
 }])
+@connect(state => ({}), actions)
 export default class NewLanding extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    openModal: PropTypes.func.isRequired,
+    socialAuth: PropTypes.func.isRequired,
+  };
 
   componentWillMount() {
     if (__CLIENT__) {
@@ -29,10 +36,14 @@ export default class NewLanding extends React.Component {
   }
 
   render() {
+    const {openModal, socialAuth} = this.props;
+    const logIn = () => openModal('login');
+    const register = () => openModal('register');
+
     return (
       <div className={styles.NewLanding}>
+        <AuthModals />
         <Helmet {...config.app.head} title="RestCoder" titleTemplate="%s" />
-          <LoginModal />
           <header>
             <Navbar>
               <Navbar.Header>
@@ -45,8 +56,8 @@ export default class NewLanding extends React.Component {
               </Navbar.Header>
               <Navbar.Collapse>
                 <Navbar.Form pullRight>
-                  <a className="btn btn-lg btn-link mrl" href="/login">Log In</a>
-                  <a className={`btn btn-lg btn-link ${styles.tryItNow}`} href="/login">Try it now</a>
+                  <a className="btn btn-lg btn-link mrl" onClick={logIn}>Log In</a>
+                  <a className={`btn btn-lg btn-link ${styles.tryItNow}`} onClick={register}>Try it now</a>
                 </Navbar.Form>
 
               </Navbar.Collapse>
@@ -59,15 +70,15 @@ export default class NewLanding extends React.Component {
             And the best way to practice coding is to code!
           </h2>
           <div className="mth">
-            <a className={classNames(styles.socialBtn, styles.socialBtnFB)}>
+            <a onClick={() => socialAuth('facebook')} className={classNames(styles.socialBtn, styles.socialBtnFB)}>
               <i className="fa fa-facebook"/>
               <span>Start with Facebook</span>
             </a>
-            <a className={classNames(styles.socialBtn, styles.socialBtnG)}>
+            <a onClick={() => socialAuth('google')} className={classNames(styles.socialBtn, styles.socialBtnG)}>
               <i className="fa fa-google-plus"/>
               <span>Start with Google</span>
             </a>
-            <a className={classNames(styles.socialBtn, styles.socialBtnGH)}>
+            <a onClick={() => socialAuth('github')} className={classNames(styles.socialBtn, styles.socialBtnGH)}>
               <i className="fa fa-github"/>
               <span>Start with Github</span>
             </a>
@@ -83,7 +94,7 @@ export default class NewLanding extends React.Component {
                 </p>
               </div>
             </div>
-            <button className="btn btn-lg btn-primary">Try it now</button>
+            <button className="btn btn-lg btn-primary" onClick={register}>Try it now</button>
           </div>
         </section>
 
@@ -144,7 +155,7 @@ export default class NewLanding extends React.Component {
               <div className="row">
                 <div className="col-md-6 col-xs-12">
                   <div className={styles.infoItem}>
-                    <button className="btn btn-lg btn-primary">Try it now</button>
+                    <button className="btn btn-lg btn-primary" onClick={register}>Try it now</button>
                   </div>
                 </div>
               </div>
@@ -303,7 +314,7 @@ export default class NewLanding extends React.Component {
 
         <section className={styles.joinNow}>
           <div className="container text-center">
-            <button className="btn btn-lg btn-primary">Join now</button>
+            <button className="btn btn-lg btn-primary" onClick={register}>Join now</button>
           </div>
         </section>
         <Footer />
