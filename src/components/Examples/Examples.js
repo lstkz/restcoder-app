@@ -3,16 +3,18 @@ import styles from './Examples.scss';
 import {Callout, ResponseCode} from '../';
 import {Tabs, Tab} from 'react-bootstrap';
 import _ from 'underscore';
-import Codemirror from './CodeMirror';
+//import Codemirror from './CodeMirror';
 import RunInPostman from './RunInPostman';
+import ReactHighlight from 'react-highlight';
 
-require('codemirror/lib/codemirror.css');
-require('codemirror/theme/material.css');
-
-if (__CLIENT__) {
-  require('codemirror/mode/javascript/javascript');
-  require('codemirror/addon/display/autorefresh');
-}
+//require('codemirror/lib/codemirror.css');
+//require('codemirror/theme/material.css');
+//
+//if (__CLIENT__) {
+//  require('codemirror/mode/javascript/javascript');
+//  require('codemirror/mode/sql/sql');
+//  require('codemirror/addon/display/autorefresh');
+//}
 
 export default class Examples extends React.Component {
   static propTypes = {
@@ -20,23 +22,37 @@ export default class Examples extends React.Component {
   };
 
   renderCodeMirror({responseType, body}) {
-    if (!Codemirror) {
-      return null;
-    }
+//    if (!Codemirror) {
+//      return null;
+//    }
     if (responseType === 'plain') {
       return (<code>{body}</code>);
     }
     if (!body) {
       return (<span>No response</span>);
     }
-    const options = {
-      autoRefresh: true,
-      lineNumbers: false,
-      mode: 'application/ld+json',
-      readOnly: true,
-      theme: 'material'
-    };
-    return <Codemirror {...options} value={body} />;
+    return <ReactHighlight>{body}</ReactHighlight>;
+//    const options = {
+//      autoRefresh: true,
+//      lineNumbers: false,
+//      mode: 'text/x-sql',
+//      readOnly: true,
+//      theme: 'material'
+//    };
+//    body = `
+//    CREATE TABLE "product"
+//(
+//    id SERIAL NOT NULL,
+//    name CHARACTER VARYING(20) NOT NULL,
+//    quantity INT NOT NULL,
+//    CONSTRAINT product_pkey PRIMARY KEY (id)
+//);
+//    `
+//    return (<div>
+//      <ReactHighlight>{body}</ReactHighlight>
+//      <Codemirror {...options} value={body} />
+//    </div>)
+////    return <Codemirror {...options} value={body} />;
   }
 
   renderTabs(obj, titlePrefix) {

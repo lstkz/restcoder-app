@@ -97,27 +97,6 @@ a:hover {
     left: 5px;
   }
 
-  pre {
-    margin: 0;
-    border: none;
-    padding: 0;
-    border-radius: 0;
-  }
-
-  pre code {
-    border-radius: 0;
-    background: #282a36;
-    color: #f8f8f2;
-    display: block;
-    margin: 1.5em 0;
-    padding: 1em 70px 1em 1.5em;
-    position: relative;
-  }
-
-  code .nv {
-    user-select: none;
-    color: #BDC3C7;
-  }
 
   .nav-tabs {
     margin-bottom: 0;
@@ -188,7 +167,108 @@ a:hover {
     color: gray;
   }
   .bash-comment {
-    color: greenyellow;
+    color: lightgreen;
     font-style: italic;
+  }
+
+
+  pre {
+    margin: 0;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  pre code {
+    border-radius: 0;
+    background-color: #263238;
+    color: rgba(233, 237, 237, 1);
+    display: block;
+    margin: 1.5em 0;
+    padding: 1em 70px 1em 1.5em;
+    position: relative;
+  }
+
+  code .nv {
+    user-select: none;
+    color: #BDC3C7;
+  }
+
+  .hljs {
+    font-family: monospace;
+    font-size: 14px;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background-color: #263238;
+    color: rgba(233, 237, 237, 1);
+  }
+
+  .hljs-tag,
+  .hljs-selector-tag,
+  .hljs-literal,
+  .hljs-strong,
+  .hljs-name {
+    color: #F77669;
+  }
+
+  .hljs-keyword {
+    color: #F77669;
+    //color: rgba(199, 146, 234, 1);
+  }
+
+  .hljs-code {
+    color: #66d9ef;
+  }
+
+  .hljs-class .hljs-title {
+    color: white;
+  }
+
+  .hljs-attribute,
+  .hljs-symbol,
+  .hljs-regexp,
+  .hljs-link {
+    color: #80CBAE;
+  }
+
+  .hljs-string,
+  .hljs-bullet,
+  .hljs-subst,
+  .hljs-title,
+  .hljs-section,
+  .hljs-emphasis,
+  .hljs-type,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-selector-attr,
+  .hljs-selector-pseudo,
+  .hljs-addition,
+  .hljs-variable,
+  .hljs-template-tag,
+  .hljs-template-variable {
+    color: #C3E88D;
+  }
+
+  .hljs-comment,
+  .hljs-quote,
+  .hljs-deletion,
+  .hljs-meta {
+    color: #75715e;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-literal,
+  .hljs-doctag,
+  .hljs-title,
+  .hljs-section,
+  .hljs-type,
+  .hljs-selector-id {
+    font-weight: normal;
+  }
+
+  .hljs-number {
+    color: #F77669;
   }
 }

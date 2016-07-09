@@ -7,6 +7,7 @@ const lines = [
   {line: 'Submitting source code...', delay: 1000},
   {line: '<span style="color: yellow"><strong>Problem:</strong> My First Challenge</span>', delay: 0},
   {line: '<span style="color: yellow"><strong>Language:</strong> nodejs@4.4.4</span>', delay: 0},
+  {line: '<span style="color: yellow"><strong>Services:</strong> redis, mongodb, rabbitmq</span>', delay: 0},
   {line: 'Waiting for tester...', delay: 1000},
   {line: '<span style="color: cyan">tester:</span> Initializing unit tests..', delay: 1000},
   {line: '<span style="color: cyan">tester:</span> Running <span style="color: cyan">4</span> test(s)', delay: 1000},

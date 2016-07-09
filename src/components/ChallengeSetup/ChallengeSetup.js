@@ -8,7 +8,18 @@ export default class ChallengeSetup extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {tab: 'local'};
+    this.state = { tab: 'local' };
+  }
+
+  componentDidMount() {
+    if (__CLIENT__ && localStorage.setupTab === 'c9') {
+      this.setState({ tab: 'c9' });
+    }
+  }
+
+  switchTab(tab) {
+    localStorage.setupTab = tab;
+    this.setState({ tab });
   }
 
   renderDocker() {
@@ -20,8 +31,8 @@ export default class ChallengeSetup extends React.Component {
   }
 
   render() {
-    const {tab} = this.state;
-    const {challenge: {localSetup, c9Setup}} = this.props;
+    const { tab } = this.state;
+    const { challenge: { localSetup, c9Setup } } = this.props;
     const html = tab === 'local' ? localSetup : c9Setup;
 
     return (
@@ -29,10 +40,10 @@ export default class ChallengeSetup extends React.Component {
         <div className="row">
           <div className="col-sm-3">
             <ul className="nav nav-list">
-              <li onClick={() => this.setState({tab: 'local'})} className={tab === 'local' ? 'active' : ''}>
+              <li onClick={() => this.switchTab('local')} className={tab === 'local' ? 'active' : ''}>
                 <a>local</a>
               </li>
-              <li onClick={() => this.setState({tab: 'c9'})} className={tab === 'c9' ? 'active' : ''}>
+              <li onClick={() => this.switchTab('c9')} className={tab === 'c9' ? 'active' : ''}>
                 <a>c9.io</a>
               </li>
             </ul>

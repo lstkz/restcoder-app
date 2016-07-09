@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
+import hljs from 'highlight.js';
 import {asyncConnect} from 'redux-async-connect';
 import {SwaggerExplorer, Examples, ChallengeHelp, ChallengeSetup} from '../../components';
 import * as actions from '../../redux/modules/challengeDetails';
@@ -50,6 +52,11 @@ export default class ChallengeDetails extends Component {
           setAutoRunTour(false);
         }
       });
+    }
+    const domNode = ReactDOM.findDOMNode(this.refs.content);
+    const nodes = domNode.querySelectorAll('pre code');
+    for (let i = 0; i < nodes.length; i = i + 1) {
+      hljs.highlightBlock(nodes[i]);
     }
   }
 
@@ -125,7 +132,7 @@ export default class ChallengeDetails extends Component {
           <div key={challenge.id}>
             <Tabs animation={false} activeKey={this.state.key} id="challengeTabs" onSelect={::this.handleSelect}>
               <Tab eventKey={1} title="Details">
-                <div dangerouslySetInnerHTML={{__html: challenge.content}}>
+                <div ref="content" dangerouslySetInnerHTML={{__html: challenge.content}}>
                 </div>
               </Tab>
               <Tab eventKey={2} title={<span id="setup-tab">Setup</span>}>
