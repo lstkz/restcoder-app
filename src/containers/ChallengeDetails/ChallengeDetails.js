@@ -38,6 +38,7 @@ export default class ChallengeDetails extends Component {
   componentWillReceiveProps(props) {
     if (this.challenge !== props.challenge) {
       this.setState({key: 1});
+      this.init();
     }
   }
 
@@ -53,12 +54,20 @@ export default class ChallengeDetails extends Component {
         }
       });
     }
+    this.init();
+  }
+
+  init() {
+    if (__CLIENT__) {
+      document.body.scrollTop = 0;
+    }
     const domNode = ReactDOM.findDOMNode(this.refs.content);
     const nodes = domNode.querySelectorAll('pre code');
     for (let i = 0; i < nodes.length; i = i + 1) {
       hljs.highlightBlock(nodes[i]);
     }
   }
+
 
   handleSelect(key) {
     const { challenge, dispatch } = this.props;
