@@ -28,10 +28,9 @@ export default class Composer extends React.Component {
     if (nextProps.focusKey && nextProps.focusKey > (this.props.focusKey || 0)) {
       setTimeout(() => ReactDOM.findDOMNode(this.refs.editor).focus());
     }
-    if (nextProps.isVisible || !this.props.isVisible) {
+    if (nextProps.isVisible) {
       document.body.style.marginBottom = '400px';
-    }
-    if (!nextProps.isVisible || this.props.isVisible) {
+    } else {
       document.body.style.marginBottom = null;
     }
   }
